@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" role="img" aria-labelledby="title desc">
+  <title id="title">纤云叙单色菜单栏与托盘图标</title>
+  <desc id="desc">从 C-v2 提取的人物口述到文本的单色简化线标。</desc>
+  <g fill="none" stroke="#000" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M15 3.5 H19 L21.5 6 V10.7 H15Z"/>
+    <path d="M19 3.5 V6 H21.5"/>
+    <path d="M16.4 8.2 H20"/>
+    <path d="M2.5 12.6 C4.5 11.2 6.8 11.4 8.2 13 C8.8 13.7 8.7 14.3 9.4 14.8 L10.7 15.6 L9.9 16.2 L10.5 16.8 L9.8 17.4 C10.3 18.2 9.8 19 8.8 19.3 C7.7 19.7 6.5 19.5 6.2 21"/>
+    <path d="M11.6 15.8 C14 15.4 15.8 14.3 17.1 12.6"/>
+    <path d="M11.7 18 C14.2 17.6 16.1 16.8 17.5 15.2"/>
+  </g>
+</svg>

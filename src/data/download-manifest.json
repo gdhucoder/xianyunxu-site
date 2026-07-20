@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "product": {
+    "nameZh": "纤云叙",
+    "nameEn": "XianYun AI Voice Input"
+  },
+  "channel": "beta",
+  "version": "0.1.5",
+  "publishedAt": "2026-07-20T05:53:06Z",
+  "releasePageUrl": "https://github.com/gdhucoder/xianyun-releases/releases/tag/v0.1.5",
+  "platforms": {
+    "macos-arm64": {
+      "status": "available",
+      "displayName": "macOS Apple Silicon",
+      "architecture": "arm64",
+      "minimumOsVersion": "macOS 10.15",
+      "downloadUrl": "https://github.com/gdhucoder/xianyun-releases/releases/download/v0.1.5/XianYunAIVoiceInput_0.1.5_aarch64.dmg",
+      "fileName": "XianYunAIVoiceInput_0.1.5_aarch64.dmg",
+      "sizeBytes": 9889518,
+      "sha256": "b48e30505c9e917152fe85f6929b3a4cadf354fa0332f5ad386dd023705231d9",
+      "installGuideUrl": "/install/macos/",
+      "signingStatus": "self-signed-not-notarized"
+    },
+    "windows-x64": {
+      "status": "coming-soon",
+      "displayName": "Windows x64",
+      "architecture": "x64",
+      "minimumOsVersion": null,
+      "downloadUrl": null,
+      "fileName": null,
+      "sizeBytes": null,
+      "sha256": null,
+      "installGuideUrl": null,
+      "signingStatus": "unsigned"
+    }
+  },
+  "models": {
+    "sensevoice-small": {
+      "status": "available",
+      "displayName": "SenseVoiceSmall q8",
+      "version": "SenseVoiceSmall-GGUF@90c1c619-q8",
+      "downloadUrl": "https://github.com/gdhucoder/xianyun-releases/releases/tag/model-sensevoice-small-q8-macos-arm64-v1",
+      "sizeBytes": 254208320,
+      "sha256": "4ae45c94422de949b387e2e0fb10d7e14e4c42c69db30c3444ecc7d4b844b7c5",
+      "installMode": "in-app"
+    }
+  }
+}

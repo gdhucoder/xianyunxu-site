@@ -1,0 +1,13 @@
+---
+interface Props { title: string; description: string; aspect?: "wide" | "window" }
+const { title, description, aspect = "wide" } = Astro.props;
+---
+<figure class:list={["screenshot-frame", `is-${aspect}`]}>
+  <div class="screenshot-toolbar" aria-hidden="true"><i></i><i></i><i></i></div>
+  <div class="screenshot-placeholder">
+    <span>真实产品截图待补</span>
+    <strong>{title}</strong>
+    <p>{description}</p>
+  </div>
+  <figcaption>占位仅表示计划展示的位置，不是产品界面效果图。</figcaption>
+</figure>

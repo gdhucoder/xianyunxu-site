@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" role="img" aria-labelledby="title desc">
+  <title id="title">纤云叙 C-v2 Logo</title>
+  <desc id="desc">深夜蓝圆形星空中，左下方人物侧脸向右上方文本纸张说话。</desc>
+  <defs>
+    <radialGradient id="night" cx="50%" cy="44%" r="66%">
+      <stop offset="0" stop-color="#082247"/>
+      <stop offset="1" stop-color="#03142f"/>
+    </radialGradient>
+    <linearGradient id="mint" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#a2f0df"/>
+      <stop offset="1" stop-color="#63cdbb"/>
+    </linearGradient>
+    <path id="star" d="M0-12 C1-3 3-1 12 0 C3 1 1 3 0 12 C-1 3-3 1-12 0 C-3-1-1-3 0-12Z"/>
+  </defs>
+
+  <circle cx="512" cy="512" r="466" fill="url(#night)"/>
+  <circle cx="512" cy="512" r="466" fill="none" stroke="url(#mint)" stroke-width="18"/>
+
+  <g fill="#f6f3e9">
+    <use href="#star" transform="translate(390 238) scale(1.5)"/>
+    <use href="#star" transform="translate(665 180) scale(.72)"/>
+    <use href="#star" transform="translate(310 438) scale(.62)"/>
+    <use href="#star" transform="translate(770 725) scale(1.1)"/>
+    <use href="#star" transform="translate(560 858) scale(.65)"/>
+  </g>
+
+  <g fill="none" stroke="url(#mint)" stroke-width="13" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M636 272 H742 L804 334 V474 C804 493 789 508 770 508 H636 C617 508 602 493 602 474 V306 C602 287 617 272 636 272Z"/>
+    <path d="M742 272 V317 C742 328 751 337 762 337 H804"/>
+    <path d="M638 370 H754"/>
+    <path d="M638 408 H754"/>
+    <path d="M638 446 H730"/>
+
+    <path d="M190 554 C238 530 286 535 317 568 C332 584 332 599 340 611 C348 621 365 628 380 641 C389 649 388 657 378 664 L367 672 C363 675 365 681 372 685 L380 690 C385 694 384 700 378 704 L370 709 C365 713 366 719 373 723 C381 727 382 734 376 739 L368 746 C363 752 366 760 371 766 C383 781 382 802 368 811 C352 822 326 820 306 825 C275 832 258 854 262 886"/>
+    <path d="M315 645 C310 660 300 667 287 666"/>
+    <path d="M407 704 C469 696 520 664 558 622 C586 591 602 555 625 532"/>
+    <path d="M410 716 C468 710 515 688 551 658 C571 641 586 621 596 610"/>
+  </g>
+</svg>

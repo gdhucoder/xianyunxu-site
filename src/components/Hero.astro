@@ -1,0 +1,38 @@
+---
+import type { PlatformDownload } from "../data/downloadManifest";
+import { sitePath } from "../lib/urls";
+import Logo from "./Logo.astro";
+import PlatformBadge from "./PlatformBadge.astro";
+import PrimaryButton from "./PrimaryButton.astro";
+import SecondaryButton from "./SecondaryButton.astro";
+
+interface Props { macos: PlatformDownload }
+const { macos } = Astro.props;
+---
+<section class="hero">
+  <div class="shell hero-grid">
+    <div class="hero-copy">
+      <div class="hero-brand"><Logo size={52} compact={false} /><span><strong>纤云叙</strong><small>XianYun AI Voice Input</small></span></div>
+      <p class="eyebrow">中文办公 · AI 语音输入</p>
+      <h1>说出来，<em>落成文。</em></h1>
+      <p class="hero-lead">面向中文办公的 AI 语音输入工具。<br />自然口述，忠实整理，可靠写入当前应用。</p>
+      <div class="button-row hero-actions">
+        <PrimaryButton href={macos.downloadUrl} external={true}>下载 macOS Apple Silicon Beta</PrimaryButton>
+        <SecondaryButton href={sitePath("/install/macos/")}>查看安装说明</SecondaryButton>
+      </div>
+      <div class="hero-badges" aria-label="当前发布状态">
+        <PlatformBadge tone="brand">macOS Apple Silicon</PlatformBadge>
+        <PlatformBadge tone="warning">Beta · 未经 Apple 公证</PlatformBadge>
+        <PlatformBadge>Windows 开发中</PlatformBadge>
+      </div>
+    </div>
+    <div class="hero-visual" aria-label="从口述到文字的过程示意">
+      <div class="visual-orbit" aria-hidden="true"></div>
+      <div class="visual-logo"><Logo size={112} compact={false} decorative={false} /></div>
+      <div class="visual-path">
+        <span>自然口述</span><i aria-hidden="true"></i><span>忠实整理</span><i aria-hidden="true"></i><span>写入当前应用</span>
+      </div>
+      <p>快捷键触发，不需要先切回主窗口。</p>
+    </div>
+  </div>
+</section>

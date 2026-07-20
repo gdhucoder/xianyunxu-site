@@ -1,0 +1,40 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PrimaryButton from "../../components/PrimaryButton.astro";
+import SecondaryButton from "../../components/SecondaryButton.astro";
+import StatusNotice from "../../components/StatusNotice.astro";
+import FAQItem from "../../components/FAQItem.astro";
+import { downloadManifest } from "../../data/downloadManifest";
+import { sitePath } from "../../lib/urls";
+const macos = downloadManifest.platforms["macos-arm64"];
+---
+<BaseLayout title="macOS 安装说明" description="安全安装纤云叙 macOS Apple Silicon Beta：了解未使用 Developer ID、未经 Apple 公证时的首次打开和权限步骤。">
+  <header class="page-hero"><div class="shell"><p class="eyebrow">macOS 安装说明</p><h1>十个步骤，完成第一次测试输入。</h1><p>当前 Beta 没有 Apple Developer ID，也没有经过 Apple 公证。请在理解风险后，仅从本官网或官方 GitHub Releases 下载。</p></div></header>
+  <section class="section-compact"><div class="shell"><StatusNotice tone="warning" title="请不要降低整台 Mac 的安全设置">不需要关闭 Gatekeeper，不要运行 <code>sudo spctl --master-disable</code>，也不要执行来源不明的终端命令。只为本次下载的纤云叙进行单次手动确认。</StatusNotice></div></section>
+  <section class="section"><div class="shell grid-2">
+    <ol class="install-steps">
+      <li><h2>下载 DMG</h2><p>从本页下载 <code>{macos.fileName}</code>，并确认来源域名是 GitHub Releases。</p></li>
+      <li><h2>打开 DMG</h2><p>在“下载”文件夹双击 DMG，等待安装镜像出现。</p></li>
+      <li><h2>拖入 Applications</h2><p>将纤云叙拖入“应用程序”文件夹。以后从“应用程序”打开，不要一直在 DMG 内运行。</p></li>
+      <li><h2>首次尝试打开</h2><p>在“应用程序”中双击纤云叙。macOS 可能显示无法验证开发者并阻止打开，这是当前未公证 Beta 的预期限制。</p></li>
+      <li><h2>前往隐私与安全性</h2><p>打开“系统设置 → 隐私与安全性”，向下找到关于纤云叙被阻止的安全提示。</p></li>
+      <li><h2>选择“仍要打开”</h2><p>点击“仍要打开”，确认你信任从本官网或官方 Releases 下载的测试版本，并按系统要求输入本机登录密码。</p></li>
+      <li><h2>再次打开应用</h2><p>回到“应用程序”重新打开纤云叙。后续同一版本通常不需要重复这一步。</p></li>
+      <li><h2>授权麦克风</h2><p>在首页权限区点击授权。麦克风只在你开始语音输入时用于采集声音。</p></li>
+      <li><h2>授权辅助功能并设置快捷键</h2><p>辅助功能用于把最终文字写入原先的输入位置。授权后回到应用，设置并测试全局快捷键。</p></li>
+      <li><h2>完成测试输入</h2><p>打开一个不含敏感信息的 TextEdit 文档，按快捷键口述短句，确认录音、识别、整理和写入状态。</p></li>
+    </ol>
+    <aside>
+      <div class="button-row"><PrimaryButton href={macos.downloadUrl} external>下载 v{downloadManifest.version} Beta</PrimaryButton><SecondaryButton href={sitePath("/download/")}>查看校验值</SecondaryButton></div>
+      <div style="margin-top: var(--space-6)"><StatusNotice tone="info" title="为什么需要两项权限？">麦克风权限用于录音；辅助功能权限用于把文字写回其他应用。拒绝任一权限后，相关功能会受限。</StatusNotice></div>
+    </aside>
+  </div></section>
+  <section class="section section-tinted"><div class="shell">
+    <h2 style="margin-bottom: var(--space-5)">常见安装问题</h2>
+    <div class="faq-list">
+      <FAQItem question="系统设置中没有出现纤云叙怎么办？" open>先从“应用程序”启动一次并在应用内触发权限请求。如果仍未出现，退出并重新打开应用，再回到对应的隐私权限页面检查。</FAQItem>
+      <FAQItem question="每次更新都要重新授权辅助功能吗？">当前发布使用固定自签名身份以减少身份变化，但这不等同于 Developer ID。旧的临时签名版本迁移时可能需要最后一次重新授权；后续是否保留仍应以实际系统行为为准。</FAQItem>
+      <FAQItem question="为什么不能直接双击打开？">因为当前 Beta 未经过 Apple notarization，Gatekeeper 无法按正式分发流程验证它。正式版本计划补充 Developer ID 与公证。</FAQItem>
+    </div>
+  </div></section>
+</BaseLayout>

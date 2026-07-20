@@ -1,0 +1,14 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ReleaseBadge from "../components/ReleaseBadge.astro";
+import { downloadManifest } from "../data/downloadManifest";
+import Unreleased, { frontmatter as unreleasedMeta } from "../content/changelog/unreleased.md";
+import Current, { frontmatter as currentMeta } from "../content/changelog/v0.1.5.md";
+---
+<BaseLayout title="更新日志" description="查看纤云叙 macOS Beta 的当前版本、已知限制与后续计划。">
+  <header class="page-hero"><div class="shell"><p class="eyebrow">更新日志</p><h1>每个版本，说明变化，也说明限制。</h1><p>更新日志使用 Markdown 管理。未发布内容不标注虚假日期，当前能力以公开 Release 和实际应用为准。</p></div></header>
+  <section class="section-compact"><div class="shell">
+    <article class="changelog-entry"><header><h2>{unreleasedMeta.title}</h2><ReleaseBadge channel="beta" version={null} /></header><div class="changelog-body"><Unreleased /></div></article>
+    <article class="changelog-entry"><header><h2>{currentMeta.title}</h2><ReleaseBadge channel={downloadManifest.channel} version={downloadManifest.version} /><time datetime={currentMeta.publishedAt}>{currentMeta.publishedAt}</time></header><div class="changelog-body"><Current /></div></article>
+  </div></section>
+</BaseLayout>

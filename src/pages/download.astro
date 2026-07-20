@@ -1,0 +1,44 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import DownloadCard from "../components/DownloadCard.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import StatusNotice from "../components/StatusNotice.astro";
+import SecondaryButton from "../components/SecondaryButton.astro";
+import { downloadManifest, formatBytes, formatPublishedDate } from "../data/downloadManifest";
+import { sitePath } from "../lib/urls";
+const macos = downloadManifest.platforms["macos-arm64"];
+const windows = downloadManifest.platforms["windows-x64"];
+const model = downloadManifest.models["sensevoice-small"];
+---
+<BaseLayout title="下载" description="下载纤云叙 macOS Apple Silicon Beta，查看版本、安装包校验值、签名状态和 Windows 开发进度。">
+  <header class="page-hero"><div class="shell"><p class="eyebrow">下载中心</p><h1>选择平台之前，先看清版本状态。</h1><p>安装包只通过公开 GitHub Releases 发布。当前官网开放 macOS Apple Silicon Beta，Windows 暂不开放下载。</p></div></header>
+  <section class="section-compact"><div class="shell">
+    <div class="metadata-strip" aria-label="当前发布信息">
+      <span>渠道：Beta</span><span>版本：v{downloadManifest.version}</span><span>发布日期：{formatPublishedDate(downloadManifest.publishedAt)}</span><span>发布源：GitHub Releases</span>
+    </div>
+  </div></section>
+  <section class="section"><div class="shell">
+    <div class="download-grid">
+      <DownloadCard platform={macos} version={downloadManifest.version} channel={downloadManifest.channel} />
+      <DownloadCard platform={windows} version={downloadManifest.version} channel={downloadManifest.channel} />
+    </div>
+  </div></section>
+  <section class="section section-tinted"><div class="shell grid-2">
+    <div>
+      <SectionHeading eyebrow="校验信息" title="确认下载文件没有损坏" description="SHA-256 来自公开 Release 资产。校验不代表 Apple 已验证或公证该应用。" />
+      <dl class="checksum"><dt>文件名</dt><dd>{macos.fileName}</dd><dt style="margin-top: var(--space-3)">SHA-256</dt><dd>{macos.sha256}</dd></dl>
+    </div>
+    <StatusNotice tone="warning" title="固定自签名，不等于 Apple 认证">当前 Beta 使用固定自签名身份以保持测试版本身份一致，但没有 Developer ID，也没有 notarization。macOS 仍可能阻止首次运行。</StatusNotice>
+  </div></section>
+  <section class="section"><div class="shell grid-2">
+    <div>
+      <SectionHeading eyebrow="本地模型" title="模型由应用内主动安装" description={`SenseVoiceSmall q8 约 ${formatBytes(model.sizeBytes)}，不包含在 ${formatBytes(macos.sizeBytes)} 的 DMG 中。`} />
+      <p class="prose">模型会在用户点击安装后下载、校验并存放到应用数据目录。本地 ASR 不等于云端 LLM 也被关闭。</p>
+    </div>
+    <div class="button-row">
+      {model.downloadUrl && <SecondaryButton href={model.downloadUrl} external>查看模型发布说明</SecondaryButton>}
+      <SecondaryButton href={downloadManifest.releasePageUrl} external>查看 v{downloadManifest.version} Release Notes</SecondaryButton>
+    </div>
+  </div></section>
+  <section class="section-compact"><div class="shell cta-band"><div><h2>第一次安装？</h2><p>先查看安全、克制的 macOS 安装步骤。</p></div><SecondaryButton href={sitePath("/install/macos/")}>打开安装说明</SecondaryButton></div></section>
+</BaseLayout>

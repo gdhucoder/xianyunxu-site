@@ -1,0 +1,10 @@
+---
+interface Props { title: string; path: string; tone?: "local" | "cloud" | "mixed" }
+const { title, path, tone = "local" } = Astro.props;
+---
+<article class:list={["privacy-path-card", `path-${tone}`]}>
+  <span class="path-label">{tone === "local" ? "本地" : tone === "cloud" ? "云端" : "混合"}</span>
+  <h3>{title}</h3>
+  <p class="path-flow">{path}</p>
+  <div><slot /></div>
+</article>

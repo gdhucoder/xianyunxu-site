@@ -1,0 +1,11 @@
+---
+const steps = ["按下快捷键", "开始口述", "识别与整理", "写入当前输入框"];
+---
+<ol class="workflow-steps" aria-label="纤云叙语音输入流程">
+  {steps.map((step, index) => (
+    <li>
+      <span class="step-number">{String(index + 1).padStart(2, "0")}</span>
+      <strong>{step}</strong>
+    </li>
+  ))}
+</ol>

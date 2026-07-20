@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://gdhucoder.github.io/xianyunxu-site/download-manifest.schema.json",
+  "title": "XianYun AI Voice Input website download manifest",
+  "type": "object",
+  "required": ["schemaVersion", "product", "channel", "version", "publishedAt", "releasePageUrl", "platforms", "models"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "product": {
+      "type": "object",
+      "required": ["nameZh", "nameEn"],
+      "properties": {
+        "nameZh": { "const": "纤云叙" },
+        "nameEn": { "const": "XianYun AI Voice Input" }
+      },
+      "additionalProperties": false
+    },
+    "channel": { "enum": ["beta", "stable"] },
+    "version": { "type": ["string", "null"] },
+    "publishedAt": { "type": ["string", "null"], "format": "date-time" },
+    "releasePageUrl": { "type": "string", "format": "uri" },
+    "platforms": { "type": "object" },
+    "models": { "type": "object" }
+  },
+  "additionalProperties": false
+}

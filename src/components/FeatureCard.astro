@@ -1,0 +1,9 @@
+---
+interface Props { index: string; title: string }
+const { index, title } = Astro.props;
+---
+<article class="feature-card">
+  <span class="feature-index" aria-hidden="true">{index}</span>
+  <h3>{title}</h3>
+  <p><slot /></p>
+</article>

@@ -1,0 +1,5 @@
+---
+interface Props { channel: string; version: string | null }
+const { channel, version } = Astro.props;
+---
+<span class="release-badge"><span>{channel === "beta" ? "Beta" : "Stable"}</span>{version && <strong>v{version}</strong>}</span>

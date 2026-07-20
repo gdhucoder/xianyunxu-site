@@ -1,0 +1,41 @@
+---
+import type { PlatformDownload } from "../data/downloadManifest";
+import { formatBytes } from "../data/downloadManifest";
+import { sitePath } from "../lib/urls";
+import PlatformBadge from "./PlatformBadge.astro";
+import PrimaryButton from "./PrimaryButton.astro";
+import SecondaryButton from "./SecondaryButton.astro";
+
+interface Props { platform: PlatformDownload; version: string | null; channel: string }
+const { platform, version, channel } = Astro.props;
+const available = platform.status === "available";
+---
+<article class:list={["download-card", available && "is-available"]}>
+  <div class="download-card-heading">
+    <div>
+      <PlatformBadge tone={available ? "brand" : "neutral"}>{platform.architecture}</PlatformBadge>
+      <h2>{platform.displayName}</h2>
+    </div>
+    <span class:list={["availability", available ? "available" : "soon"]}>{available ? "可下载" : "开发中"}</span>
+  </div>
+  {available ? (
+    <>
+      <dl class="download-facts">
+        <div><dt>版本</dt><dd>{version ? `v${version} ${channel === "beta" ? "Beta" : ""}` : "待公布"}</dd></div>
+        <div><dt>系统</dt><dd>{platform.minimumOsVersion ?? "待公布"}</dd></div>
+        <div><dt>大小</dt><dd>{formatBytes(platform.sizeBytes)}</dd></div>
+        <div><dt>签名</dt><dd>固定自签名 · 未公证</dd></div>
+      </dl>
+      <div class="button-row">
+        <PrimaryButton href={platform.downloadUrl} external>下载 macOS Beta</PrimaryButton>
+        {platform.installGuideUrl && <SecondaryButton href={sitePath(platform.installGuideUrl)}>安装说明</SecondaryButton>}
+      </div>
+      <p class="card-note">下载前请阅读安装风险说明；仅从本官网或 GitHub Releases 获取安装包。</p>
+    </>
+  ) : (
+    <>
+      <p>Windows 版本仍在开发和人工验收中，本官网暂不提供安装包下载。</p>
+      <PrimaryButton disabled>Windows 版本开发中</PrimaryButton>
+    </>
+  )}
+</article>

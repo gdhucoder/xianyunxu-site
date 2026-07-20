@@ -1,0 +1,30 @@
+---
+import Logo from "./Logo.astro";
+import { sitePath } from "../lib/urls";
+---
+
+<footer class="site-footer">
+  <div class="shell footer-grid">
+    <div class="footer-brand">
+      <div class="brand-lockup footer-lockup"><Logo size={34} /><span class="brand-name">纤云叙</span></div>
+      <p>把自然口述忠实整理成可以继续使用的文字。</p>
+      <p class="fine-print">当前为 macOS Apple Silicon 测试版，未经 Apple 公证。</p>
+    </div>
+    <div>
+      <h2>产品</h2>
+      <a href={sitePath("/download/")}>下载</a>
+      <a href={sitePath("/install/macos/")}>安装说明</a>
+      <a href={sitePath("/changelog/")}>更新日志</a>
+    </div>
+    <div>
+      <h2>透明性</h2>
+      <a href={sitePath("/privacy/")}>隐私说明</a>
+      <a href={sitePath("/faq/")}>常见问题</a>
+      <a href="https://github.com/gdhucoder/xianyun-releases" target="_blank" rel="noopener noreferrer">GitHub Releases</a>
+    </div>
+  </div>
+  <div class="shell footer-bottom">
+    <span>© 2026 纤云叙</span>
+    <span>网站不使用 Cookie 分析、广告或营销追踪。</span>
+  </div>
+</footer>

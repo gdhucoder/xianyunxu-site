@@ -1,0 +1,17 @@
+---
+interface Props {
+  href?: string | null;
+  external?: boolean;
+  disabled?: boolean;
+  download?: boolean;
+}
+const { href, external = false, disabled = false, download = false } = Astro.props;
+---
+
+{href && !disabled ? (
+  <a class="button button-primary" href={href} target={external ? "_blank" : undefined} rel={external ? "noopener noreferrer" : undefined} download={download || undefined}>
+    <slot />
+  </a>
+) : (
+  <span class="button button-primary is-disabled" aria-disabled="true"><slot /></span>
+)}

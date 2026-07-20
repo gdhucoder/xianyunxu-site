@@ -1,0 +1,30 @@
+{
+  "name": "xianyunxu-site",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@11.13.0",
+  "engines": {
+    "node": ">=22.12.0",
+    "pnpm": ">=11.0.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "prebuild": "pnpm validate:downloads",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "pnpm validate:downloads && astro check && tsc --noEmit",
+    "check:site": "node scripts/check-built-site.mjs",
+    "test": "node --test scripts/download-manifest.test.mjs",
+    "validate:downloads": "node scripts/validate-download-manifest.mjs",
+    "update:downloads": "node scripts/update-download-manifest.mjs"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "3.7.3",
+    "astro": "7.1.1"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.9",
+    "typescript": "6.0.3"
+  }
+}

@@ -1,0 +1,38 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PrivacyPathCard from "../components/PrivacyPathCard.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import StatusNotice from "../components/StatusNotice.astro";
+---
+<BaseLayout title="隐私说明" description="了解纤云叙的本地 ASR、云端 ASR、云端 LLM、本地历史、临时音频、模型文件和诊断数据路径。">
+  <header class="page-hero"><div class="shell"><p class="eyebrow">隐私与透明性</p><h1>先说明数据去哪里，再让你选择。</h1><p>本页基于当前实现和已确认设计文档。无法核实的细节会明确标注“待产品实现确认”，不作绝对承诺。</p></div></header>
+  <section class="section-compact"><div class="shell"><StatusNotice title="重要边界">“本地 ASR”只表示语音识别阶段在本机运行。若开启云端 LLM，识别后的文字仍可能发送到所配置的服务。</StatusNotice></div></section>
+  <section class="section"><div class="shell">
+    <SectionHeading eyebrow="处理路径" title="三种常见组合" />
+    <div class="grid-3">
+      <PrivacyPathCard title="本地 ASR，不使用 LLM" path="语音 → 本机模型 → 基础文本 → 当前应用" tone="local">识别阶段不发起 ASR 网络请求。模型需要用户主动下载。</PrivacyPathCard>
+      <PrivacyPathCard title="本地 ASR，云端 LLM" path="语音本机识别 → 文字发送给 LLM → 当前应用" tone="mixed">音频留在本机识别，文本会按设置发送给云端整理服务。</PrivacyPathCard>
+      <PrivacyPathCard title="云端 ASR，可选 LLM" path="语音发送给 ASR → 可选文字整理 → 当前应用" tone="cloud">音频与可能的整理文本分别受对应 Provider 的网络和保留政策约束。</PrivacyPathCard>
+    </div>
+  </div></section>
+  <section class="section section-tinted"><div class="shell grid-2">
+    <div class="prose">
+      <h2>本地历史</h2>
+      <p>历史记录保存在当前设备的 SQLite 数据库中，不使用浏览器 localStorage 保存正文。</p>
+      <ul><li><strong>off：</strong>不保存文本和统计。</li><li><strong>stats_only：</strong>只保存次数、时长、字数、耗时和状态。</li><li><strong>final_only：</strong>保存最终文本和统计。</li><li><strong>raw_and_final：</strong>保存原始文本、最终文本和统计。</li></ul>
+      <p>已确认的设计基线为 <code>stats_only + 30 天 + 自动删除临时音频</code>。实际生效值以应用设置页为准。</p>
+    </div>
+    <div class="prose">
+      <h2>临时音频</h2>
+      <p>产品默认不把音频作为历史内容长期保存，并提供任务完成后删除临时音频的设置。</p>
+      <p><strong>待产品实现确认：</strong>临时音频在断电、进程崩溃及所有异常退出路径中的最终清理时机。</p>
+      <h2>模型文件</h2>
+      <p>本地模型只有在用户明确点击安装后下载，存放在当前平台的应用数据目录，可在设置中删除。模型不是用户内容。</p>
+    </div>
+  </div></section>
+  <section class="section"><div class="shell grid-2">
+    <div class="prose"><h2>日志与凭据</h2><p>API Key 通过应用的安全配置机制读取，不应出现在普通日志、截图或公开配置中；普通日志不应记录完整敏感语音正文。</p><p><strong>待产品实现确认：</strong>诊断日志的精确保留期限、导出范围和一键删除边界。</p></div>
+    <div class="prose"><h2>崩溃与诊断信息</h2><p>官网 V1 不使用 Cookie 分析、广告或营销追踪，也不依赖 GitHub API 才能显示页面。</p><p><strong>待产品实现确认：</strong>桌面应用是否默认收集任何自动崩溃报告，以及未来启用时的用户同意和删除机制。</p></div>
+  </div></section>
+  <section class="section section-tinted"><div class="shell"><StatusNotice tone="warning" title="第三方服务政策由服务方决定">云端 ASR 和 LLM 的数据传输、处理与保留受所选 Provider 及用户配置约束。官网不会把第三方政策概括成“绝不保留”。请在配置凭据前阅读对应服务条款。</StatusNotice></div></section>
+</BaseLayout>

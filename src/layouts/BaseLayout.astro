@@ -1,0 +1,76 @@
+---
+import SiteFooter from "../components/SiteFooter.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import { downloadManifest } from "../data/downloadManifest";
+import { absoluteSiteUrl, siteDescription, siteName, sitePath } from "../lib/urls";
+import "../styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+  noindex?: boolean;
+}
+
+const {
+  title = siteName,
+  description = siteDescription,
+  noindex = false,
+} = Astro.props;
+const fullTitle = title === siteName ? title : `${title}｜纤云叙`;
+const canonical = new URL(Astro.url.pathname, Astro.site ?? "https://gdhucoder.github.io").toString();
+const ogImage = absoluteSiteUrl("/og-image.png");
+const currentMacDownload = downloadManifest.platforms["macos-arm64"];
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: "纤云叙",
+  alternateName: "XianYun AI Voice Input",
+  description: siteDescription,
+  applicationCategory: "ProductivityApplication",
+  operatingSystem: "macOS 10.15 or later (Apple Silicon)",
+  softwareVersion: `${downloadManifest.version ?? "Unreleased"} ${downloadManifest.channel === "beta" ? "Beta" : ""}`.trim(),
+  releaseNotes: absoluteSiteUrl("/changelog/"),
+  url: absoluteSiteUrl("/"),
+  downloadUrl: currentMacDownload.downloadUrl ?? downloadManifest.releasePageUrl,
+};
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#f5f7f5" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#101817" media="(prefers-color-scheme: dark)" />
+    {noindex && <meta name="robots" content="noindex, follow" />}
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href={sitePath("/favicon.svg")} />
+    <link rel="alternate icon" href={sitePath("/favicon.ico")} />
+    <link rel="apple-touch-icon" href={sitePath("/apple-touch-icon.png")} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="zh_CN" />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="纤云叙：说出来，落成文。" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <title>{fullTitle}</title>
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(structuredData)}></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">跳到正文</a>
+    <SiteHeader currentPath={Astro.url.pathname} />
+    <main id="main-content">
+      <slot />
+    </main>
+    <SiteFooter />
+  </body>
+</html>

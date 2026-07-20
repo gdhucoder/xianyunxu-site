@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title desc">
+  <title id="title">纤云叙 C-v2 小尺寸图标</title>
+  <desc id="desc">为 16 至 64 像素优化的星空口述成文图标。</desc>
+  <defs>
+    <radialGradient id="night" cx="50%" cy="42%" r="68%">
+      <stop offset="0" stop-color="#082247"/>
+      <stop offset="1" stop-color="#03142f"/>
+    </radialGradient>
+  </defs>
+  <circle cx="32" cy="32" r="29" fill="url(#night)" stroke="#78d8c7" stroke-width="2.5"/>
+  <g fill="none" stroke="#9bead9" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M39 14.5 H47 L51 18.5 V29.5 C51 31 50 32 48.5 32 H39 C37.5 32 36.5 31 36.5 29.5 V17 C36.5 15.5 37.5 14.5 39 14.5Z"/>
+    <path d="M47 14.5 V17.5 C47 18.3 47.7 19 48.5 19 H51"/>
+    <path d="M39.5 23 H47.5 M39.5 27 H46"/>
+    <path d="M12.5 36 C16 34 20 34.5 22.3 37 C23.4 38.2 23.4 39.2 24 40 C24.8 41 26.7 41.7 27.6 42.7 C28 43.2 27.8 43.8 27.2 44.2 L26.4 44.7 C26.1 45 26.2 45.5 26.8 45.8 C27.5 46.2 27.4 46.8 26.8 47.1 C26.1 47.6 26.2 48.1 26.9 48.5 C27.5 48.9 27.4 49.6 26.8 50.1 C26.3 50.6 26.4 51.4 26.8 52 C27.4 53.2 26.8 54.4 25.8 54.8 C24.5 55.3 22.6 55.2 21.2 55.7 C19.6 56.3 18.8 57.5 19.1 59"/>
+    <path d="M23.4 42.4 C23.1 43.3 22.4 43.7 21.5 43.6"/>
+    <path d="M29.3 48.2 C33.5 47.7 37.2 45.7 40 42.5 C42.1 40.1 43.1 37.8 44.6 36.2"/>
+    <path d="M29.6 51 C34 50.4 37.5 48.9 40 46.7"/>
+  </g>
+  <g fill="#f6f3e9">
+    <path d="M20 14 l.8 2.2 L23 17 l-2.2.8 L20 20 l-.8-2.2 L17 17 l2.2-.8Z"/>
+    <circle cx="50" cy="44" r="1.2"/>
+  </g>
+</svg>

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://gdhucoder.github.io/xianyunxu-site/sitemap-index.xml

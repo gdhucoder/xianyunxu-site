@@ -167,6 +167,7 @@ code { padding: 0.1em 0.35em; border-radius: 0.35em; background: var(--surface-s
 .screenshot-frame figcaption span { display: block; }
 
 .status-notice { display: flex; gap: var(--space-4); padding: var(--space-5); border: 1px solid var(--border); border-left: 4px solid var(--brand-primary); border-radius: var(--radius-md); background: var(--surface); }
+.notice-stack { display: grid; gap: var(--space-4); }
 .status-notice strong { display: block; }
 .notice-body { margin-top: var(--space-1); color: var(--text-secondary); }
 .notice-warning { border-left-color: var(--warning); }

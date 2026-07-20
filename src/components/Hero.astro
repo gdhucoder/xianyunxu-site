@@ -6,8 +6,8 @@ import PlatformBadge from "./PlatformBadge.astro";
 import PrimaryButton from "./PrimaryButton.astro";
 import SecondaryButton from "./SecondaryButton.astro";
 
-interface Props { macos: PlatformDownload }
-const { macos } = Astro.props;
+interface Props { macos: PlatformDownload; windows: PlatformDownload }
+const { macos, windows } = Astro.props;
 ---
 <section class="hero">
   <div class="shell hero-grid">
@@ -17,13 +17,13 @@ const { macos } = Astro.props;
       <h1>说出来，<em>落成文。</em></h1>
       <p class="hero-lead">面向中文办公的 AI 语音输入工具。<br />自然口述，忠实整理，可靠写入当前应用。</p>
       <div class="button-row hero-actions">
-        <PrimaryButton href={macos.downloadUrl} external={true}>下载 macOS Apple Silicon Beta</PrimaryButton>
-        <SecondaryButton href={sitePath("/install/macos/")}>查看安装说明</SecondaryButton>
+        <PrimaryButton href={sitePath("/download/")}>选择平台下载</PrimaryButton>
+        <SecondaryButton href={sitePath("/install/")}>查看安装说明</SecondaryButton>
       </div>
       <div class="hero-badges" aria-label="当前发布状态">
-        <PlatformBadge tone="brand">macOS Apple Silicon</PlatformBadge>
+        <PlatformBadge tone={macos.status === "available" ? "brand" : "neutral"}>macOS Apple Silicon</PlatformBadge>
         <PlatformBadge tone="warning">Beta · 未经 Apple 公证</PlatformBadge>
-        <PlatformBadge>Windows 开发中</PlatformBadge>
+        <PlatformBadge tone={windows.status === "available" ? "success" : "neutral"}>Windows x64 · Beta</PlatformBadge>
       </div>
     </div>
     <div class="hero-visual" aria-label="从口述到文字的过程示意">

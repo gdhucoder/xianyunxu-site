@@ -30,4 +30,4 @@ pnpm update:downloads -- \
 
 脚本只修改当前仓库的本地 JSON，不调用 GitHub API，不修改发布仓库，也不下载资产。写入前会再次校验。
 
-Windows 只有在完成产品人工 Gate 后，才可以从 `coming-soon` 改为 `available`。
+Windows x64 已于 `0.1.5` 开放为 `available`。Release 元数据与实际下载文件均已核对：文件大小 `5,208,405` bytes，SHA-256 为 `0111210bd1bd1629fb6ab7ba38bc2f17712f9ef22ee190e2948599625d1f4d19`。后续版本仍必须通过同样的不可变元数据校验后才能更新。

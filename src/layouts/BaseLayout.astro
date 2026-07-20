@@ -19,7 +19,6 @@ const {
 const fullTitle = title === siteName ? title : `${title}｜纤云叙`;
 const canonical = new URL(Astro.url.pathname, Astro.site ?? "https://gdhucoder.github.io").toString();
 const ogImage = absoluteSiteUrl("/og-image.png");
-const currentMacDownload = downloadManifest.platforms["macos-arm64"];
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
@@ -27,11 +26,11 @@ const structuredData = {
   alternateName: "XianYun AI Voice Input",
   description: siteDescription,
   applicationCategory: "ProductivityApplication",
-  operatingSystem: "macOS 10.15 or later (Apple Silicon)",
+  operatingSystem: "macOS 10.15 or later (Apple Silicon); Windows 10 x64 (verified)",
   softwareVersion: `${downloadManifest.version ?? "Unreleased"} ${downloadManifest.channel === "beta" ? "Beta" : ""}`.trim(),
   releaseNotes: absoluteSiteUrl("/changelog/"),
   url: absoluteSiteUrl("/"),
-  downloadUrl: currentMacDownload.downloadUrl ?? downloadManifest.releasePageUrl,
+  downloadUrl: absoluteSiteUrl("/download/"),
 };
 ---
 

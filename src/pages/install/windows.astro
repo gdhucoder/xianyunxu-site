@@ -1,0 +1,43 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PrimaryButton from "../../components/PrimaryButton.astro";
+import SecondaryButton from "../../components/SecondaryButton.astro";
+import StatusNotice from "../../components/StatusNotice.astro";
+import FAQItem from "../../components/FAQItem.astro";
+import { downloadManifest } from "../../data/downloadManifest";
+import { sitePath } from "../../lib/urls";
+
+const windows = downloadManifest.platforms["windows-x64"];
+---
+
+<BaseLayout title="Windows 安装说明" description="安全安装纤云叙 Windows x64 Beta：核对校验值、处理 SmartScreen 提示、授权麦克风并完成测试输入。">
+  <header class="page-hero"><div class="shell"><p class="eyebrow">Windows 安装说明</p><h1>十个步骤，完成 Windows 测试输入。</h1><p>当前 x64 Beta 安装包未使用 Windows 代码签名，SmartScreen 可能显示未知发布者。请在理解风险后，仅从本官网或官方 GitHub Releases 下载。</p></div></header>
+  <section class="section-compact"><div class="shell"><StatusNotice tone="warning" title="请不要关闭 Windows 安全功能">不要全局关闭 SmartScreen、Windows 安全中心或防病毒软件。只有在下载来源和 SHA-256 均匹配时，才考虑继续运行当前测试安装包。</StatusNotice></div></section>
+  <section class="section"><div class="shell grid-2">
+    <ol class="install-steps">
+      <li><h2>下载安装程序</h2><p>从本页下载 <code>{windows.fileName}</code>，确认来源域名是 GitHub Releases。</p></li>
+      <li><h2>核对 SHA-256</h2><p>在下载页复制公开校验值，使用 Windows 文件校验工具或 PowerShell <code>Get-FileHash</code> 核对文件。校验不一致时不要运行。</p></li>
+      <li><h2>启动 Setup</h2><p>双击安装程序。当前安装包没有 Windows 代码签名，因此系统可能提示未知发布者。</p></li>
+      <li><h2>阅读 SmartScreen 提示</h2><p>只有在来源和校验值均正确时，才选择查看详细信息并继续。不要为了安装而永久关闭 SmartScreen。</p></li>
+      <li><h2>完成安装</h2><p>按安装程序提示选择当前用户目录并完成安装。不要从第三方下载站获取重新打包版本。</p></li>
+      <li><h2>首次启动</h2><p>从开始菜单打开纤云叙。如果系统要求 WebView2 运行环境，请只使用 Microsoft 官方来源完成安装。</p></li>
+      <li><h2>检查麦克风权限</h2><p>进入“设置 → 隐私和安全性 → 麦克风”，允许桌面应用访问麦克风，然后回到纤云叙刷新状态。</p></li>
+      <li><h2>安装本地模型</h2><p>如选择 SenseVoiceSmall，在应用设置中主动下载安装并等待校验完成。模型不会包含在当前 Setup 中。</p></li>
+      <li><h2>确认快捷键</h2><p>检查全局快捷键没有与其他应用冲突。管理员权限运行的目标应用可能阻止普通权限应用写入文本。</p></li>
+      <li><h2>完成测试输入</h2><p>打开一个不含敏感信息的记事本文档，完成快捷键、录音、识别、整理和写入测试。</p></li>
+    </ol>
+    <aside>
+      <div class="button-row"><PrimaryButton href={windows.downloadUrl} external>下载 v{downloadManifest.version} Windows Beta</PrimaryButton><SecondaryButton href={sitePath("/download/")}>查看校验值</SecondaryButton></div>
+      <div style="margin-top: var(--space-6)"><StatusNotice tone="info" title="当前验证范围">Windows 10 x64 已完成实机闭环验证。Windows 11 x64、ARM64 以及不同企业安全策略需要进一步确认。</StatusNotice></div>
+    </aside>
+  </div></section>
+  <section class="section section-tinted"><div class="shell">
+    <h2 style="margin-bottom: var(--space-5)">常见安装问题</h2>
+    <div class="faq-list">
+      <FAQItem question="SmartScreen 提示未知发布者怎么办？" open>这是当前未代码签名 Beta 的已知限制。先确认文件来自官方 Release，并核对 SHA-256；如果无法确认，请不要运行。不要全局关闭 SmartScreen。</FAQItem>
+      <FAQItem question="麦克风状态一直不可用怎么办？">检查 Windows 麦克风隐私设置是否允许桌面应用访问，并确认系统默认输入设备正常。修改后返回应用重新检查状态。</FAQItem>
+      <FAQItem question="文字无法写入管理员权限应用怎么办？">Windows 会限制不同权限层级之间的输入模拟。优先以普通权限运行目标应用；不要仅为绕过限制而长期以管理员身份运行纤云叙。</FAQItem>
+      <FAQItem question="如何卸载？">退出纤云叙后，进入“设置 → 应用 → 已安装的应用”，找到纤云叙并选择卸载。本地历史和模型是否保留，以当前卸载程序提示和应用数据目录为准。</FAQItem>
+    </div>
+  </div></section>
+</BaseLayout>

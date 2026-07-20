@@ -93,6 +93,12 @@ export function validateManifest(manifest) {
       if (!model.version) errors.push("available model requires version");
       if (!Number.isSafeInteger(model.sizeBytes) || model.sizeBytes <= 0) errors.push("available model requires sizeBytes");
       if (!isSha256(model.sha256)) errors.push("available model requires SHA-256");
+      for (const platformId of ["macos-arm64", "windows-x64"]) {
+        const releaseUrl = model.platformReleaseUrls?.[platformId];
+        if (!isHttpUrl(releaseUrl) || !releaseUrl.startsWith(officialReleasePrefix)) {
+          errors.push(`available model requires a ${platformId} release URL`);
+        }
+      }
     }
   }
 

@@ -9,12 +9,12 @@ import { sitePath } from "../lib/urls";
   <header class="page-hero"><div class="shell"><p class="eyebrow">常见问题</p><h1>先把边界讲清楚。</h1><p>关于平台、权限、本地与云端、历史和失败恢复。如果应用内提示与本页不同，请以当前版本实际提示为准。</p></div></header>
   <section class="section-compact"><div class="shell faq-list">
     <FAQItem question="1. 纤云叙是什么？" open>纤云叙是一款面向中文办公场景的 AI 语音输入工具。按下快捷键开始口述，完成识别和可选整理后，把文字写入当前应用的输入位置。</FAQItem>
-    <FAQItem question="2. 支持哪些平台？">官网当前开放 macOS Apple Silicon Beta。Intel Mac 暂不支持；Windows 仍在开发和人工验收中，官网暂不提供下载。</FAQItem>
+    <FAQItem question="2. 支持哪些平台？">官网当前开放 macOS Apple Silicon Beta 和 Windows x64 Beta。Intel Mac 暂不支持；Windows 10 x64 已完成实机验证，Windows 11 x64 仍需要进一步确认。</FAQItem>
     <FAQItem question="3. 为什么 macOS 提示无法验证开发者？">当前 Beta 没有 Apple Developer ID，也没有经过 Apple notarization。macOS 因此可能阻止首次打开。请只从本官网或官方 GitHub Releases 下载，并按安装说明在“隐私与安全性”中进行单次确认。</FAQItem>
     <FAQItem question="4. 支持 Intel Mac 吗？">当前 DMG 是 Apple Silicon arm64 构建，不支持 Intel Mac。未来是否提供 Intel 构建需要进一步确认。</FAQItem>
-    <FAQItem question="5. Windows 什么时候发布？">时间尚未确定。需要完成干净机器安装、本地模型、权限、文本写入和自动更新人工验收后，再决定官网开放时间。</FAQItem>
+    <FAQItem question="5. Windows 如何安装？">从官网下载 x64 Setup 安装程序，并核对 SHA-256。当前安装包未代码签名，SmartScreen 可能提示未知发布者；只应在确认来源和校验值后继续，不要全局关闭 SmartScreen。</FAQItem>
     <FAQItem question="6. 为什么需要麦克风权限？">麦克风权限用于在你主动开始语音输入时采集声音。没有权限就无法录音和识别。</FAQItem>
-    <FAQItem question="7. 为什么需要辅助功能权限？">macOS 辅助功能权限用于把最终文字写回录音前的目标应用或当前有效输入位置。写入失败时，应用会尽量把文本复制到剪贴板。</FAQItem>
+    <FAQItem question="7. 为什么需要辅助功能或输入权限？">macOS 辅助功能权限用于把最终文字写回录音前的目标应用。Windows 通常没有同名授权开关，但管理员权限层级或目标应用限制可能阻止模拟输入；写入失败时，应用会尽量把文本复制到剪贴板。</FAQItem>
     <FAQItem question="8. 本地识别是否完全离线？">本地 ASR 的识别阶段不需要把音频发送给云端。但模型首次安装需要联网下载；如果开启云端 LLM，识别后的文字仍会联网整理。因此不能把“本地 ASR”概括成“全流程离线”。</FAQItem>
     <FAQItem question="9. LLM 整理是否会调用云端？">当前配置的 LLM Provider 可能通过网络处理文本。关闭 LLM 或使用 raw 模式时不会执行该整理调用；具体行为以应用设置页显示为准。</FAQItem>
     <FAQItem question="10. 如何删除历史？">在应用的“历史与隐私”设置中可以选择保存模式、保留期限并清空记录。正文是否存在取决于 off、stats_only、final_only 或 raw_and_final 模式。</FAQItem>
@@ -23,5 +23,5 @@ import { sitePath } from "../lib/urls";
     <FAQItem question="13. 如何检查更新？">在应用设置的更新区域手动检查。更新清单和安装资产来自公开 GitHub Releases；检查失败不会改变当前已安装版本。</FAQItem>
     <FAQItem question="14. 输入失败后文字是否还能找回？">LLM 失败或超时时会尽量回退基础文本；写入失败时会尝试复制到剪贴板；取消和旧会话迟到结果不会注入。完全失败时能否恢复取决于当次失败阶段和历史保存设置。</FAQItem>
   </div></section>
-  <section class="section"><div class="shell cta-band"><div><h2>准备安装 v{downloadManifest.version}？</h2><p>先了解未经 Apple 公证的手动打开步骤。</p></div><SecondaryButton href={sitePath("/install/macos/")}>查看安装说明</SecondaryButton></div></section>
+  <section class="section"><div class="shell cta-band"><div><h2>准备安装 v{downloadManifest.version}？</h2><p>先选择平台，了解当前 Beta 的系统安全提示。</p></div><SecondaryButton href={sitePath("/install/")}>查看安装说明</SecondaryButton></div></section>
 </BaseLayout>

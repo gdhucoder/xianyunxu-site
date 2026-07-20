@@ -58,7 +58,7 @@ http://localhost:4321/xianyunxu-site/
 
 ## 发布状态
 
-当前官网将 macOS Apple Silicon `0.1.5` 标记为受控测试 Beta。安装包没有 Apple Developer ID，未经 Apple 公证。Windows 在官网中继续标记为开发中。
+当前官网开放 macOS Apple Silicon 与 Windows x64 `0.1.5` Beta。macOS 安装包没有 Apple Developer ID、未经 Apple 公证；Windows 安装包未使用代码签名。Windows 10 x64 已实机验证，Windows 11 x64 需要进一步确认。
 
 ## License
 

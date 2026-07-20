@@ -23,6 +23,10 @@ export interface ModelDownload {
   sizeBytes: number | null;
   sha256: string | null;
   installMode: "in-app" | "manual";
+  platformReleaseUrls: {
+    "macos-arm64": string;
+    "windows-x64": string;
+  };
 }
 
 export interface DownloadManifest {

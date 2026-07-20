@@ -6,9 +6,13 @@ import PlatformBadge from "./PlatformBadge.astro";
 import PrimaryButton from "./PrimaryButton.astro";
 import SecondaryButton from "./SecondaryButton.astro";
 
-interface Props { platform: PlatformDownload; version: string | null; channel: string }
-const { platform, version, channel } = Astro.props;
+interface Props { platformId: "macos-arm64" | "windows-x64"; platform: PlatformDownload; version: string | null; channel: string }
+const { platformId, platform, version, channel } = Astro.props;
 const available = platform.status === "available";
+const isMac = platformId === "macos-arm64";
+const signingLabel = platform.signingStatus === "self-signed-not-notarized"
+  ? "固定自签名 · 未公证"
+  : platform.signingStatus === "signed" ? "已签名" : "未代码签名";
 ---
 <article class:list={["download-card", available && "is-available"]}>
   <div class="download-card-heading">
@@ -24,18 +28,18 @@ const available = platform.status === "available";
         <div><dt>版本</dt><dd>{version ? `v${version} ${channel === "beta" ? "Beta" : ""}` : "待公布"}</dd></div>
         <div><dt>系统</dt><dd>{platform.minimumOsVersion ?? "待公布"}</dd></div>
         <div><dt>大小</dt><dd>{formatBytes(platform.sizeBytes)}</dd></div>
-        <div><dt>签名</dt><dd>固定自签名 · 未公证</dd></div>
+        <div><dt>签名</dt><dd>{signingLabel}</dd></div>
       </dl>
       <div class="button-row">
-        <PrimaryButton href={platform.downloadUrl} external>下载 macOS Beta</PrimaryButton>
+        <PrimaryButton href={platform.downloadUrl} external>下载 {isMac ? "macOS" : "Windows"} Beta</PrimaryButton>
         {platform.installGuideUrl && <SecondaryButton href={sitePath(platform.installGuideUrl)}>安装说明</SecondaryButton>}
       </div>
-      <p class="card-note">下载前请阅读安装风险说明；仅从本官网或 GitHub Releases 获取安装包。</p>
+      <p class="card-note">{isMac ? "当前版本未经 Apple 公证。" : "当前安装包未使用 Windows 代码签名，SmartScreen 可能提示未知发布者。"} 仅从本官网或 GitHub Releases 获取安装包。</p>
     </>
   ) : (
     <>
-      <p>Windows 版本仍在开发和人工验收中，本官网暂不提供安装包下载。</p>
-      <PrimaryButton disabled>Windows 版本开发中</PrimaryButton>
+      <p>该平台当前没有可公开下载的安装包。</p>
+      <PrimaryButton disabled>暂不可用</PrimaryButton>
     </>
   )}
 </article>

@@ -42,7 +42,7 @@ const macos = downloadManifest.platforms["macos-arm64"];
 
   <section class="section" aria-labelledby="screenshots-title">
     <div class="shell">
-      <SectionHeading eyebrow="真实产品" title="主窗口、历史与本地模型，一处看清" description="以下画面来自 macOS 0.1.5 安装版真机运行。仅保留公开测试句和非敏感状态，没有伪造界面，也没有展示凭据、私有路径或真实办公正文。" />
+      <SectionHeading eyebrow="真实产品" title="主窗口、状态浮层与本地能力，一处看清" description="以下画面来自 macOS 0.1.5 安装版真机运行。仅保留公开测试句和非敏感状态，没有伪造界面，也没有展示凭据、私有路径或真实办公正文。" />
       <h2 id="screenshots-title" class="visually-hidden">产品截图</h2>
       <div class="screenshot-featured">
         <ScreenshotFrame
@@ -65,6 +65,16 @@ const macos = downloadManifest.platforms["macos-arm64"];
           description="SenseVoiceSmall 已配置并预热；模型页面明确说明本地 ASR 与云端 LLM 的边界。"
           imageBase="local-model-macos"
           alt="纤云叙设置页中的 SenseVoiceSmall 本地模型状态和隐私说明"
+        />
+      </div>
+      <div class="screenshot-overlay-feature">
+        <ScreenshotFrame
+          title="录音状态浮层"
+          description="通过应用内测试序列真机捕获。录音中只显示克制的动态波形，圆形浮层默认不抢焦点、鼠标穿透。"
+          imageBase="status-overlay-recording-macos"
+          alt="纤云叙在浅色应用背景上显示录音中的圆形状态浮层"
+          width={640}
+          height={300}
         />
       </div>
     </div>

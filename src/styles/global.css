@@ -153,6 +153,7 @@ code { padding: 0.1em 0.35em; border-radius: 0.35em; background: var(--surface-s
 .step-number { display: block; margin-bottom: var(--space-4); color: var(--text-muted); font-size: 0.72rem; letter-spacing: 0.14em; }
 .screenshot-frame { margin: 0; overflow: hidden; border: 1px solid var(--border); border-radius: var(--radius-lg); background: var(--surface); box-shadow: var(--shadow-md); }
 .screenshot-featured { max-width: 68rem; margin: 0 auto var(--space-5); }
+.screenshot-overlay-feature { max-width: 40rem; margin: var(--space-5) auto 0; }
 .screenshot-toolbar { height: 2.5rem; display: flex; align-items: center; gap: 0.38rem; padding-inline: var(--space-4); border-bottom: 1px solid var(--border); background: var(--surface-elevated); }
 .screenshot-toolbar i { width: 0.55rem; height: 0.55rem; border: 1px solid var(--border-strong); border-radius: 50%; }
 .screenshot-media { display: block; background: #f6f7f7; }

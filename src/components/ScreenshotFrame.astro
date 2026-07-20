@@ -7,9 +7,11 @@ interface Props {
   imageBase?: string;
   alt?: string;
   aspect?: "wide" | "window";
+  width?: number;
+  height?: number;
 }
 
-const { title, description, imageBase, alt, aspect = "wide" } = Astro.props;
+const { title, description, imageBase, alt, aspect = "wide", width = 960, height = 692 } = Astro.props;
 ---
 <figure class:list={["screenshot-frame", `is-${aspect}`]}>
   <div class="screenshot-toolbar" aria-hidden="true"><i></i><i></i><i></i></div>
@@ -19,8 +21,8 @@ const { title, description, imageBase, alt, aspect = "wide" } = Astro.props;
       <img
         src={sitePath(`/assets/screenshots/${imageBase}.jpg`)}
         alt={alt ?? title}
-        width="960"
-        height="692"
+        width={width}
+        height={height}
         loading="lazy"
         decoding="async"
       />

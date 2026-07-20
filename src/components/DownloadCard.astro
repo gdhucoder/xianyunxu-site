@@ -34,7 +34,7 @@ const signingLabel = platform.signingStatus === "self-signed-not-notarized"
         <PrimaryButton href={platform.downloadUrl} external>下载 {isMac ? "macOS" : "Windows"} Beta</PrimaryButton>
         {platform.installGuideUrl && <SecondaryButton href={sitePath(platform.installGuideUrl)}>安装说明</SecondaryButton>}
       </div>
-      <p class="card-note">{isMac ? "当前版本未经 Apple 公证。" : "当前安装包未使用 Windows 代码签名，SmartScreen 可能提示未知发布者。"} 仅从本官网或 GitHub Releases 获取安装包。</p>
+      <p class="card-note">{isMac ? "这个版本还没有经过 Apple 公证。" : "这个安装包还没有 Windows 代码签名，SmartScreen 可能会提示未知发布者。"} 请只从本官网或 GitHub Releases 下载。</p>
     </>
   ) : (
     <>

@@ -11,7 +11,7 @@ const windows = downloadManifest.platforms["windows-x64"];
 const model = downloadManifest.models["sensevoice-small"];
 ---
 <BaseLayout title="下载" description="下载纤云叙 macOS Apple Silicon 与 Windows x64 Beta，查看版本、安装包校验值和签名状态。">
-  <header class="page-hero"><div class="shell"><p class="eyebrow">下载中心</p><h1>选择平台之前，先看清版本状态。</h1><p>安装包只通过公开 GitHub Releases 发布。macOS Apple Silicon 与 Windows x64 当前均为 Beta。</p></div></header>
+  <header class="page-hero"><div class="shell"><p class="eyebrow">下载</p><h1>选择你的系统，下载对应版本。</h1><p>Mac 和 Windows 版本目前都是 Beta。安装包只通过本官网和公开的 GitHub Releases 提供。</p></div></header>
   <section class="section-compact"><div class="shell">
     <div class="metadata-strip" aria-label="当前发布信息">
       <span>渠道：Beta</span><span>版本：v{downloadManifest.version}</span><span>发布日期：{formatPublishedDate(downloadManifest.publishedAt)}</span><span>发布源：GitHub Releases</span>
@@ -24,7 +24,7 @@ const model = downloadManifest.models["sensevoice-small"];
     </div>
   </div></section>
   <section class="section section-tinted"><div class="shell">
-    <SectionHeading eyebrow="校验信息" title="确认下载文件没有损坏" description="SHA-256 已与公开 Release 资产和实际下载文件核对。校验值不代表平台厂商已经验证该应用。" />
+    <SectionHeading eyebrow="文件校验" title="下载后，可以核对一下文件" description="下面的 SHA-256 已和 GitHub Release 中的原文件核对。它可以帮助确认文件是否完整，但不代表 Apple 或 Microsoft 已经验证这款应用。" />
     <div class="grid-2">
       <div><h3 style="margin-bottom: var(--space-3)">macOS Apple Silicon</h3><dl class="checksum"><dt>文件名</dt><dd>{macos.fileName}</dd><dt style="margin-top: var(--space-3)">SHA-256</dt><dd>{macos.sha256}</dd></dl></div>
       <div><h3 style="margin-bottom: var(--space-3)">Windows x64</h3><dl class="checksum"><dt>文件名</dt><dd>{windows.fileName}</dd><dt style="margin-top: var(--space-3)">SHA-256</dt><dd>{windows.sha256}</dd></dl></div>
@@ -36,8 +36,8 @@ const model = downloadManifest.models["sensevoice-small"];
   </div></section>
   <section class="section"><div class="shell grid-2">
     <div>
-      <SectionHeading eyebrow="本地模型" title="模型由应用内主动安装" description={`SenseVoiceSmall q8 约 ${formatBytes(model.sizeBytes)}，不包含在 ${formatBytes(macos.sizeBytes)} 的 DMG 中。`} />
-      <p class="prose">模型会在用户点击安装后下载、校验并存放到应用数据目录。本地 ASR 不等于云端 LLM 也被关闭。</p>
+      <SectionHeading eyebrow="本地语音识别" title="模型需要在应用里单独安装" description={`SenseVoiceSmall q8 约 ${formatBytes(model.sizeBytes)}，没有包含在 ${formatBytes(macos.sizeBytes)} 的 DMG 里。`} />
+      <p class="prose">只有在你点击安装后，应用才会下载并校验模型。本地识别只负责把语音变成文字；如果开启云端 AI 整理，文字仍可能联网。</p>
     </div>
     <div class="button-row">
       <SecondaryButton href={model.platformReleaseUrls["macos-arm64"]} external>macOS 模型说明</SecondaryButton>

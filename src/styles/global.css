@@ -252,7 +252,7 @@ code { padding: 0.1em 0.35em; border-radius: 0.35em; background: var(--surface-s
   .header-inner { min-height: auto; padding-block: var(--space-3); align-items: flex-start; flex-direction: column; }
   .brand-lockup { width: 100%; }
   .site-nav { width: 100%; justify-content: space-between; gap: 0; }
-  .site-nav a { padding: 0.45rem 0.3rem; font-size: 0.78rem; }
+  .site-nav a { padding: 0.45rem 0.12rem; font-size: 0.75rem; }
   .hero { padding-block: var(--space-7); }
   .hero-brand { display: flex; }
   .hero-visual { padding: var(--space-6) var(--space-4); min-height: 19rem; }

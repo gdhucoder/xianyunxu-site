@@ -152,13 +152,18 @@ code { padding: 0.1em 0.35em; border-radius: 0.35em; background: var(--surface-s
 .workflow-steps li:not(:last-child)::after { content: ""; position: absolute; z-index: 1; top: 50%; right: -0.32rem; width: 0.55rem; height: 0.55rem; border-top: 1px solid var(--brand-primary); border-right: 1px solid var(--brand-primary); background: var(--surface); transform: translateY(-50%) rotate(45deg); }
 .step-number { display: block; margin-bottom: var(--space-4); color: var(--text-muted); font-size: 0.72rem; letter-spacing: 0.14em; }
 .screenshot-frame { margin: 0; overflow: hidden; border: 1px solid var(--border); border-radius: var(--radius-lg); background: var(--surface); box-shadow: var(--shadow-md); }
+.screenshot-featured { max-width: 68rem; margin: 0 auto var(--space-5); }
 .screenshot-toolbar { height: 2.5rem; display: flex; align-items: center; gap: 0.38rem; padding-inline: var(--space-4); border-bottom: 1px solid var(--border); background: var(--surface-elevated); }
 .screenshot-toolbar i { width: 0.55rem; height: 0.55rem; border: 1px solid var(--border-strong); border-radius: 50%; }
+.screenshot-media { display: block; background: #f6f7f7; }
+.screenshot-media img { display: block; width: 100%; height: auto; }
 .screenshot-placeholder { min-height: 23rem; padding: var(--space-7); display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px); background-size: 2.5rem 2.5rem; background-position: center; }
 .screenshot-placeholder span { padding: 0.3rem 0.7rem; border-radius: var(--radius-pill); color: var(--brand-primary); background: var(--surface); font-size: 0.75rem; font-weight: 750; }
 .screenshot-placeholder strong { margin-top: var(--space-4); font-size: 1.3rem; }
 .screenshot-placeholder p { max-width: 26rem; margin-top: var(--space-2); color: var(--text-secondary); }
-.screenshot-frame figcaption { padding: var(--space-3) var(--space-4); color: var(--text-muted); font-size: 0.78rem; }
+.screenshot-frame figcaption { min-height: 4.6rem; padding: var(--space-3) var(--space-4); color: var(--text-muted); font-size: 0.78rem; }
+.screenshot-frame figcaption strong { display: block; margin-bottom: var(--space-1); color: var(--text-primary); font-size: 0.88rem; }
+.screenshot-frame figcaption span { display: block; }
 
 .status-notice { display: flex; gap: var(--space-4); padding: var(--space-5); border: 1px solid var(--border); border-left: 4px solid var(--brand-primary); border-radius: var(--radius-md); background: var(--surface); }
 .status-notice strong { display: block; }

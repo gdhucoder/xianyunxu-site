@@ -1,13 +1,36 @@
 ---
-interface Props { title: string; description: string; aspect?: "wide" | "window" }
-const { title, description, aspect = "wide" } = Astro.props;
+import { sitePath } from "../lib/urls";
+
+interface Props {
+  title: string;
+  description: string;
+  imageBase?: string;
+  alt?: string;
+  aspect?: "wide" | "window";
+}
+
+const { title, description, imageBase, alt, aspect = "wide" } = Astro.props;
 ---
 <figure class:list={["screenshot-frame", `is-${aspect}`]}>
   <div class="screenshot-toolbar" aria-hidden="true"><i></i><i></i><i></i></div>
-  <div class="screenshot-placeholder">
-    <span>真实产品截图待补</span>
-    <strong>{title}</strong>
-    <p>{description}</p>
-  </div>
-  <figcaption>占位仅表示计划展示的位置，不是产品界面效果图。</figcaption>
+  {imageBase ? (
+    <picture class="screenshot-media">
+      <source srcset={sitePath(`/assets/screenshots/${imageBase}.avif`)} type="image/avif" />
+      <img
+        src={sitePath(`/assets/screenshots/${imageBase}.jpg`)}
+        alt={alt ?? title}
+        width="960"
+        height="692"
+        loading="lazy"
+        decoding="async"
+      />
+    </picture>
+  ) : (
+    <div class="screenshot-placeholder">
+      <span>真实产品截图待补</span>
+      <strong>{title}</strong>
+      <p>{description}</p>
+    </div>
+  )}
+  <figcaption><strong>{title}</strong><span>{description}</span></figcaption>
 </figure>

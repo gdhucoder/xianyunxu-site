@@ -42,11 +42,30 @@ const macos = downloadManifest.platforms["macos-arm64"];
 
   <section class="section" aria-labelledby="screenshots-title">
     <div class="shell">
-      <SectionHeading eyebrow="真实产品" title="轻量主窗口，低打扰状态浮层" description="官网只展示经过脱敏确认的真实产品截图。当前 V1 尚未获得可公开截图，因此保留明确占位。" />
+      <SectionHeading eyebrow="真实产品" title="主窗口、历史与本地模型，一处看清" description="以下画面来自 macOS 0.1.5 安装版真机运行。仅保留公开测试句和非敏感状态，没有伪造界面，也没有展示凭据、私有路径或真实办公正文。" />
       <h2 id="screenshots-title" class="visually-hidden">产品截图</h2>
+      <div class="screenshot-featured">
+        <ScreenshotFrame
+          title="运行准备与系统权限"
+          description="首页集中显示快捷键、默认麦克风、本地识别、AI 整理模式和两项系统权限。"
+          imageBase="home-dashboard-macos"
+          alt="纤云叙 macOS 首页，显示运行准备、快捷键、本地识别和系统权限状态"
+          aspect="window"
+        />
+      </div>
       <div class="grid-2">
-        <ScreenshotFrame title="主窗口与运行准备" description="计划展示权限、快捷键、识别方式和整理模式的日常使用入口。" aspect="window" />
-        <ScreenshotFrame title="录音状态浮层" description="计划展示底部圆形状态浮层在录音、转写和整理阶段的真实效果。" />
+        <ScreenshotFrame
+          title="脱敏历史筛选"
+          description="历史页仅显示本轮公开测试句，演示本地搜索、日期、模式与结果筛选。"
+          imageBase="history-sanitized-macos"
+          alt="纤云叙历史记录页，筛选后只显示一条公开测试记录"
+        />
+        <ScreenshotFrame
+          title="本地模型状态"
+          description="SenseVoiceSmall 已配置并预热；模型页面明确说明本地 ASR 与云端 LLM 的边界。"
+          imageBase="local-model-macos"
+          alt="纤云叙设置页中的 SenseVoiceSmall 本地模型状态和隐私说明"
+        />
       </div>
     </div>
   </section>

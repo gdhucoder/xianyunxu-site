@@ -19,7 +19,7 @@ const windows = downloadManifest.platforms["windows-x64"];
 const totalDownloads = downloadStats.totals.appPackageDownloads + downloadStats.totals.modelDownloads;
 ---
 
-<BaseLayout>
+<BaseLayout footerDownloadTotal={formatDownloadCount(totalDownloads)}>
   <Hero macos={macos} windows={windows} />
 
   <section class="section-compact" aria-labelledby="workflow-title">
@@ -151,9 +151,4 @@ const totalDownloads = downloadStats.totals.appPackageDownloads + downloadStats.
     </div>
   </section>
 
-  <section class="home-download-total" aria-label="累计下载次数">
-    <div class="shell">
-      <p>纤云叙已累计下载 <strong>{formatDownloadCount(totalDownloads)}</strong> 次</p>
-    </div>
-  </section>
 </BaseLayout>

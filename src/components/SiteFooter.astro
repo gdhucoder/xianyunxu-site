@@ -1,6 +1,12 @@
 ---
 import Logo from "./Logo.astro";
 import { sitePath } from "../lib/urls";
+
+interface Props {
+  downloadTotal?: string | undefined;
+}
+
+const { downloadTotal } = Astro.props;
 ---
 
 <footer class="site-footer">
@@ -9,6 +15,7 @@ import { sitePath } from "../lib/urls";
       <div class="brand-lockup footer-lockup"><Logo size={34} /><span class="brand-name">纤云叙</span></div>
       <p>把说出来的话，整理成能直接使用的文字。</p>
       <p class="fine-print">现已提供 macOS Apple Silicon 与 Windows x64 Beta。</p>
+      {downloadTotal && <p class="footer-download-total">累计下载 <strong>{downloadTotal}</strong> 次</p>}
     </div>
     <div>
       <h2>产品</h2>

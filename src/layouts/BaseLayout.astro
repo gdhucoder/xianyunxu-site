@@ -9,12 +9,14 @@ interface Props {
   title?: string;
   description?: string;
   noindex?: boolean;
+  footerDownloadTotal?: string;
 }
 
 const {
   title = siteName,
   description = siteDescription,
   noindex = false,
+  footerDownloadTotal,
 } = Astro.props;
 const fullTitle = title === siteName ? title : `${title}｜纤云叙`;
 const canonical = new URL(Astro.url.pathname, Astro.site ?? "https://gdhucoder.github.io").toString();
@@ -70,6 +72,6 @@ const structuredData = {
     <main id="main-content">
       <slot />
     </main>
-    <SiteFooter />
+    <SiteFooter downloadTotal={footerDownloadTotal} />
   </body>
 </html>

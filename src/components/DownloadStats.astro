@@ -22,59 +22,69 @@ const cards: Array<{ key: keyof DownloadTotals; label: string; detail: string }>
 ];
 ---
 
-<section class="download-stats" aria-labelledby="download-stats-title">
-  <div class="download-stats-heading">
-    <div>
-      <p class="eyebrow">公开统计</p>
-      <h2 id="download-stats-title">下载次数，一目了然</h2>
-      <p>数据来自公开的 GitHub Releases，每 {downloadStats.collectionIntervalDays} 天更新一次。</p>
+<details class="download-stats">
+  <summary class="download-stats-toggle">
+    <span>
+      <strong>查看详细下载统计</strong>
+      <small>平台、模型与各版本累计下载次数</small>
+    </span>
+    <span class="download-stats-toggle-action" aria-hidden="true">展开</span>
+  </summary>
+
+  <div class="download-stats-content">
+    <div class="download-stats-heading">
+      <div>
+        <p class="eyebrow">公开统计</p>
+        <h2>下载次数，一目了然</h2>
+        <p>数据来自公开的 GitHub Releases，每 {downloadStats.collectionIntervalDays} 天更新一次。</p>
+      </div>
+      <p class="download-stats-updated">
+        最近更新
+        <time datetime={downloadStats.generatedAt}>{formatStatsUpdatedAt(downloadStats.generatedAt)}</time>
+      </p>
     </div>
-    <p class="download-stats-updated">
-      最近更新
-      <time datetime={downloadStats.generatedAt}>{formatStatsUpdatedAt(downloadStats.generatedAt)}</time>
-    </p>
-  </div>
 
-  <div class="download-stat-grid">
-    {cards.map((card) => {
-      const delta = previous ? totals[card.key] - previous[card.key] : null;
-      return (
-        <article class="download-stat-card">
-          <span>{card.label}</span>
-          <strong>{formatDownloadCount(totals[card.key])}</strong>
-          <p>{card.detail}</p>
-          {delta !== null && delta > 0 && <small>近一期 +{formatDownloadCount(delta)}</small>}
-        </article>
-      );
-    })}
-  </div>
-
-  <div class="download-version-table-wrap" tabindex="0" role="region" aria-label="各版本累计下载次数">
-    <table class="download-version-table">
-      <caption>每个版本的累计下载次数</caption>
-      <thead>
-        <tr><th scope="col">版本</th><th scope="col">macOS</th><th scope="col">Windows</th><th scope="col">更新包</th><th scope="col">合计</th></tr>
-      </thead>
-      <tbody>
-        {versions.map((version) => (
-          <tr>
-            <th scope="row">v{version.version}</th>
-            <td>{formatDownloadCount(version.macosInstallerDownloads)}</td>
-            <td>{formatDownloadCount(version.windowsPackageDownloads)}</td>
-            <td>{formatDownloadCount(version.identifiableUpdateDownloads)}</td>
-            <td><strong>{formatDownloadCount(version.appPackageDownloads)}</strong></td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </div>
-
-  <details class="download-stats-notes">
-    <summary>统计口径</summary>
-    <div>
-      <p>这里统计的是文件下载次数，不是独立用户数或成功安装数，重复下载也会计入。</p>
-      <p>Windows 官网安装与应用更新目前使用同一个 EXE，因此不能拆开计算；更新清单请求也没有计入主数字。</p>
-      <p><a href={downloadStats.source.releasesUrl} target="_blank" rel="noreferrer">查看公开 Release 文件</a></p>
+    <div class="download-stat-grid">
+      {cards.map((card) => {
+        const delta = previous ? totals[card.key] - previous[card.key] : null;
+        return (
+          <article class="download-stat-card">
+            <span>{card.label}</span>
+            <strong>{formatDownloadCount(totals[card.key])}</strong>
+            <p>{card.detail}</p>
+            {delta !== null && delta > 0 && <small>近一期 +{formatDownloadCount(delta)}</small>}
+          </article>
+        );
+      })}
     </div>
-  </details>
-</section>
+
+    <div class="download-version-table-wrap" tabindex="0" role="region" aria-label="各版本累计下载次数">
+      <table class="download-version-table">
+        <caption>每个版本的累计下载次数</caption>
+        <thead>
+          <tr><th scope="col">版本</th><th scope="col">macOS</th><th scope="col">Windows</th><th scope="col">更新包</th><th scope="col">合计</th></tr>
+        </thead>
+        <tbody>
+          {versions.map((version) => (
+            <tr>
+              <th scope="row">v{version.version}</th>
+              <td>{formatDownloadCount(version.macosInstallerDownloads)}</td>
+              <td>{formatDownloadCount(version.windowsPackageDownloads)}</td>
+              <td>{formatDownloadCount(version.identifiableUpdateDownloads)}</td>
+              <td><strong>{formatDownloadCount(version.appPackageDownloads)}</strong></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <details class="download-stats-notes">
+      <summary>统计口径</summary>
+      <div>
+        <p>这里统计的是文件下载次数，不是独立用户数或成功安装数，重复下载也会计入。</p>
+        <p>Windows 官网安装与应用更新目前使用同一个 EXE，因此不能拆开计算；更新清单请求也没有计入主数字。</p>
+        <p><a href={downloadStats.source.releasesUrl} target="_blank" rel="noreferrer">查看公开 Release 文件</a></p>
+      </div>
+    </details>
+  </div>
+</details>

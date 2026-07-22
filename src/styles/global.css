@@ -200,6 +200,16 @@ code { padding: 0.1em 0.35em; border-radius: 0.35em; background: var(--surface-s
 .checksum dt { color: var(--text-muted); font-size: 0.75rem; }
 .checksum dd { margin: var(--space-1) 0 0; font-family: ui-monospace, "SFMono-Regular", Consolas, monospace; font-size: 0.78rem; }
 
+.download-stats { border: 1px solid var(--border); border-radius: var(--radius-lg); background: var(--surface); box-shadow: var(--shadow-sm); }
+.download-stats-toggle { min-height: 5rem; padding: var(--space-4) var(--space-5); display: flex; align-items: center; justify-content: space-between; gap: var(--space-5); cursor: pointer; list-style: none; }
+.download-stats-toggle::-webkit-details-marker { display: none; }
+.download-stats-toggle > span:first-child { display: grid; gap: var(--space-1); }
+.download-stats-toggle strong { color: var(--text-primary); font-size: 1rem; }
+.download-stats-toggle small { color: var(--text-muted); font-size: 0.8rem; }
+.download-stats-toggle-action { color: var(--brand-primary); font-size: 0.86rem; font-weight: 750; }
+.download-stats[open] .download-stats-toggle-action { font-size: 0; }
+.download-stats[open] .download-stats-toggle-action::after { content: "收起"; font-size: 0.86rem; }
+.download-stats-content { padding: var(--space-6) var(--space-5) var(--space-5); border-top: 1px solid var(--border); }
 .download-stats-heading { display: flex; justify-content: space-between; align-items: flex-end; gap: var(--space-6); }
 .download-stats-heading h2 { font-size: clamp(1.9rem, 4vw, 2.7rem); }
 .download-stats-heading > div > p:last-child { margin-top: var(--space-3); color: var(--text-secondary); }

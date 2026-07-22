@@ -3,6 +3,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import PlatformBadge from "../../components/PlatformBadge.astro";
 import SecondaryButton from "../../components/SecondaryButton.astro";
 import StatusNotice from "../../components/StatusNotice.astro";
+import SectionHeading from "../../components/SectionHeading.astro";
 import { downloadManifest } from "../../data/downloadManifest";
 import { sitePath } from "../../lib/urls";
 
@@ -12,6 +13,14 @@ const windows = downloadManifest.platforms["windows-x64"];
 
 <BaseLayout title="安装说明" description="选择 macOS Apple Silicon 或 Windows x64，安全安装纤云叙 Beta。">
   <header class="page-hero"><div class="shell"><p class="eyebrow">安装说明</p><h1>选择你的系统，按步骤安装。</h1><p>Mac 和 Windows 版本目前都是 Beta，安装时可能会看到不同的安全提示。请只从本官网或官方 GitHub Releases 下载。</p></div></header>
+  <section class="section-compact section-tinted"><div class="shell">
+    <SectionHeading eyebrow="开始之前" title="先确认三件事" description="花一分钟核对系统、下载来源和校验值，可以避开大多数安装问题。" />
+    <div class="grid-3 install-prerequisites">
+      <article><span>01</span><h2>选对系统</h2><p>Mac 版只支持 Apple Silicon；Windows 版目前只提供 x64。</p></article>
+      <article><span>02</span><h2>只从官网获取</h2><p>下载按钮最终应指向 <strong>gdhucoder/xianyun-releases</strong>，不要使用第三方重打包版本。</p></article>
+      <article><span>03</span><h2>核对文件</h2><p>下载页提供文件名和 SHA-256。安装前核对一次，确认文件完整且来源一致。</p></article>
+    </div>
+  </div></section>
   <section class="section"><div class="shell grid-2">
     <article class="feature-card">
       <PlatformBadge tone="brand">{macos.architecture}</PlatformBadge>
@@ -26,5 +35,5 @@ const windows = downloadManifest.platforms["windows-x64"];
       <div style="margin-top: var(--space-5)"><SecondaryButton href={sitePath("/install/windows/")}>查看 Windows 步骤</SecondaryButton></div>
     </article>
   </div></section>
-  <section class="section-compact"><div class="shell"><StatusNotice tone="warning" title="不要全局关闭系统安全功能">无论哪个平台，都应先核对官网来源、文件名和 SHA-256。不要关闭 Gatekeeper、SmartScreen、防病毒软件或其他整机安全策略。</StatusNotice></div></section>
+  <section class="section-compact"><div class="shell"><StatusNotice tone="warning" title="不要为了安装而关闭整机安全功能">无论使用哪个平台，都不要关闭 Gatekeeper、SmartScreen、防病毒软件或其他系统安全策略。遇到提示时，请按对应平台的安装说明进行单次确认。</StatusNotice></div></section>
 </BaseLayout>

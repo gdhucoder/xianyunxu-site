@@ -23,9 +23,6 @@ const model = downloadManifest.models["sensevoice-small"];
       <DownloadCard platformId="windows-x64" platform={windows} version={downloadManifest.version} channel={downloadManifest.channel} />
     </div>
   </div></section>
-  <section class="section section-tinted"><div class="shell">
-    <DownloadStats />
-  </div></section>
   <section class="section"><div class="shell">
     <SectionHeading eyebrow="文件校验" title="下载后，可以核对一下文件" description="下面的 SHA-256 已和 GitHub Release 中的原文件核对。它可以帮助确认文件是否完整，但不代表 Apple 或 Microsoft 已经验证这款应用。" />
     <div class="grid-2">
@@ -46,4 +43,7 @@ const model = downloadManifest.models["sensevoice-small"];
     </div>
   </div></section>
   <section class="section-compact"><div class="shell cta-band"><div><h2>第一次安装？</h2><p>macOS 与 Windows 的系统提示不同，请先阅读对应平台说明。</p></div><SecondaryButton href={sitePath("/install/")}>打开安装说明</SecondaryButton></div></section>
+  <section class="section section-tinted"><div class="shell">
+    <DownloadStats />
+  </div></section>
 </BaseLayout>

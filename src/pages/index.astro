@@ -11,10 +11,12 @@ import PrimaryButton from "../components/PrimaryButton.astro";
 import SecondaryButton from "../components/SecondaryButton.astro";
 import PlatformBadge from "../components/PlatformBadge.astro";
 import { downloadManifest } from "../data/downloadManifest";
+import { downloadStats, formatDownloadCount } from "../data/downloadStats";
 import { sitePath } from "../lib/urls";
 
 const macos = downloadManifest.platforms["macos-arm64"];
 const windows = downloadManifest.platforms["windows-x64"];
+const totalDownloads = downloadStats.totals.appPackageDownloads + downloadStats.totals.modelDownloads;
 ---
 
 <BaseLayout>
@@ -146,6 +148,12 @@ const windows = downloadManifest.platforms["windows-x64"];
         <FAQItem question="输入失败后，文字还能找回来吗？">AI 整理失败时会尽量保留基础文本；写入失败时会尝试复制到剪贴板。最终结果请以应用当时的提示为准。</FAQItem>
       </div>
       <div style="margin-top: var(--space-5)"><SecondaryButton href={sitePath("/faq/")}>查看全部问题</SecondaryButton></div>
+    </div>
+  </section>
+
+  <section class="home-download-total" aria-label="累计下载次数">
+    <div class="shell">
+      <p>纤云叙已累计下载 <strong>{formatDownloadCount(totalDownloads)}</strong> 次</p>
     </div>
   </section>
 </BaseLayout>

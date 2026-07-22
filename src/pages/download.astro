@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import DownloadCard from "../components/DownloadCard.astro";
+import DownloadStats from "../components/DownloadStats.astro";
 import SectionHeading from "../components/SectionHeading.astro";
 import SecondaryButton from "../components/SecondaryButton.astro";
 import { downloadManifest, formatBytes, formatPublishedDate } from "../data/downloadManifest";
@@ -23,6 +24,9 @@ const model = downloadManifest.models["sensevoice-small"];
     </div>
   </div></section>
   <section class="section section-tinted"><div class="shell">
+    <DownloadStats />
+  </div></section>
+  <section class="section"><div class="shell">
     <SectionHeading eyebrow="文件校验" title="下载后，可以核对一下文件" description="下面的 SHA-256 已和 GitHub Release 中的原文件核对。它可以帮助确认文件是否完整，但不代表 Apple 或 Microsoft 已经验证这款应用。" />
     <div class="grid-2">
       <div><h3 style="margin-bottom: var(--space-3)">macOS Apple Silicon</h3><dl class="checksum"><dt>文件名</dt><dd>{macos.fileName}</dd><dt style="margin-top: var(--space-3)">SHA-256</dt><dd>{macos.sha256}</dd></dl></div>
@@ -30,7 +34,7 @@ const model = downloadManifest.models["sensevoice-small"];
     </div>
     <div style="margin-top: var(--space-5)"><SecondaryButton href={sitePath("/install/")}>查看对应平台的安装步骤</SecondaryButton></div>
   </div></section>
-  <section class="section"><div class="shell grid-2">
+  <section class="section section-tinted"><div class="shell grid-2">
     <div>
       <SectionHeading eyebrow="本地语音识别" title="模型需要在应用里单独安装" description={`SenseVoiceSmall q8 约 ${formatBytes(model.sizeBytes)}，没有包含在 ${formatBytes(macos.sizeBytes)} 的 DMG 里。`} />
       <p class="prose">只有在你点击安装后，应用才会下载并校验模型。本地识别只负责把语音变成文字；如果开启云端 AI 整理，文字仍可能联网。</p>

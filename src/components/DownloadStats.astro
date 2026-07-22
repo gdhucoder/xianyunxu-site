@@ -1,0 +1,80 @@
+---
+import {
+  downloadStats,
+  formatDownloadCount,
+  formatStatsUpdatedAt,
+  type DownloadTotals,
+} from "../data/downloadStats";
+
+const { totals, versions, models, snapshots } = downloadStats;
+const previous = snapshots.length > 1 ? snapshots.at(-2) : null;
+const modelByPlatform = Object.fromEntries(models.map((item) => [item.platform, item.modelDownloads]));
+
+const cards: Array<{ key: keyof DownloadTotals; label: string; detail: string }> = [
+  { key: "macosInstallerDownloads", label: "macOS 安装包", detail: "历次 DMG 下载" },
+  { key: "windowsPackageDownloads", label: "Windows 安装包", detail: "EXE 下载，含使用同一文件的更新" },
+  { key: "identifiableUpdateDownloads", label: "应用更新包", detail: "目前为可单独识别的 macOS 更新" },
+  {
+    key: "modelDownloads",
+    label: "本地模型",
+    detail: `macOS ${formatDownloadCount(modelByPlatform["macos-arm64"] ?? 0)} · Windows ${formatDownloadCount(modelByPlatform["windows-x64"] ?? 0)}`,
+  },
+];
+---
+
+<section class="download-stats" aria-labelledby="download-stats-title">
+  <div class="download-stats-heading">
+    <div>
+      <p class="eyebrow">公开统计</p>
+      <h2 id="download-stats-title">下载次数，一目了然</h2>
+      <p>数据来自公开的 GitHub Releases，每 {downloadStats.collectionIntervalDays} 天更新一次。</p>
+    </div>
+    <p class="download-stats-updated">
+      最近更新
+      <time datetime={downloadStats.generatedAt}>{formatStatsUpdatedAt(downloadStats.generatedAt)}</time>
+    </p>
+  </div>
+
+  <div class="download-stat-grid">
+    {cards.map((card) => {
+      const delta = previous ? totals[card.key] - previous[card.key] : null;
+      return (
+        <article class="download-stat-card">
+          <span>{card.label}</span>
+          <strong>{formatDownloadCount(totals[card.key])}</strong>
+          <p>{card.detail}</p>
+          {delta !== null && delta > 0 && <small>近一期 +{formatDownloadCount(delta)}</small>}
+        </article>
+      );
+    })}
+  </div>
+
+  <div class="download-version-table-wrap" tabindex="0" role="region" aria-label="各版本累计下载次数">
+    <table class="download-version-table">
+      <caption>每个版本的累计下载次数</caption>
+      <thead>
+        <tr><th scope="col">版本</th><th scope="col">macOS</th><th scope="col">Windows</th><th scope="col">更新包</th><th scope="col">合计</th></tr>
+      </thead>
+      <tbody>
+        {versions.map((version) => (
+          <tr>
+            <th scope="row">v{version.version}</th>
+            <td>{formatDownloadCount(version.macosInstallerDownloads)}</td>
+            <td>{formatDownloadCount(version.windowsPackageDownloads)}</td>
+            <td>{formatDownloadCount(version.identifiableUpdateDownloads)}</td>
+            <td><strong>{formatDownloadCount(version.appPackageDownloads)}</strong></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <details class="download-stats-notes">
+    <summary>统计口径</summary>
+    <div>
+      <p>这里统计的是文件下载次数，不是独立用户数或成功安装数，重复下载也会计入。</p>
+      <p>Windows 官网安装与应用更新目前使用同一个 EXE，因此不能拆开计算；更新清单请求也没有计入主数字。</p>
+      <p><a href={downloadStats.source.releasesUrl} target="_blank" rel="noreferrer">查看公开 Release 文件</a></p>
+    </div>
+  </details>
+</section>

@@ -45,6 +45,16 @@ Repository → Settings → Pages → Build and deployment → Source → GitHub
 
 不要从浏览器运行时调用 GitHub API，也不要把 `latest.json` 当作官网内容源。Tauri Updater 与官网 manifest 的生命周期和 Schema 完全独立。
 
+## 下载统计
+
+- `src/data/download-stats.json` 是官网读取的静态下载统计快照；
+- `.github/workflows/update-download-stats.yml` 每天检查一次，距离上次快照满 5 天时才会更新并提交；
+- 手动运行工作流默认会强制刷新；本地可执行 `pnpm update:stats`；
+- 数据来自公开仓库 `gdhucoder/xianyun-releases` 的 Release Asset `download_count`；
+- DMG、Windows 安装包、可单独识别的更新包和模型权重分别计算；签名、校验文件、说明文档和运行时不计入模型下载；
+- Windows 安装与更新使用同一 EXE，GitHub 无法区分两种来源，网页会说明这一统计边界；
+- 统计表示文件下载次数，不表示独立用户、成功安装或活跃用户。
+
 ## 更新截图
 
 使用干净测试配置重新截图。至少由另一位人工检查者确认没有正文、凭据、姓名、单位、私有路径和仓库信息后，再复制到 `public/assets/screenshots/`。

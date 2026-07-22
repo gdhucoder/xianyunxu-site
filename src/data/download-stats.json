@@ -1,0 +1,110 @@
+{
+  "schemaVersion": 1,
+  "source": {
+    "repository": "gdhucoder/xianyun-releases",
+    "releasesUrl": "https://github.com/gdhucoder/xianyun-releases/releases"
+  },
+  "generatedAt": "2026-07-22T12:01:15.753Z",
+  "collectionIntervalDays": 5,
+  "totals": {
+    "macosInstallerDownloads": 7,
+    "windowsPackageDownloads": 3,
+    "identifiableUpdateDownloads": 17,
+    "updateMetadataDownloads": 21,
+    "modelDownloads": 9,
+    "appPackageDownloads": 27
+  },
+  "versions": [
+    {
+      "version": "0.1.5",
+      "tagName": "v0.1.5",
+      "publishedAt": "2026-07-20T05:53:06Z",
+      "macosInstallerDownloads": 1,
+      "windowsPackageDownloads": 3,
+      "identifiableUpdateDownloads": 1,
+      "updateMetadataDownloads": 3,
+      "appPackageDownloads": 5
+    },
+    {
+      "version": "0.1.4",
+      "tagName": "v0.1.4",
+      "publishedAt": "2026-07-19T23:09:07Z",
+      "macosInstallerDownloads": 1,
+      "windowsPackageDownloads": 0,
+      "identifiableUpdateDownloads": 3,
+      "updateMetadataDownloads": 4,
+      "appPackageDownloads": 4
+    },
+    {
+      "version": "0.1.3",
+      "tagName": "v0.1.3",
+      "publishedAt": "2026-07-19T14:25:51Z",
+      "macosInstallerDownloads": 1,
+      "windowsPackageDownloads": 0,
+      "identifiableUpdateDownloads": 3,
+      "updateMetadataDownloads": 4,
+      "appPackageDownloads": 4
+    },
+    {
+      "version": "0.1.2",
+      "tagName": "v0.1.2",
+      "publishedAt": "2026-07-19T13:17:02Z",
+      "macosInstallerDownloads": 0,
+      "windowsPackageDownloads": 0,
+      "identifiableUpdateDownloads": 4,
+      "updateMetadataDownloads": 4,
+      "appPackageDownloads": 4
+    },
+    {
+      "version": "0.1.1",
+      "tagName": "v0.1.1",
+      "publishedAt": "2026-07-19T12:18:27Z",
+      "macosInstallerDownloads": 2,
+      "windowsPackageDownloads": 0,
+      "identifiableUpdateDownloads": 3,
+      "updateMetadataDownloads": 4,
+      "appPackageDownloads": 5
+    },
+    {
+      "version": "0.1.0",
+      "tagName": "v0.1.0",
+      "publishedAt": "2026-07-19T11:50:26Z",
+      "macosInstallerDownloads": 2,
+      "windowsPackageDownloads": 0,
+      "identifiableUpdateDownloads": 3,
+      "updateMetadataDownloads": 2,
+      "appPackageDownloads": 5
+    }
+  ],
+  "models": [
+    {
+      "tagName": "model-sensevoice-small-q8-windows-x64-v1",
+      "platform": "windows-x64",
+      "publishedAt": "2026-07-20T05:23:04Z",
+      "modelDownloads": 1
+    },
+    {
+      "tagName": "model-sensevoice-small-q8-macos-arm64-v1",
+      "platform": "macos-arm64",
+      "publishedAt": "2026-07-19T12:03:33Z",
+      "modelDownloads": 8
+    }
+  ],
+  "snapshots": [
+    {
+      "capturedAt": "2026-07-22T12:01:15.753Z",
+      "macosInstallerDownloads": 7,
+      "windowsPackageDownloads": 3,
+      "identifiableUpdateDownloads": 17,
+      "updateMetadataDownloads": 21,
+      "modelDownloads": 9,
+      "appPackageDownloads": 27
+    }
+  ],
+  "countingNotes": {
+    "macosInstaller": "Counts .dmg release asset downloads.",
+    "windowsPackage": "Counts Windows setup packages; the same file may be used for a website download or an in-app update.",
+    "identifiableUpdates": "Counts updater-only assets such as .app.tar.gz; current Windows updates share the setup executable and cannot be separated.",
+    "models": "Counts model weight assets such as .gguf, excluding runtimes, licenses, manifests, and checksums."
+  }
+}

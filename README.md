@@ -44,6 +44,7 @@ http://localhost:4321/xianyunxu-site/
 ## 内容维护
 
 - 下载版本只修改 `src/data/download-manifest.json`；
+- 下载次数由 GitHub Actions 每天检查，并在满 5 天后更新 `src/data/download-stats.json`；
 - 发布前必须运行 manifest 校验、类型检查、静态构建和站内链接检查；
 - 产品截图需经过 `docs/screenshot-guidelines.md` 的隐私检查；
 - 更新日志由 `src/content/changelog/` 下的 Markdown 文件管理；

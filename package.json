@@ -10,14 +10,16 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "prebuild": "pnpm validate:downloads",
+    "prebuild": "pnpm validate:downloads && pnpm validate:stats",
     "build": "astro build",
     "preview": "astro preview",
-    "check": "pnpm validate:downloads && astro check && tsc --noEmit",
+    "check": "pnpm validate:downloads && pnpm validate:stats && astro check && tsc --noEmit",
     "check:site": "node scripts/check-built-site.mjs",
-    "test": "node --test scripts/download-manifest.test.mjs",
+    "test": "node --test scripts/*.test.mjs",
     "validate:downloads": "node scripts/validate-download-manifest.mjs",
-    "update:downloads": "node scripts/update-download-manifest.mjs"
+    "update:downloads": "node scripts/update-download-manifest.mjs",
+    "validate:stats": "node scripts/validate-download-stats.mjs",
+    "update:stats": "node scripts/update-download-stats.mjs --force"
   },
   "dependencies": {
     "@astrojs/sitemap": "3.7.3",

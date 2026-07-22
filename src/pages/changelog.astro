@@ -1,14 +1,15 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ReleaseBadge from "../components/ReleaseBadge.astro";
-import { downloadManifest } from "../data/downloadManifest";
-import Unreleased, { frontmatter as unreleasedMeta } from "../content/changelog/unreleased.md";
-import Current, { frontmatter as currentMeta } from "../content/changelog/v0.1.5.md";
+import SecondaryButton from "../components/SecondaryButton.astro";
+import { downloadManifest, formatPublishedDate } from "../data/downloadManifest";
+import Current from "../content/changelog/v0.1.5.md";
+import { sitePath } from "../lib/urls";
 ---
-<BaseLayout title="更新日志" description="查看纤云叙 Beta 的版本变化、已知限制和接下来的计划。">
-  <header class="page-hero"><div class="shell"><p class="eyebrow">更新日志</p><h1>改了什么，还有什么没做好。</h1><p>每个版本都会在这里记录变化和已知问题。还没发布的内容不会写成已经完成，具体功能以公开 Release 和实际应用为准。</p></div></header>
+<BaseLayout title="更新日志" description="查看纤云叙当前版本和已经可以使用的主要功能。">
+  <header class="page-hero"><div class="shell"><p class="eyebrow">更新日志</p><h1>当前版本，有这些功能。</h1><p>这里只记录已经发布、可以使用的功能。安装与使用问题请前往安装说明或常见问题。</p></div></header>
   <section class="section-compact"><div class="shell">
-    <article class="changelog-entry"><header><h2>{unreleasedMeta.title}</h2><ReleaseBadge channel="beta" version={null} /></header><div class="changelog-body"><Unreleased /></div></article>
-    <article class="changelog-entry"><header><h2>{currentMeta.title}</h2><ReleaseBadge channel={downloadManifest.channel} version={downloadManifest.version} /><time datetime={currentMeta.publishedAt}>{currentMeta.publishedAt}</time></header><div class="changelog-body"><Current /></div></article>
+    <article class="changelog-entry current-release"><header><h2>v{downloadManifest.version}</h2><ReleaseBadge channel={downloadManifest.channel} version={null} /><time datetime={downloadManifest.publishedAt ?? undefined}>{formatPublishedDate(downloadManifest.publishedAt)}</time></header><div class="changelog-body"><Current /></div></article>
   </div></section>
+  <section class="section-compact"><div class="shell cta-band"><div><h2>准备开始使用？</h2><p>选择你的系统，下载当前 Beta 版本。</p></div><div class="button-row"><SecondaryButton href={sitePath("/download/")}>前往下载</SecondaryButton><SecondaryButton href={sitePath("/faq/")}>常见问题</SecondaryButton></div></div></section>
 </BaseLayout>

@@ -6,7 +6,6 @@ import FeatureCard from "../components/FeatureCard.astro";
 import SectionHeading from "../components/SectionHeading.astro";
 import ScreenshotFrame from "../components/ScreenshotFrame.astro";
 import PrivacyPathCard from "../components/PrivacyPathCard.astro";
-import StatusNotice from "../components/StatusNotice.astro";
 import FAQItem from "../components/FAQItem.astro";
 import PrimaryButton from "../components/PrimaryButton.astro";
 import SecondaryButton from "../components/SecondaryButton.astro";
@@ -97,7 +96,7 @@ const windows = downloadManifest.platforms["windows-x64"];
   <section class="section" aria-labelledby="platforms-title">
     <div class="shell grid-2">
       <div>
-        <SectionHeading eyebrow="支持平台" title="Mac 和 Windows 都可以下载" description="目前提供 Apple Silicon 版 DMG 和 Windows x64 安装程序。两个版本仍处于 Beta 阶段，正式签名和更多系统兼容性还在完善。" />
+        <SectionHeading eyebrow="支持平台" title="Mac 和 Windows 都可以下载" description="目前提供 Apple Silicon 版 DMG 和 Windows x64 安装程序。选择你的系统，就可以开始使用。" />
         <h2 id="platforms-title" class="visually-hidden">平台支持状态</h2>
         <div class="hero-badges">
           <PlatformBadge tone="success">macOS Apple Silicon · Beta</PlatformBadge>
@@ -105,9 +104,9 @@ const windows = downloadManifest.platforms["windows-x64"];
           <PlatformBadge tone="success">Windows x64 · Beta</PlatformBadge>
         </div>
       </div>
-      <div class="notice-stack">
-        <StatusNotice tone="warning" title="macOS Beta 未经 Apple 公证">macOS 可能阻止首次打开，需要在“系统设置 → 隐私与安全性”中手动确认。不要关闭 Gatekeeper。</StatusNotice>
-        <StatusNotice tone="warning" title="Windows Beta 未代码签名">SmartScreen 可能提示未知发布者。请先核对下载来源和 SHA-256，不要全局关闭系统安全功能。</StatusNotice>
+      <div class="cta-band">
+        <div><h2>选择你的系统</h2><p>两个平台都有独立的下载文件和图文安装步骤。</p></div>
+        <div class="button-row"><PrimaryButton href={sitePath("/download/")}>立即下载</PrimaryButton><SecondaryButton href={sitePath("/install/")}>安装说明</SecondaryButton></div>
       </div>
     </div>
   </section>
@@ -141,9 +140,9 @@ const windows = downloadManifest.platforms["windows-x64"];
       <SectionHeading eyebrow="常见问题" title="安装前，你可能想确认这些" />
       <h2 id="faq-title" class="visually-hidden">常见问题摘要</h2>
       <div class="faq-list">
-        <FAQItem question="为什么 Mac 提示无法验证开发者？" open>因为当前 Beta 没有 Apple Developer ID，也没有经过 Apple 公证。请只从本官网或官方 GitHub Releases 下载，再按安装说明到系统设置中确认。</FAQItem>
+        <FAQItem question="Mac 和 Windows 都可以用吗？" open>可以下载 macOS Apple Silicon Beta 和 Windows x64 Beta。Intel Mac 暂不支持；Windows 10 x64 已完成实机验证。</FAQItem>
         <FAQItem question="用了本地识别，就完全不会联网吗？">不一定。本地识别只负责把语音变成文字；如果你开启云端 AI 整理，识别后的文字仍可能联网。</FAQItem>
-        <FAQItem question="Windows 可以用了吗？">Windows x64 Beta 已经可以下载。安装包目前没有代码签名；Windows 10 x64 已完成实机验证，Windows 11 x64 还需要进一步确认。</FAQItem>
+        <FAQItem question="为什么需要麦克风和辅助功能权限？">麦克风用于录音，辅助功能用于把整理好的文字写进你正在使用的应用。两项权限都可以在系统设置中管理。</FAQItem>
         <FAQItem question="输入失败后，文字还能找回来吗？">AI 整理失败时会尽量保留基础文本；写入失败时会尝试复制到剪贴板。最终结果请以应用当时的提示为准。</FAQItem>
       </div>
       <div style="margin-top: var(--space-5)"><SecondaryButton href={sitePath("/faq/")}>查看全部问题</SecondaryButton></div>

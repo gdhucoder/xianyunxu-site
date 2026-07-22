@@ -9,9 +9,9 @@ import { downloadManifest, formatBytes } from "../../data/downloadManifest";
 import { sitePath } from "../../lib/urls";
 const macos = downloadManifest.platforms["macos-arm64"];
 ---
-<BaseLayout title="macOS 安装说明" description="安全安装纤云叙 macOS Apple Silicon Beta：了解未使用 Developer ID、未经 Apple 公证时的首次打开和权限步骤。">
-  <header class="page-hero"><div class="shell"><p class="eyebrow">macOS 安装说明</p><h1>在 Mac 上安装，并完成第一次输入。</h1><p>当前 Beta 没有 Apple Developer ID，也没有经过 Apple 公证。请先了解这一限制，并只从本官网或官方 GitHub Releases 下载。</p></div></header>
-  <section class="section-compact"><div class="shell"><StatusNotice tone="warning" title="请不要降低整台 Mac 的安全设置">不需要关闭 Gatekeeper，不要运行 <code>sudo spctl --master-disable</code>，也不要执行来源不明的终端命令。只为本次下载的纤云叙进行单次手动确认。</StatusNotice></div></section>
+<BaseLayout title="macOS 安装说明" description="安装纤云叙 macOS Apple Silicon Beta：完成下载、首次打开、麦克风和辅助功能授权。">
+  <header class="page-hero"><div class="shell"><p class="eyebrow">macOS 安装说明</p><h1>在 Mac 上安装，并完成第一次输入。</h1><p>下载 Apple Silicon 版 DMG，拖入“应用程序”，再跟着页面完成首次打开和两项必要权限。</p></div></header>
+  <section class="section-compact"><div class="shell"><StatusNotice title="按照系统步骤确认即可">不需要修改整台 Mac 的安全设置，也不需要运行终端命令。遇到提示时，请继续查看本页对应步骤。</StatusNotice></div></section>
 
   <section class="section section-tinted"><div class="shell">
     <SectionHeading eyebrow="快速安装" title="四步完成" description="如果你熟悉 macOS，按下面四步操作即可；遇到提示不一致时，再查看后面的详细说明。" />
@@ -65,7 +65,7 @@ const macos = downloadManifest.platforms["macos-arm64"];
         <div><dt>支持机型</dt><dd>Apple Silicon</dd></div>
         <div><dt>最低系统</dt><dd>{macos.minimumOsVersion}</dd></div>
         <div><dt>安装包大小</dt><dd>{formatBytes(macos.sizeBytes)}</dd></div>
-        <div><dt>签名状态</dt><dd>固定自签名 · 未公证</dd></div>
+        <div><dt>发布渠道</dt><dd>Beta</dd></div>
       </dl>
       <nav class="install-toc" aria-label="本页步骤">
         <strong>本页步骤</strong>

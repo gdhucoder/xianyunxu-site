@@ -12,7 +12,7 @@ const windows = downloadManifest.platforms["windows-x64"];
 ---
 
 <BaseLayout title="安装说明" description="选择 macOS Apple Silicon 或 Windows x64，安全安装纤云叙 Beta。">
-  <header class="page-hero"><div class="shell"><p class="eyebrow">安装说明</p><h1>选择你的系统，按步骤安装。</h1><p>Mac 和 Windows 版本目前都是 Beta，安装时可能会看到不同的安全提示。请只从本官网或官方 GitHub Releases 下载。</p></div></header>
+  <header class="page-hero"><div class="shell"><p class="eyebrow">安装说明</p><h1>选择你的系统，按步骤安装。</h1><p>Mac 和 Windows 版本目前都是 Beta。选择对应平台后，跟着页面完成下载、安装、权限授权和第一次输入。</p></div></header>
   <section class="section-compact section-tinted"><div class="shell">
     <SectionHeading eyebrow="开始之前" title="先确认三件事" description="花一分钟核对系统、下载来源和校验值，可以避开大多数安装问题。" />
     <div class="grid-3 install-prerequisites">
@@ -25,15 +25,15 @@ const windows = downloadManifest.platforms["windows-x64"];
     <article class="feature-card">
       <PlatformBadge tone="brand">{macos.architecture}</PlatformBadge>
       <h2 style="margin-top: var(--space-5)">macOS Apple Silicon</h2>
-      <p>当前使用固定自签名，尚未经过 Apple 公证。第一次打开时，可能需要到“隐私与安全性”中手动确认，再授权麦克风和辅助功能。</p>
+      <p>下载 DMG 并拖入“应用程序”，再按页面引导完成第一次打开、麦克风和辅助功能授权。</p>
       <div style="margin-top: var(--space-5)"><SecondaryButton href={sitePath("/install/macos/")}>查看 macOS 步骤</SecondaryButton></div>
     </article>
     <article class="feature-card">
       <PlatformBadge tone="brand">{windows.architecture}</PlatformBadge>
       <h2 style="margin-top: var(--space-5)">Windows x64</h2>
-      <p>安装包目前没有代码签名，SmartScreen 可能提示未知发布者。Windows 10 x64 已完成实机验证；Windows 11 x64 还需要进一步确认。</p>
+      <p>下载安装程序后，按页面引导完成系统确认、麦克风设置、本地模型安装和第一次输入。</p>
       <div style="margin-top: var(--space-5)"><SecondaryButton href={sitePath("/install/windows/")}>查看 Windows 步骤</SecondaryButton></div>
     </article>
   </div></section>
-  <section class="section-compact"><div class="shell"><StatusNotice tone="warning" title="不要为了安装而关闭整机安全功能">无论使用哪个平台，都不要关闭 Gatekeeper、SmartScreen、防病毒软件或其他系统安全策略。遇到提示时，请按对应平台的安装说明进行单次确认。</StatusNotice></div></section>
+  <section class="section-compact"><div class="shell"><StatusNotice title="安装遇到问题？">对应平台的安装页列出了常见系统提示和处理方法。无需修改整台电脑的安全设置。</StatusNotice></div></section>
 </BaseLayout>

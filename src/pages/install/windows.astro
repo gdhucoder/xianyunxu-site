@@ -10,14 +10,14 @@ import { sitePath } from "../../lib/urls";
 const windows = downloadManifest.platforms["windows-x64"];
 ---
 
-<BaseLayout title="Windows 安装说明" description="安全安装纤云叙 Windows x64 Beta：核对校验值、处理 SmartScreen 提示、授权麦克风并完成测试输入。">
-  <header class="page-hero"><div class="shell"><p class="eyebrow">Windows 安装说明</p><h1>在 Windows 上安装，并完成第一次输入。</h1><p>当前 x64 Beta 还没有 Windows 代码签名，SmartScreen 可能提示未知发布者。请先了解这一限制，并只从本官网或官方 GitHub Releases 下载。</p></div></header>
-  <section class="section-compact"><div class="shell"><StatusNotice tone="warning" title="请不要关闭 Windows 安全功能">不要全局关闭 SmartScreen、Windows 安全中心或防病毒软件。只有在下载来源和 SHA-256 均匹配时，才考虑继续运行当前测试安装包。</StatusNotice></div></section>
+<BaseLayout title="Windows 安装说明" description="安装纤云叙 Windows x64 Beta：完成下载、文件校验、麦克风设置和第一次输入。">
+  <header class="page-hero"><div class="shell"><p class="eyebrow">Windows 安装说明</p><h1>在 Windows 上安装，并完成第一次输入。</h1><p>下载 Windows x64 安装程序，核对文件后，跟着页面完成安装、麦克风设置和第一次输入。</p></div></header>
+  <section class="section-compact"><div class="shell"><StatusNotice title="按照系统步骤确认即可">不需要关闭 Windows 安全中心或防病毒软件。遇到系统提示时，请继续查看本页对应步骤。</StatusNotice></div></section>
   <section class="section"><div class="shell grid-2">
     <ol class="install-steps">
       <li><h2>下载安装程序</h2><p>从本页下载 <code>{windows.fileName}</code>，确认来源域名是 GitHub Releases。</p></li>
       <li><h2>核对 SHA-256</h2><p>从下载页复制校验值，再用 Windows 文件校验工具或 PowerShell 的 <code>Get-FileHash</code> 核对。两边不一致时，请不要运行安装程序。</p></li>
-      <li><h2>打开安装程序</h2><p>双击下载好的文件。因为安装包还没有 Windows 代码签名，系统可能会提示未知发布者。</p></li>
+      <li><h2>打开安装程序</h2><p>双击下载好的文件。如果系统显示运行确认，请先核对文件来源，再继续下一步。</p></li>
       <li><h2>阅读 SmartScreen 提示</h2><p>只有在来源和校验值均正确时，才选择查看详细信息并继续。不要为了安装而永久关闭 SmartScreen。</p></li>
       <li><h2>完成安装</h2><p>按照安装程序的提示继续即可。不要从第三方下载站获取别人重新打包的版本。</p></li>
       <li><h2>首次启动</h2><p>从开始菜单打开纤云叙。如果系统要求 WebView2 运行环境，请只使用 Microsoft 官方来源完成安装。</p></li>

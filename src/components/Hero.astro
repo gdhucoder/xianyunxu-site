@@ -21,8 +21,7 @@ const { macos, windows } = Astro.props;
         <SecondaryButton href={sitePath("/install/")}>查看安装说明</SecondaryButton>
       </div>
       <div class="hero-badges" aria-label="当前发布状态">
-        <PlatformBadge tone={macos.status === "available" ? "brand" : "neutral"}>macOS Apple Silicon</PlatformBadge>
-        <PlatformBadge tone="warning">Beta · 未经 Apple 公证</PlatformBadge>
+        <PlatformBadge tone={macos.status === "available" ? "brand" : "neutral"}>macOS Apple Silicon · Beta</PlatformBadge>
         <PlatformBadge tone={windows.status === "available" ? "success" : "neutral"}>Windows x64 · Beta</PlatformBadge>
       </div>
     </div>

@@ -18,6 +18,7 @@
     "test": "node --test scripts/*.test.mjs",
     "validate:downloads": "node scripts/validate-download-manifest.mjs",
     "update:downloads": "node scripts/update-download-manifest.mjs",
+    "sync:release": "node scripts/sync-latest-release.mjs",
     "validate:stats": "node scripts/validate-download-stats.mjs",
     "update:stats": "node scripts/update-download-stats.mjs --force"
   },

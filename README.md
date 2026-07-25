@@ -43,11 +43,11 @@ http://localhost:4321/xianyunxu-site/
 
 ## 内容维护
 
-- 下载版本只修改 `src/data/download-manifest.json`；
+- 当前下载版本和简洁更新摘要每 6 小时从公开 Latest Release 自动同步；
 - 下载次数由 GitHub Actions 每天检查，并在满 5 天后更新 `src/data/download-stats.json`；
 - 发布前必须运行 manifest 校验、类型检查、静态构建和站内链接检查；
 - 产品截图需经过 `docs/screenshot-guidelines.md` 的隐私检查；
-- 更新日志由 `src/content/changelog/` 下的 Markdown 文件管理；
+- 当前更新日志由自动同步生成，其他长期内容仍在 `src/content/changelog/` 中管理；
 - `dist/` 不提交 Git。
 
 详见：
@@ -59,7 +59,7 @@ http://localhost:4321/xianyunxu-site/
 
 ## 发布状态
 
-当前官网开放 macOS Apple Silicon 与 Windows x64 `0.1.5` Beta。macOS 安装包没有 Apple Developer ID、未经 Apple 公证；Windows 安装包未使用代码签名。Windows 10 x64 已实机验证，Windows 11 x64 需要进一步确认。
+当前官网开放 macOS Apple Silicon 与 Windows x64 Beta，具体版本由公开 Latest Release 自动同步。安装与系统提示说明以官网常见问题为准。
 
 ## License
 

@@ -3,11 +3,11 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import ReleaseBadge from "../components/ReleaseBadge.astro";
 import SecondaryButton from "../components/SecondaryButton.astro";
 import { downloadManifest, formatPublishedDate } from "../data/downloadManifest";
-import Current from "../content/changelog/v0.1.5.md";
+import Current from "../content/changelog/current.md";
 import { sitePath } from "../lib/urls";
 ---
 <BaseLayout title="更新日志" description="查看纤云叙当前版本和已经可以使用的主要功能。">
-  <header class="page-hero"><div class="shell"><p class="eyebrow">更新日志</p><h1>当前版本，有这些功能。</h1><p>这里只记录已经发布、可以使用的功能。安装与使用问题请前往安装说明或常见问题。</p></div></header>
+  <header class="page-hero"><div class="shell"><p class="eyebrow">更新日志</p><h1>当前版本，有这些更新。</h1><p>这里简要记录当前版本新增和调整的功能。安装与使用问题请前往安装说明或常见问题。</p></div></header>
   <section class="section-compact"><div class="shell">
     <article class="changelog-entry current-release"><header><h2>v{downloadManifest.version}</h2><ReleaseBadge channel={downloadManifest.channel} version={null} /><time datetime={downloadManifest.publishedAt ?? undefined}>{formatPublishedDate(downloadManifest.publishedAt)}</time></header><div class="changelog-body"><Current /></div></article>
   </div></section>

@@ -11,7 +11,20 @@
 
 `scripts/validate-download-manifest.mjs` 在 `check` 和 `build` 前运行。校验会拒绝 Markdown 链接、非 `xianyun-releases` 的下载源、缺失 SHA-256，以及在非 available 状态下残留的下载字段。
 
-## 安全更新脚本
+## 自动同步
+
+`.github/workflows/sync-latest-release.yml` 每 6 小时读取一次 `gdhucoder/xianyun-releases` 的公开 Latest Release。同步只在同时满足以下条件时写入：
+
+- Release 已正式发布，且不是 prerelease；
+- 标签符合 `v<semver>`；
+- macOS DMG 与 Windows Setup EXE 各有且只有一个；
+- 文件名中的版本和 Release 标签一致；
+- GitHub Asset 元数据包含 SHA-256 digest；
+- Release Notes 含有带项目符号的 `## 本次更新` 小节。
+
+流程会同时更新下载 manifest 和当前版本的简洁更新摘要，完整验证通过后才提交 `main`。浏览器访问官网时不会实时调用 GitHub API。
+
+## 手动维护脚本
 
 示例：
 
@@ -28,6 +41,4 @@ pnpm update:downloads -- \
   --sha256=<64-lowercase-hex>
 ```
 
-脚本只修改当前仓库的本地 JSON，不调用 GitHub API，不修改发布仓库，也不下载资产。写入前会再次校验。
-
-Windows x64 已于 `0.1.5` 开放为 `available`。Release 元数据与实际下载文件均已核对：文件大小 `5,208,405` bytes，SHA-256 为 `0111210bd1bd1629fb6ab7ba38bc2f17712f9ef22ee190e2948599625d1f4d19`。后续版本仍必须通过同样的不可变元数据校验后才能更新。
+该脚本保留用于临时修正单个平台状态，只修改当前仓库的本地 JSON，不修改发布仓库，也不下载资产。正常发版应优先使用自动同步，后续版本必须通过相同的不可变元数据校验。

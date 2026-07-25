@@ -33,17 +33,16 @@ Repository → Settings → Pages → Build and deployment → Source → GitHub
 
 ## 更新发布版本
 
-1. 在 `xianyun-releases` 创建并人工验证新的公开 Release；
-2. 记录安装包 URL、文件名、字节大小和 SHA-256；
-3. 使用 `pnpm update:downloads -- --platform=...` 或人工修改 manifest；
-4. 运行 `pnpm validate:downloads`；
-5. 更新 Markdown changelog；
-6. 执行完整本地验证；
-7. 提交并推送 `main`；
-8. 等待 CI 与 Pages 工作流通过；
-9. 使用无登录浏览器验证下载 URL 和主要页面。
+1. 在 `xianyun-releases` 创建并人工验证新的正式 Release；
+2. Release 标签使用 `v<semver>`，同时上传唯一的 macOS ARM64 DMG 和 Windows x64 Setup EXE；
+3. 两个安装包必须带有 GitHub Release Asset 的 SHA-256 digest；
+4. Release Notes 必须包含 `## 本次更新`，该小节只写面向用户的功能条目；
+5. 安装限制、安全提示和排障内容继续放在官网常见问题，不写入“本次更新”；
+6. `.github/workflows/sync-latest-release.yml` 每 6 小时读取公开 Latest Release；
+7. 流程自动更新 `download-manifest.json` 和 `current.md`，验证网站后提交 `main`；
+8. `main` 更新会触发 GitHub Pages 重新部署。
 
-不要从浏览器运行时调用 GitHub API，也不要把 `latest.json` 当作官网内容源。Tauri Updater 与官网 manifest 的生命周期和 Schema 完全独立。
+同步过程只在 GitHub Actions 构建时调用公开 GitHub API，用户打开网页时不会请求 GitHub API。官网不读取 Tauri 的 `latest.json`，两套清单继续保持独立。需要立即同步时，可手动运行 `Sync latest app release` 工作流，或在本地执行 `pnpm sync:release`。
 
 ## 下载统计
 

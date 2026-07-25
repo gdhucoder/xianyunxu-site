@@ -29,9 +29,10 @@ test("non-available platforms cannot expose a download", () => {
 test("the Windows release exposes verified immutable metadata", () => {
   const windows = source.platforms["windows-x64"];
   assert.equal(windows.status, "available");
-  assert.equal(windows.fileName, "XianYunAIVoiceInput_0.1.5_x64-setup.exe");
-  assert.equal(windows.sizeBytes, 5208405);
-  assert.equal(windows.sha256, "0111210bd1bd1629fb6ab7ba38bc2f17712f9ef22ee190e2948599625d1f4d19");
+  assert.equal(windows.fileName, `XianYunAIVoiceInput_${source.version}_x64-setup.exe`);
+  assert.match(windows.downloadUrl, new RegExp(`/releases/download/v${source.version}/`));
+  assert.ok(windows.sizeBytes > 1_000_000);
+  assert.match(windows.sha256, /^[a-f0-9]{64}$/);
 });
 
 test("the official English product capitalization is enforced", () => {

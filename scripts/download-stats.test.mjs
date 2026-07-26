@@ -46,13 +46,24 @@ test("appends a compact cumulative snapshot", () => {
     releases,
     previous: { snapshots: [{ capturedAt: "2026-07-01T00:00:00Z", macosInstallerDownloads: 1 }] },
     generatedAt: "2026-07-21T00:00:00Z",
-    intervalDays: 5,
+    intervalDays: 1,
   });
   assert.equal(stats.snapshots.length, 2);
   assert.equal(stats.snapshots[1]?.windowsPackageDownloads, 3);
 });
 
+test("keeps only the latest snapshot from the same UTC day", () => {
+  const stats = buildDownloadStats({
+    releases,
+    previous: { snapshots: [{ capturedAt: "2026-07-21T00:15:00Z", windowsPackageDownloads: 1 }] },
+    generatedAt: "2026-07-21T22:30:00Z",
+  });
+  assert.equal(stats.snapshots.length, 1);
+  assert.equal(stats.snapshots[0]?.capturedAt, "2026-07-21T22:30:00Z");
+  assert.equal(stats.snapshots[0]?.windowsPackageDownloads, 3);
+});
+
 test("requires the complete configured interval before collecting again", () => {
-  assert.equal(isCollectionDue("2026-07-01T00:00:00Z", "2026-07-05T23:59:59Z", 5), false);
-  assert.equal(isCollectionDue("2026-07-01T00:00:00Z", "2026-07-06T00:00:00Z", 5), true);
+  assert.equal(isCollectionDue("2026-07-01T00:00:00Z", "2026-07-01T23:59:59Z", 1), false);
+  assert.equal(isCollectionDue("2026-07-01T00:00:00Z", "2026-07-02T00:00:00Z", 1), true);
 });

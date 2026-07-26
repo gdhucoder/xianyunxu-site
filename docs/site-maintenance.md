@@ -47,7 +47,7 @@ Repository → Settings → Pages → Build and deployment → Source → GitHub
 ## 下载统计
 
 - `src/data/download-stats.json` 是官网读取的静态下载统计快照；
-- `.github/workflows/update-download-stats.yml` 每天检查一次，距离上次快照满 5 天时才会更新并提交；
+- `.github/workflows/update-download-stats.yml` 每天生成一次累计快照并提交；
 - 手动运行工作流默认会强制刷新；本地可执行 `pnpm update:stats`；
 - 数据来自公开仓库 `gdhucoder/xianyun-releases` 的 Release Asset `download_count`；
 - DMG、Windows 安装包、可单独识别的更新包和模型权重分别计算；签名、校验文件、说明文档和运行时不计入模型下载；

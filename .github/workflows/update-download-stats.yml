@@ -2,13 +2,12 @@ name: Refresh download statistics
 
 on:
   schedule:
-    # GitHub cron cannot express an exact interval across month boundaries.
-    # Run a lightweight daily check and write a snapshot only when five full days have elapsed.
+    # Collect one cumulative snapshot every day at 10:17 China Standard Time.
     - cron: "17 2 * * *"
   workflow_dispatch:
     inputs:
       force:
-        description: Refresh now even if five days have not elapsed
+        description: Refresh now even if today's snapshot already exists
         type: boolean
         default: true
 
@@ -32,9 +31,9 @@ jobs:
       - name: Collect public release download counts
         run: |
           if [[ "${{ github.event_name }}" == "workflow_dispatch" && "${{ inputs.force }}" == "true" ]]; then
-            node scripts/update-download-stats.mjs --force --if-due-days 5
+            node scripts/update-download-stats.mjs --force --if-due-days 1
           else
-            node scripts/update-download-stats.mjs --if-due-days 5
+            node scripts/update-download-stats.mjs --force --if-due-days 1
           fi
       - name: Validate statistics snapshot
         run: node scripts/validate-download-stats.mjs

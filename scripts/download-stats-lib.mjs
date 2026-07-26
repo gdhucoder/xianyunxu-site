@@ -100,12 +100,15 @@ export function summarizeReleases(releases) {
 /**
  * @param {{ releases: GitHubRelease[], previous?: { snapshots?: Array<Record<string, unknown>> } | null, generatedAt: string, intervalDays?: number }} input
  */
-export function buildDownloadStats({ releases, previous, generatedAt, intervalDays = 5 }) {
+export function buildDownloadStats({ releases, previous, generatedAt, intervalDays = 1 }) {
   const summary = summarizeReleases(releases);
   const snapshots = Array.isArray(previous?.snapshots) ? [...previous.snapshots] : [];
   const snapshot = { capturedAt: generatedAt, ...summary.totals };
+  const latestCapturedAt = snapshots.at(-1)?.capturedAt;
 
-  if (snapshots.at(-1)?.capturedAt === generatedAt) snapshots[snapshots.length - 1] = snapshot;
+  if (typeof latestCapturedAt === "string" && latestCapturedAt.slice(0, 10) === generatedAt.slice(0, 10)) {
+    snapshots[snapshots.length - 1] = snapshot;
+  }
   else snapshots.push(snapshot);
 
   return {

@@ -6,7 +6,7 @@ const outputPath = fileURLToPath(new URL("../src/data/download-stats.json", impo
 const args = process.argv.slice(2);
 const force = args.includes("--force");
 const dueIndex = args.indexOf("--if-due-days");
-const intervalDays = dueIndex >= 0 ? Number.parseInt(args[dueIndex + 1] ?? "5", 10) : 5;
+const intervalDays = dueIndex >= 0 ? Number.parseInt(args[dueIndex + 1] ?? "1", 10) : 1;
 
 if (!Number.isInteger(intervalDays) || intervalDays < 1) {
   throw new Error("--if-due-days must be a positive integer");

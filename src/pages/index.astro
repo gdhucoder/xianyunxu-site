@@ -24,7 +24,7 @@ const totalDownloads = downloadStats.totals.appPackageDownloads + downloadStats.
 
   <section class="section-compact" aria-labelledby="workflow-title">
     <div class="shell">
-      <SectionHeading eyebrow="使用流程" title="从开口到写入，只要四步" description="从录音到写入，进度都会显示。哪一步出了问题、文字有没有保住，也会告诉你。" />
+      <SectionHeading eyebrow="怎么用" title="按下快捷键，说完就行" description="录音、识别、整理和写入都会显示进度。中途出了问题，也能看到文字有没有保住。" />
       <h2 id="workflow-title" class="visually-hidden">语音输入的四个步骤</h2>
       <WorkflowSteps />
     </div>
@@ -32,24 +32,24 @@ const totalDownloads = downloadStats.totals.appPackageDownloads + downloadStats.
 
   <section class="section section-tinted" aria-labelledby="values-title">
     <div class="shell">
-      <SectionHeading eyebrow="为什么用纤云叙" title="少一点切换，多一点专注" description="它不做聊天，也不做会议纪要。你在哪儿输入，它就把说的话整理后写到哪儿。" />
+      <SectionHeading eyebrow="用起来" title="不用先打开另一个窗口" description="写邮件也好，回消息也好，光标停在哪里，就在那里开始说。" />
       <h2 id="values-title" class="visually-hidden">三项核心价值</h2>
       <div class="grid-3">
-        <FeatureCard index="01" title="随处输入">按下全局快捷键，就能在常用的办公、沟通和写作软件里开始口述。少数应用的兼容性可能有所不同。</FeatureCard>
-        <FeatureCard index="02" title="忠实整理">去掉明显的重复、停顿和口头语，顺一顺标点和句子，同时尽量保留原意、事实、数字和表达重点。</FeatureCard>
-        <FeatureCard index="03" title="本地可选">需要时可以改用本地语音识别。音频在哪里识别、文字是否会交给云端整理，应用都会说明。</FeatureCard>
+        <FeatureCard index="01" title="光标在哪，就写到哪">按下快捷键，在常用的办公、沟通和写作软件里直接说。个别应用可能会有兼容差异。</FeatureCard>
+        <FeatureCard index="02" title="还是你原来的意思">它会去掉明显的重复和口头语，顺一顺标点，但不该替你改事实、数字和观点。</FeatureCard>
+        <FeatureCard index="03" title="想用本地识别，也可以">本地模型可以单独安装。语音在哪儿识别、文字会不会交给云端整理，设置里都能看到。</FeatureCard>
       </div>
     </div>
   </section>
 
   <section class="section" aria-labelledby="screenshots-title">
     <div class="shell">
-      <SectionHeading eyebrow="真实界面" title="现在的纤云叙，实际用起来是这样" description="以下截图来自 macOS 0.1.5 安装版。画面只保留公开测试内容，不包含密钥、私人路径或真实办公文字。" />
+      <SectionHeading eyebrow="现在的样子" title="打开以后，你会看到这些" description="下面都是实际运行截图。示例文字经过处理，不含密钥、私人路径或真实办公内容。" />
       <h2 id="screenshots-title" class="visually-hidden">产品截图</h2>
       <div class="screenshot-featured">
         <ScreenshotFrame
           title="运行准备与系统权限"
-          description="快捷键、麦克风、识别方式、AI 整理和系统权限，都可以在首页查看。"
+          description="快捷键、麦克风、识别方式、文字整理和系统权限，都放在首页。"
           imageBase="home-dashboard-macos"
           alt="纤云叙 macOS 首页，显示运行准备、快捷键、本地识别和系统权限状态"
           aspect="window"
@@ -58,13 +58,13 @@ const totalDownloads = downloadStats.totals.appPackageDownloads + downloadStats.
       <div class="grid-2">
         <ScreenshotFrame
           title="最近的输入记录"
-          description="可以按关键词、日期、整理方式和任务结果查找记录。截图中只用了公开测试句。"
+          description="按关键词、日期和任务结果找回最近的输入。截图里只放了测试文字。"
           imageBase="history-sanitized-macos"
           alt="纤云叙历史记录页，筛选后只显示一条公开测试记录"
         />
         <ScreenshotFrame
           title="本地模型管理"
-          description="SenseVoiceSmall 的安装、校验和预加载状态都集中在这里，也会说明哪些步骤可能联网。"
+          description="SenseVoiceSmall 的下载、校验和加载状态都在这里，需要联网的地方也会说明。"
           imageBase="local-model-macos"
           alt="纤云叙设置页中的 SenseVoiceSmall 本地模型状态和隐私说明"
         />
@@ -84,7 +84,7 @@ const totalDownloads = downloadStats.totals.appPackageDownloads + downloadStats.
 
   <section class="section section-tinted" aria-labelledby="paths-title">
     <div class="shell">
-      <SectionHeading eyebrow="本地与云端" title="哪些留在本机，哪些会联网" description="“本地识别”只表示语音在电脑上完成识别。如果同时开启云端 AI 整理，识别后的文字仍会发送给你配置的服务。" />
+      <SectionHeading eyebrow="数据去向" title="语音在哪识别，文字会不会联网" description="用本地识别时，语音留在电脑上。如果又打开了云端文字整理，识别后的文字还是会发给你选的服务。" />
       <h2 id="paths-title" class="visually-hidden">本地与云端的数据去向</h2>
       <div class="grid-3">
         <PrivacyPathCard title="本地识别 · 不用 AI 整理" path="语音 → 本机识别 → 基础整理 → 写入" tone="local">识别时不需要把语音发到云端。本地模型由你主动下载安装。</PrivacyPathCard>
@@ -98,7 +98,7 @@ const totalDownloads = downloadStats.totals.appPackageDownloads + downloadStats.
   <section class="section" aria-labelledby="platforms-title">
     <div class="shell grid-2">
       <div>
-        <SectionHeading eyebrow="支持平台" title="Mac 和 Windows 都可以下载" description="目前提供 Apple Silicon 版 DMG 和 Windows x64 安装程序。选择你的系统，就可以开始使用。" />
+        <SectionHeading eyebrow="支持平台" title="Mac 和 Windows 都能用" description="目前有 Apple Silicon 版和 Windows x64 版。选对系统，下载对应安装包就行。" />
         <h2 id="platforms-title" class="visually-hidden">平台支持状态</h2>
         <div class="hero-badges">
           <PlatformBadge tone="success">macOS Apple Silicon · Beta</PlatformBadge>
@@ -107,7 +107,7 @@ const totalDownloads = downloadStats.totals.appPackageDownloads + downloadStats.
         </div>
       </div>
       <div class="cta-band">
-        <div><h2>选择你的系统</h2><p>两个平台都有独立的下载文件和图文安装步骤。</p></div>
+        <div><h2>你用哪台电脑？</h2><p>Mac 和 Windows 都准备了单独的安装包与安装步骤。</p></div>
         <div class="button-row"><PrimaryButton href={sitePath("/download/")}>立即下载</PrimaryButton><SecondaryButton href={sitePath("/install/")}>安装说明</SecondaryButton></div>
       </div>
     </div>
@@ -116,12 +116,12 @@ const totalDownloads = downloadStats.totals.appPackageDownloads + downloadStats.
   <section class="section section-tinted" aria-labelledby="privacy-title">
     <div class="shell grid-2">
       <div>
-        <SectionHeading eyebrow="隐私设置" title="保存多少、要不要联网，都由你选" description="历史记录可以只存统计，也可以完全关闭；本地模型只会在你点击安装后下载。官网不使用 Cookie 分析、广告或营销追踪。" />
+        <SectionHeading eyebrow="你可以自己定" title="历史要不要留，云端整理要不要开" description="历史可以只留统计，也可以完全关闭。本地模型只有在你点击安装后才会下载。" />
         <h2 id="privacy-title" class="visually-hidden">隐私与透明性</h2>
       </div>
       <div class="prose">
-        <p><strong>默认设置：</strong>只保存使用统计，保留 30 天，并自动删除临时音频。请以应用内的实际设置为准。</p>
-        <p><strong>出错时：</strong>AI 整理失败会尽量保留基础文本；写入失败时会尝试复制到剪贴板。</p>
+        <p><strong>刚装好时：</strong>只保存使用统计，保留 30 天，并自动删除临时音频。具体设置可以随时在应用里改。</p>
+        <p><strong>如果出错：</strong>文字整理失败会退回基础文本；写不进输入框时，会尝试复制到剪贴板。</p>
         <p><a href={sitePath("/privacy/")}>看看数据会去哪里</a></p>
       </div>
     </div>
@@ -129,7 +129,7 @@ const totalDownloads = downloadStats.totals.appPackageDownloads + downloadStats.
 
   <section class="section" aria-labelledby="download-cta-title">
     <div class="shell cta-band">
-      <div><h2 id="download-cta-title">下载适合你电脑的版本</h2><p>macOS Apple Silicon 和 Windows x64 都有单独的安装包与安装说明。</p></div>
+      <div><h2 id="download-cta-title">选好系统，就可以下载</h2><p>Mac 和 Windows 都有单独的安装包，第一次安装也准备了详细步骤。</p></div>
       <div class="button-row">
         <PrimaryButton href={sitePath("/download/")}>前往下载中心</PrimaryButton>
         <SecondaryButton href={sitePath("/install/")}>安装说明</SecondaryButton>
@@ -139,7 +139,7 @@ const totalDownloads = downloadStats.totals.appPackageDownloads + downloadStats.
 
   <section class="section section-tinted" aria-labelledby="faq-title">
     <div class="shell">
-      <SectionHeading eyebrow="常见问题" title="安装前，你可能想确认这些" />
+      <SectionHeading eyebrow="常见问题" title="几个大家经常会问的问题" />
       <h2 id="faq-title" class="visually-hidden">常见问题摘要</h2>
       <div class="faq-list">
         <FAQItem question="Mac 和 Windows 都可以用吗？" open>可以下载 macOS Apple Silicon Beta 和 Windows x64 Beta。Intel Mac 暂不支持；Windows 10 x64 已完成实机验证。</FAQItem>

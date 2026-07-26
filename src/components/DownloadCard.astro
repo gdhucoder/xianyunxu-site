@@ -31,7 +31,7 @@ const isMac = platformId === "macos-arm64";
         <PrimaryButton href={platform.downloadUrl} external>下载 {isMac ? "macOS" : "Windows"} Beta</PrimaryButton>
         {platform.installGuideUrl && <SecondaryButton href={sitePath(platform.installGuideUrl)}>安装说明</SecondaryButton>}
       </div>
-      <p class="card-note">请只从本官网或 GitHub Releases 下载，并在安装前核对文件名和 SHA-256。</p>
+      <p class="card-note">下载后可以对照文件名和 SHA-256，确认拿到的是这一版安装包。</p>
     </>
   ) : (
     <>

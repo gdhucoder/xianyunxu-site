@@ -11,10 +11,10 @@ const windows = downloadManifest.platforms["windows-x64"];
 const model = downloadManifest.models["sensevoice-small"];
 ---
 <BaseLayout title="下载" description="下载纤云叙 macOS Apple Silicon 与 Windows x64 Beta，查看版本、文件大小和安装包校验值。">
-  <header class="page-hero"><div class="shell"><p class="eyebrow">下载</p><h1>选择你的系统，下载对应版本。</h1><p>Mac 和 Windows 版本目前都是 Beta。安装包只通过本官网和公开的 GitHub Releases 提供。</p></div></header>
+  <header class="page-hero"><div class="shell"><p class="eyebrow">下载</p><h1>选好系统，就可以下载了。</h1><p>Mac 和 Windows 目前都有 Beta 版本。这里的按钮会直接带你到公开的 GitHub Releases。</p></div></header>
   <section class="section-compact"><div class="shell">
     <div class="metadata-strip" aria-label="当前发布信息">
-      <span>渠道：Beta</span><span>版本：v{downloadManifest.version}</span><span>发布日期：{formatPublishedDate(downloadManifest.publishedAt)}</span><span>发布信息自动同步自 GitHub Releases</span>
+      <span>Beta 版本</span><span>v{downloadManifest.version}</span><span>{formatPublishedDate(downloadManifest.publishedAt)}发布</span><span>版本信息来自 GitHub Releases</span>
     </div>
   </div></section>
   <section class="section"><div class="shell">
@@ -24,7 +24,7 @@ const model = downloadManifest.models["sensevoice-small"];
     </div>
   </div></section>
   <section class="section"><div class="shell">
-    <SectionHeading eyebrow="文件校验" title="下载后，可以核对一下文件" description="下面的 SHA-256 已和 GitHub Release 中的原文件核对。它可以帮助确认文件是否完整，但不代表 Apple 或 Microsoft 已经验证这款应用。" />
+    <SectionHeading eyebrow="文件校验" title="想确认文件没下错，可以对照这里" description="文件名、大小和 SHA-256 都来自对应的 GitHub Release，可以用来检查下载是否完整。" />
     <div class="grid-2">
       <div><h3 style="margin-bottom: var(--space-3)">macOS Apple Silicon</h3><dl class="checksum"><dt>文件名</dt><dd>{macos.fileName}</dd><dt style="margin-top: var(--space-3)">SHA-256</dt><dd>{macos.sha256}</dd></dl></div>
       <div><h3 style="margin-bottom: var(--space-3)">Windows x64</h3><dl class="checksum"><dt>文件名</dt><dd>{windows.fileName}</dd><dt style="margin-top: var(--space-3)">SHA-256</dt><dd>{windows.sha256}</dd></dl></div>
@@ -33,8 +33,8 @@ const model = downloadManifest.models["sensevoice-small"];
   </div></section>
   <section class="section section-tinted"><div class="shell grid-2">
     <div>
-      <SectionHeading eyebrow="本地语音识别" title="模型需要在应用里单独安装" description={`SenseVoiceSmall q8 约 ${formatBytes(model.sizeBytes)}，没有包含在 ${formatBytes(macos.sizeBytes)} 的 DMG 里。`} />
-      <p class="prose">只有在你点击安装后，应用才会下载并校验模型。本地识别只负责把语音变成文字；如果开启云端 AI 整理，文字仍可能联网。</p>
+      <SectionHeading eyebrow="本地语音识别" title="第一次使用时，再下载本地模型" description={`SenseVoiceSmall q8 约 ${formatBytes(model.sizeBytes)}，没有塞进 ${formatBytes(macos.sizeBytes)} 的安装包里。`} />
+      <p class="prose">你点击安装后，应用才会开始下载并校验。语音可以留在本机识别；如果打开云端文字整理，识别后的文字仍会联网。</p>
     </div>
     <div class="button-row">
       <SecondaryButton href={model.platformReleaseUrls["macos-arm64"]} external>macOS 模型说明</SecondaryButton>
@@ -42,7 +42,7 @@ const model = downloadManifest.models["sensevoice-small"];
       <SecondaryButton href={downloadManifest.releasePageUrl} external>查看 v{downloadManifest.version} Release Notes</SecondaryButton>
     </div>
   </div></section>
-  <section class="section-compact"><div class="shell cta-band"><div><h2>第一次安装？</h2><p>macOS 与 Windows 的系统提示不同，请先阅读对应平台说明。</p></div><SecondaryButton href={sitePath("/install/")}>打开安装说明</SecondaryButton></div></section>
+  <section class="section-compact"><div class="shell cta-band"><div><h2>第一次装？先看两分钟说明</h2><p>Mac 和 Windows 的步骤不太一样，照着对应页面操作会省事很多。</p></div><SecondaryButton href={sitePath("/install/")}>打开安装说明</SecondaryButton></div></section>
   <section class="section section-tinted"><div class="shell">
     <DownloadStats />
   </div></section>

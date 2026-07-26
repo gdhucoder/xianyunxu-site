@@ -12,12 +12,12 @@ const windows = downloadManifest.platforms["windows-x64"];
 ---
 
 <BaseLayout title="安装说明" description="选择 macOS Apple Silicon 或 Windows x64，安全安装纤云叙 Beta。">
-  <header class="page-hero"><div class="shell"><p class="eyebrow">安装说明</p><h1>选择你的系统，按步骤安装。</h1><p>Mac 和 Windows 版本目前都是 Beta。选择对应平台后，跟着页面完成下载、安装、权限授权和第一次输入。</p></div></header>
+  <header class="page-hero"><div class="shell"><p class="eyebrow">安装说明</p><h1>先选你的系统。</h1><p>后面的页面会带你完成下载、安装、权限设置和第一次输入，一步一步来就行。</p></div></header>
   <section class="section-compact section-tinted"><div class="shell">
-    <SectionHeading eyebrow="开始之前" title="先确认三件事" description="花一分钟核对系统、下载来源和校验值，可以避开大多数安装问题。" />
+    <SectionHeading eyebrow="开始之前" title="花一分钟，先看这三件事" description="系统别选错、安装包别下错，后面会顺利很多。" />
     <div class="grid-3 install-prerequisites">
       <article><span>01</span><h2>选对系统</h2><p>Mac 版只支持 Apple Silicon；Windows 版目前只提供 x64。</p></article>
-      <article><span>02</span><h2>只从官网获取</h2><p>下载按钮最终应指向 <strong>gdhucoder/xianyun-releases</strong>，不要使用第三方重打包版本。</p></article>
+      <article><span>02</span><h2>从这里下载</h2><p>本站的下载按钮会跳到 <strong>gdhucoder/xianyun-releases</strong>，不要使用第三方重打包版本。</p></article>
       <article><span>03</span><h2>核对文件</h2><p>下载页提供文件名和 SHA-256。安装前核对一次，确认文件完整且来源一致。</p></article>
     </div>
   </div></section>
@@ -35,5 +35,5 @@ const windows = downloadManifest.platforms["windows-x64"];
       <div style="margin-top: var(--space-5)"><SecondaryButton href={sitePath("/install/windows/")}>查看 Windows 步骤</SecondaryButton></div>
     </article>
   </div></section>
-  <section class="section-compact"><div class="shell"><StatusNotice title="安装遇到问题？">对应平台的安装页列出了常见系统提示和处理方法。无需修改整台电脑的安全设置。</StatusNotice></div></section>
+  <section class="section-compact"><div class="shell"><StatusNotice title="中途卡住了？">对应平台的页面列出了常见提示和处理办法，不需要为了安装去关闭整台电脑的安全设置。</StatusNotice></div></section>
 </BaseLayout>

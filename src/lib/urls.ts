@@ -1,5 +1,5 @@
 export const siteName = "纤云叙 · XianYun AI Voice Input";
-export const siteDescription = "为中文办公而做的 AI 语音输入工具。像平时一样说，它会整理好，再写进你正在使用的应用。";
+export const siteDescription = "写邮件、回消息、记想法时，按下快捷键直接说。纤云叙把话变成文字，再放回光标所在的地方。";
 
 export function sitePath(path = "/"): string {
   if (/^(?:https?:|mailto:|#)/.test(path)) return path;

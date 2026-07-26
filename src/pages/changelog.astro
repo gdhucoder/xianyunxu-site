@@ -6,10 +6,10 @@ import { downloadManifest, formatPublishedDate } from "../data/downloadManifest"
 import Current from "../content/changelog/current.md";
 import { sitePath } from "../lib/urls";
 ---
-<BaseLayout title="更新日志" description="查看纤云叙当前版本和已经可以使用的主要功能。">
-  <header class="page-hero"><div class="shell"><p class="eyebrow">更新日志</p><h1>当前版本，有这些更新。</h1><p>这里简要记录当前版本新增和调整的功能。安装与使用问题请前往安装说明或常见问题。</p></div></header>
+<BaseLayout title="更新日志" description="看看纤云叙这一版改了什么。">
+  <header class="page-hero"><div class="shell"><p class="eyebrow">更新日志</p><h1>这一版，改了这些。</h1><p>这里只记已经发布的功能变化。安装和使用中遇到的问题，可以去安装说明或常见问题里找。</p></div></header>
   <section class="section-compact"><div class="shell">
     <article class="changelog-entry current-release"><header><h2>v{downloadManifest.version}</h2><ReleaseBadge channel={downloadManifest.channel} version={null} /><time datetime={downloadManifest.publishedAt ?? undefined}>{formatPublishedDate(downloadManifest.publishedAt)}</time></header><div class="changelog-body"><Current /></div></article>
   </div></section>
-  <section class="section-compact"><div class="shell cta-band"><div><h2>准备开始使用？</h2><p>选择你的系统，下载当前 Beta 版本。</p></div><div class="button-row"><SecondaryButton href={sitePath("/download/")}>前往下载</SecondaryButton><SecondaryButton href={sitePath("/faq/")}>常见问题</SecondaryButton></div></div></section>
+  <section class="section-compact"><div class="shell cta-band"><div><h2>想试试这一版？</h2><p>Mac 和 Windows 都可以直接下载。</p></div><div class="button-row"><SecondaryButton href={sitePath("/download/")}>去下载</SecondaryButton><SecondaryButton href={sitePath("/faq/")}>常见问题</SecondaryButton></div></div></section>
 </BaseLayout>

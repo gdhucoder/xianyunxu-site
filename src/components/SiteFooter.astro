@@ -13,8 +13,8 @@ const { downloadTotal } = Astro.props;
   <div class="shell footer-grid">
     <div class="footer-brand">
       <div class="brand-lockup footer-lockup"><Logo size={34} /><span class="brand-name">纤云叙</span></div>
-      <p>把说出来的话，整理成能直接使用的文字。</p>
-      <p class="fine-print">现已提供 macOS Apple Silicon 与 Windows x64 Beta。</p>
+      <p>写邮件、回消息、记想法，开口说就行。</p>
+      <p class="fine-print">macOS Apple Silicon 与 Windows x64 Beta 可以下载。</p>
       {downloadTotal && <p class="footer-download-total">累计下载 <strong>{downloadTotal}</strong> 次</p>}
     </div>
     <div>
@@ -32,6 +32,6 @@ const { downloadTotal } = Astro.props;
   </div>
   <div class="shell footer-bottom">
     <span>© 2026 纤云叙</span>
-    <span>网站不使用 Cookie 分析、广告或营销追踪。</span>
+    <span>这里不放广告，也不做营销追踪。</span>
   </div>
 </footer>

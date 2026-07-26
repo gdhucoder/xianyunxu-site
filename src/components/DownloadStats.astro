@@ -35,8 +35,8 @@ const cards: Array<{ key: keyof DownloadTotals; label: string; detail: string }>
     <div class="download-stats-heading">
       <div>
         <p class="eyebrow">公开统计</p>
-        <h2>下载次数，一目了然</h2>
-        <p>数据来自公开的 GitHub Releases，每天更新一次。</p>
+        <h2>下载记录</h2>
+        <p>数字来自公开的 GitHub Releases，每天更新一次。</p>
       </div>
       <p class="download-stats-updated">
         最近更新
@@ -52,7 +52,7 @@ const cards: Array<{ key: keyof DownloadTotals; label: string; detail: string }>
             <span>{card.label}</span>
             <strong>{formatDownloadCount(totals[card.key])}</strong>
             <p>{card.detail}</p>
-            {delta !== null && delta > 0 && <small>近一期 +{formatDownloadCount(delta)}</small>}
+            {delta !== null && delta > 0 && <small>上次更新后 +{formatDownloadCount(delta)}</small>}
           </article>
         );
       })}

@@ -33,14 +33,30 @@ const model = downloadManifest.models["sensevoice-small"];
   </div></section>
   <section class="section section-tinted"><div class="shell grid-2">
     <div>
-      <SectionHeading eyebrow="本地语音识别" title="第一次使用时，再下载本地模型" description={`SenseVoiceSmall q8 约 ${formatBytes(model.sizeBytes)}，没有塞进 ${formatBytes(macos.sizeBytes)} 的安装包里。`} />
-      <p class="prose">你点击安装后，应用才会开始下载并校验。语音可以留在本机识别；如果打开云端文字整理，识别后的文字仍会联网。</p>
+      <SectionHeading eyebrow="本地模型" title="安装包保持轻量，需要时再下载模型" description={`SenseVoiceSmall q8 约 ${formatBytes(model.sizeBytes)}，没有塞进 ${formatBytes(macos.sizeBytes)} 的安装包里。`} />
+      <p class="prose">第一次启用本地识别时，再从设置中下载并校验。语音可以留在本机识别；如果打开云端文字整理，识别后的文字仍会联网。</p>
     </div>
     <div class="button-row">
       <SecondaryButton href={model.platformReleaseUrls["macos-arm64"]} external>macOS 模型说明</SecondaryButton>
       <SecondaryButton href={model.platformReleaseUrls["windows-x64"]} external>Windows 模型说明</SecondaryButton>
       <SecondaryButton href={downloadManifest.releasePageUrl} external>查看 v{downloadManifest.version} Release Notes</SecondaryButton>
     </div>
+  </div></section>
+  <section class="section"><div class="shell">
+    <SectionHeading eyebrow="多人录音" title="说话人分离是独立扩展包" description="只有需要处理会议、访谈等多人录音时才安装，不会增加应用安装包本身的大小。" />
+    <div class="grid-2">
+      <article class="feature-card">
+        <span class="eyebrow">基础识别包</span>
+        <h2>SenseVoiceSmall INT8</h2>
+        <p>约 242 MiB。负责把语音识别成文字，首次启用本地 ASR 时下载。</p>
+      </article>
+      <article class="feature-card">
+        <span class="eyebrow">多人分离扩展包</span>
+        <h2>Pyannote Segmentation INT8 + 3D-Speaker ERes2Net</h2>
+        <p>约 46 MiB。在“设置 → 转写 → 本地模型”中按需安装，用于区分同一录音里的不同发言人。</p>
+      </article>
+    </div>
+    <p class="prose" style="margin-top: var(--space-5)">两套模型都在本机运行。说话人分离只使用编号，不推断真实姓名，也不建立跨任务声纹库。</p>
   </div></section>
   <section class="section-compact"><div class="shell cta-band"><div><h2>第一次装？先看两分钟说明</h2><p>Mac 和 Windows 的步骤不太一样，照着对应页面操作会省事很多。</p></div><SecondaryButton href={sitePath("/install/")}>打开安装说明</SecondaryButton></div></section>
   <section class="section section-tinted"><div class="shell">

@@ -22,13 +22,13 @@ const windows = downloadManifest.platforms["windows-x64"];
       <li><h2>完成安装</h2><p>按照安装程序的提示继续即可。不要从第三方下载站获取别人重新打包的版本。</p></li>
       <li><h2>首次启动</h2><p>从开始菜单打开纤云叙。如果系统要求 WebView2 运行环境，请只使用 Microsoft 官方来源完成安装。</p></li>
       <li><h2>检查麦克风权限</h2><p>进入“设置 → 隐私和安全性 → 麦克风”，允许桌面应用访问麦克风，然后回到纤云叙刷新状态。</p></li>
-      <li><h2>安装本地模型</h2><p>如选择 SenseVoiceSmall，在应用设置中主动下载安装并等待校验完成。模型不会包含在当前 Setup 中。</p></li>
+      <li><h2>安装本地模型</h2><p>如选择 SenseVoiceSmall，在应用设置中主动下载安装并等待校验完成。需要处理多人录音时，再从同一区域安装多人分离扩展包。模型不会包含在当前 Setup 中。</p></li>
       <li><h2>确认快捷键</h2><p>检查全局快捷键没有与其他应用冲突。管理员权限运行的目标应用可能阻止普通权限应用写入文本。</p></li>
       <li><h2>试一次语音输入</h2><p>打开一个不含敏感信息的记事本文档，按快捷键说一句话，确认录音、识别、整理和写入都能正常完成。</p></li>
     </ol>
     <aside>
       <div class="button-row"><PrimaryButton href={windows.downloadUrl} external>下载 v{downloadManifest.version} Windows Beta</PrimaryButton><SecondaryButton href={sitePath("/download/")}>查看校验值</SecondaryButton></div>
-      <div style="margin-top: var(--space-6)"><StatusNotice tone="info" title="目前验证到哪里了？">Windows 10 x64 已完成实机验证。Windows 11 x64、ARM64，以及不同公司的安全策略，还需要进一步确认。</StatusNotice></div>
+      <div style="margin-top: var(--space-6)"><StatusNotice tone="info" title="目前验证到哪里了？">当前安装包已通过 GitHub Actions 的 Windows x64 构建和自动测试。基础语音输入曾在 Windows 10 x64 完成真机验证；本版本新增的文件转写、个人词典和多人分离尚待 Windows 真机反馈。</StatusNotice></div>
     </aside>
   </div></section>
   <section class="section section-tinted"><div class="shell">

@@ -5,19 +5,19 @@
     "nameEn": "XianYun AI Voice Input"
   },
   "channel": "beta",
-  "version": "0.1.6",
-  "publishedAt": "2026-07-25T17:56:38Z",
-  "releasePageUrl": "https://github.com/gdhucoder/xianyun-releases/releases/tag/v0.1.6",
+  "version": "0.1.7",
+  "publishedAt": "2026-07-29T10:14:44Z",
+  "releasePageUrl": "https://github.com/gdhucoder/xianyun-releases/releases/tag/v0.1.7",
   "platforms": {
     "macos-arm64": {
       "status": "available",
       "displayName": "macOS Apple Silicon",
       "architecture": "arm64",
       "minimumOsVersion": "macOS 10.15",
-      "downloadUrl": "https://github.com/gdhucoder/xianyun-releases/releases/download/v0.1.6/XianYunAIVoiceInput_0.1.6_aarch64.dmg",
-      "fileName": "XianYunAIVoiceInput_0.1.6_aarch64.dmg",
-      "sizeBytes": 9895226,
-      "sha256": "eca0b9043c5c1497cdbf1090629384fced311c617290e88501dba060fbb2b45e",
+      "downloadUrl": "https://github.com/gdhucoder/xianyun-releases/releases/download/v0.1.7/XianYunAIVoiceInput_0.1.7_aarch64.dmg",
+      "fileName": "XianYunAIVoiceInput_0.1.7_aarch64.dmg",
+      "sizeBytes": 18770863,
+      "sha256": "7216e264c53b85fd887ca4603af6d27fb255a8bb83228cca1001bc9dfa8c26e3",
       "installGuideUrl": "/install/macos/",
       "signingStatus": "self-signed-not-notarized"
     },
@@ -25,11 +25,11 @@
       "status": "available",
       "displayName": "Windows x64",
       "architecture": "x64",
-      "minimumOsVersion": "Windows 10 x64（已验证）",
-      "downloadUrl": "https://github.com/gdhucoder/xianyun-releases/releases/download/v0.1.6/XianYunAIVoiceInput_0.1.6_x64-setup.exe",
-      "fileName": "XianYunAIVoiceInput_0.1.6_x64-setup.exe",
-      "sizeBytes": 5208669,
-      "sha256": "959e48c41a6d245f5de4e91eaceb0c0cced646812f81699c98a3bd632fbbbbab",
+      "minimumOsVersion": "Windows 10/11 x64（新增功能待真机验证）",
+      "downloadUrl": "https://github.com/gdhucoder/xianyun-releases/releases/download/v0.1.7/XianYunAIVoiceInput_0.1.7_x64-setup.exe",
+      "fileName": "XianYunAIVoiceInput_0.1.7_x64-setup.exe",
+      "sizeBytes": 10976664,
+      "sha256": "db24c42ac79133470f5c2f00d42c76f514426145af7b68326bc03ba28ff9ceb7",
       "installGuideUrl": "/install/windows/",
       "signingStatus": "unsigned"
     }

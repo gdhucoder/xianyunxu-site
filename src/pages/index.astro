@@ -42,7 +42,19 @@ const totalDownloads = downloadStats.totals.appPackageDownloads + downloadStats.
     </div>
   </section>
 
-  <section class="section" aria-labelledby="screenshots-title">
+  <section class="section" aria-labelledby="file-transcription-title">
+    <div class="shell">
+      <SectionHeading eyebrow="已有录音" title="手机录音和会议录音，也可以直接整理" description="把音频文件拖进来，纤云叙会在后台生成逐字稿。多人录音还可以区分不同发言人，再由你校正姓名和片段归属。" />
+      <h2 id="file-transcription-title" class="visually-hidden">文件转写与多人说话人分离</h2>
+      <div class="grid-3">
+        <FeatureCard index="01" title="常见格式直接导入">支持 WAV、MP3、M4A 和 FLAC。处理在后台继续，不会卡住日常语音输入。</FeatureCard>
+        <FeatureCard index="02" title="逐字稿带时间信息">每段文字保留开始和结束时间，方便回听、复制，并导出 TXT 或 Markdown。</FeatureCard>
+        <FeatureCard index="03" title="多人录音可以分开看">可自动估计或指定说话人数。系统只使用“说话人 1、2、3”等标签，不会猜测真实身份。</FeatureCard>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-tinted" aria-labelledby="screenshots-title">
     <div class="shell">
       <SectionHeading eyebrow="现在的样子" title="打开以后，你会看到这些" description="下面都是实际运行截图。示例文字经过处理，不含密钥、私人路径或真实办公内容。" />
       <h2 id="screenshots-title" class="visually-hidden">产品截图</h2>
@@ -57,14 +69,30 @@ const totalDownloads = downloadStats.totals.appPackageDownloads + downloadStats.
       </div>
       <div class="grid-2">
         <ScreenshotFrame
-          title="最近的输入记录"
-          description="按关键词、日期和任务结果找回最近的输入。截图里只放了测试文字。"
-          imageBase="history-sanitized-macos"
-          alt="纤云叙历史记录页，筛选后只显示一条公开测试记录"
+          title="文件转写与多人分离"
+          description="导入录音后，可以看到时长、识别模型、处理进度和说话人数，并复制或导出结果。"
+          imageBase="file-transcription-speakers-macos"
+          alt="纤云叙文件转写页面，显示四人测试录音、本地识别、说话人分离和导出操作"
+        />
+        <ScreenshotFrame
+          title="说话人时间轴"
+          description="按时间查看各位说话人的片段；多人重叠和不确定结果会单独标出，方便人工确认。"
+          imageBase="file-transcription-speakers-sanitized-macos"
+          alt="纤云叙多人录音时间轴，显示说话人片段和多人重叠提示"
+          width={560}
+          height={700}
+        />
+      </div>
+      <div class="grid-2">
+        <ScreenshotFrame
+          title="个人词典"
+          description="把姓名、机构名和专业词记下来；常见错误写法保留在词条详情中。"
+          imageBase="personal-dictionary-macos"
+          alt="纤云叙个人词典页面，显示正确词条、自动添加和手工添加来源"
         />
         <ScreenshotFrame
           title="本地模型管理"
-          description="SenseVoiceSmall 的下载、校验和加载状态都在这里，需要联网的地方也会说明。"
+          description="SenseVoiceSmall 的下载、校验和加载状态都在设置里；多人分离扩展包也从同一处安装。"
           imageBase="local-model-macos"
           alt="纤云叙设置页中的 SenseVoiceSmall 本地模型状态和隐私说明"
         />
@@ -98,7 +126,7 @@ const totalDownloads = downloadStats.totals.appPackageDownloads + downloadStats.
   <section class="section" aria-labelledby="platforms-title">
     <div class="shell grid-2">
       <div>
-        <SectionHeading eyebrow="支持平台" title="Mac 和 Windows 都能用" description="目前有 Apple Silicon 版和 Windows x64 版。选对系统，下载对应安装包就行。" />
+        <SectionHeading eyebrow="支持平台" title="Mac 和 Windows 都有安装包" description="macOS Apple Silicon 版已完成当前版本真机验证。Windows x64 版由 GitHub Actions 构建发布，新增功能还在等待更多 Windows 真机反馈。" />
         <h2 id="platforms-title" class="visually-hidden">平台支持状态</h2>
         <div class="hero-badges">
           <PlatformBadge tone="success">macOS Apple Silicon · Beta</PlatformBadge>
@@ -142,7 +170,8 @@ const totalDownloads = downloadStats.totals.appPackageDownloads + downloadStats.
       <SectionHeading eyebrow="常见问题" title="几个大家经常会问的问题" />
       <h2 id="faq-title" class="visually-hidden">常见问题摘要</h2>
       <div class="faq-list">
-        <FAQItem question="Mac 和 Windows 都可以用吗？" open>可以下载 macOS Apple Silicon Beta 和 Windows x64 Beta。Intel Mac 暂不支持；Windows 10 x64 已完成实机验证。</FAQItem>
+        <FAQItem question="Mac 和 Windows 都可以用吗？" open>可以下载 macOS Apple Silicon Beta 和 Windows x64 Beta。macOS 当前版本已经过真机验证；Windows 安装包已发布，但文件转写和多人分离仍在等待更多 Windows 真机反馈。Intel Mac 暂不支持。</FAQItem>
+        <FAQItem question="多人录音能自动认出姓名吗？">不能。纤云叙只把不同声音标成“说话人 1、2、3”等，你可以在当前任务里手工改名。它不会建立跨录音的永久声纹身份。</FAQItem>
         <FAQItem question="用了本地识别，就完全不会联网吗？">不一定。本地识别只负责把语音变成文字；如果你开启云端 AI 整理，识别后的文字仍可能联网。</FAQItem>
         <FAQItem question="为什么需要麦克风和辅助功能权限？">麦克风用于录音，辅助功能用于把整理好的文字写进你正在使用的应用。两项权限都可以在系统设置中管理。</FAQItem>
         <FAQItem question="输入失败后，文字还能找回来吗？">AI 整理失败时会尽量保留基础文本；写入失败时会尝试复制到剪贴板。最终结果请以应用当时的提示为准。</FAQItem>

@@ -9,7 +9,7 @@ import { sitePath } from "../lib/urls";
   <header class="page-hero"><div class="shell"><p class="eyebrow">常见问题</p><h1>有问题，先在这里找找。</h1><p>安装、权限、本地识别、文字整理和失败恢复，常见情况基本都放在这里了。如果页面和应用里的提示不一样，以应用为准。</p></div></header>
   <section class="section-compact"><div class="shell faq-list">
     <FAQItem question="1. 纤云叙是什么？" open>它是一款给 Mac 和 Windows 用的语音输入工具。按下快捷键直接说，纤云叙会把话变成文字，按你的设置顺一顺，再写回光标所在的位置。</FAQItem>
-    <FAQItem question="2. 支持哪些系统？">目前可以下载 macOS Apple Silicon Beta 和 Windows x64 Beta。Intel Mac 暂不支持；Windows 10 x64 已完成实机验证，Windows 11 x64 还需要进一步确认。</FAQItem>
+    <FAQItem question="2. 支持哪些系统？">目前可以下载 macOS Apple Silicon Beta 和 Windows x64 Beta。macOS 当前版本已经过真机验证；Windows 安装包已由 GitHub Actions 构建发布，文件转写和多人分离仍待更多 Windows 真机反馈。Intel Mac 暂不支持。</FAQItem>
     <FAQItem question="3. 为什么 Mac 提示无法验证开发者？">因为当前 Beta 没有 Apple Developer ID，也没有经过 Apple 公证，macOS 可能会阻止第一次打开。请只从本官网或官方 GitHub Releases 下载，再按安装说明到“隐私与安全性”中确认。</FAQItem>
     <FAQItem question="4. Intel Mac 可以用吗？">目前的 DMG 只支持 Apple Silicon（arm64），不能在 Intel Mac 上运行。以后是否提供 Intel 版本，需要进一步确认。</FAQItem>
     <FAQItem question="5. Windows 怎么安装？">从官网下载 x64 安装程序，并核对 SHA-256。因为安装包还没有代码签名，SmartScreen 可能提示未知发布者。确认下载来源和校验值后再继续，不要全局关闭 SmartScreen。</FAQItem>
@@ -22,6 +22,10 @@ import { sitePath } from "../lib/urls";
     <FAQItem question="12. 怎么卸载？">Mac 用户可退出应用后，从“应用程序”中删除纤云叙；Windows 用户可在“设置 → 应用 → 已安装的应用”中卸载。本地历史和模型可能仍留在应用数据目录，当前版本还没有确认好一键彻底清理方式。</FAQItem>
     <FAQItem question="13. 怎么检查更新？">在应用设置里找到更新区域，点击手动检查。更新文件来自公开的 GitHub Releases；即使检查失败，也不会影响已经安装的版本。</FAQItem>
     <FAQItem question="14. 输入失败后，文字还能找回来吗？">AI 整理失败或超时时，会尽量退回基础文本；写入失败时，会尝试把文字复制到剪贴板。能否完整找回，还取决于出错发生在哪一步，以及你是否开启了历史保存。</FAQItem>
+    <FAQItem question="15. 文件转写支持哪些格式？">当前支持 WAV、MP3、M4A 和 FLAC。格式、编码或文件损坏情况不同，实际能否解码仍以应用检查结果为准。原始录音默认留在原位置，不会被应用删除。</FAQItem>
+    <FAQItem question="16. 多人录音能自动认出真实姓名吗？">不能。系统只会把不同声音标成“说话人 1、2、3”等，你可以在当前任务中手工改名或调整片段归属。纤云叙不会建立跨任务的永久声纹身份。</FAQItem>
+    <FAQItem question="17. 为什么自动判断的人数不准确？">自动人数是根据声音特征聚类得到的估计。相似音色、短插话、远距离收音、噪声和多人同时讲话都会影响结果。如果已知参会人数，建议直接选择“指定人数”后重新区分。</FAQItem>
+    <FAQItem question="18. 多人分离模型要单独下载吗？">要。基础识别使用 SenseVoiceSmall；多人分离还需要约 46 MiB 的扩展包。两者都在“设置 → 转写 → 本地模型”中按需安装，模型准备好后，文件转写页会直接显示可用状态。</FAQItem>
   </div></section>
   <section class="section"><div class="shell cta-band"><div><h2>准备安装 v{downloadManifest.version}？</h2><p>选择你的系统，再看看安装时可能出现的安全提示。</p></div><SecondaryButton href={sitePath("/install/")}>查看安装说明</SecondaryButton></div></section>
 </BaseLayout>

@@ -4,26 +4,36 @@
     "repository": "gdhucoder/xianyun-releases",
     "releasesUrl": "https://github.com/gdhucoder/xianyun-releases/releases"
   },
-  "generatedAt": "2026-07-29T05:31:48.976Z",
+  "generatedAt": "2026-07-29T10:18:33.441Z",
   "collectionIntervalDays": 1,
   "totals": {
-    "macosInstallerDownloads": 10,
+    "macosInstallerDownloads": 11,
     "windowsPackageDownloads": 6,
     "identifiableUpdateDownloads": 20,
-    "updateMetadataDownloads": 27,
+    "updateMetadataDownloads": 28,
     "modelDownloads": 9,
-    "appPackageDownloads": 36
+    "appPackageDownloads": 37
   },
   "versions": [
+    {
+      "version": "0.1.7",
+      "tagName": "v0.1.7",
+      "publishedAt": "2026-07-29T10:14:44Z",
+      "macosInstallerDownloads": 0,
+      "windowsPackageDownloads": 0,
+      "identifiableUpdateDownloads": 0,
+      "updateMetadataDownloads": 0,
+      "appPackageDownloads": 0
+    },
     {
       "version": "0.1.6",
       "tagName": "v0.1.6",
       "publishedAt": "2026-07-25T17:56:38Z",
-      "macosInstallerDownloads": 3,
+      "macosInstallerDownloads": 4,
       "windowsPackageDownloads": 3,
       "identifiableUpdateDownloads": 3,
-      "updateMetadataDownloads": 3,
-      "appPackageDownloads": 9
+      "updateMetadataDownloads": 4,
+      "appPackageDownloads": 10
     },
     {
       "version": "0.1.5",
@@ -138,13 +148,13 @@
       "appPackageDownloads": 36
     },
     {
-      "capturedAt": "2026-07-29T05:31:48.976Z",
-      "macosInstallerDownloads": 10,
+      "capturedAt": "2026-07-29T10:18:33.441Z",
+      "macosInstallerDownloads": 11,
       "windowsPackageDownloads": 6,
       "identifiableUpdateDownloads": 20,
-      "updateMetadataDownloads": 27,
+      "updateMetadataDownloads": 28,
       "modelDownloads": 9,
-      "appPackageDownloads": 36
+      "appPackageDownloads": 37
     }
   ],
   "countingNotes": {

@@ -43,8 +43,8 @@ import StatusNotice from "../components/StatusNotice.astro";
     </div>
   </div></section>
   <section class="section"><div class="shell grid-2">
-    <div class="prose"><h2>日志与密钥</h2><p>API Key 通过应用的安全配置读取，不应出现在普通日志、截图或公开配置里。普通日志也不应记录完整的语音转写正文。</p><p><strong>需要进一步确认：</strong>诊断日志具体保留多久、导出时包含什么，以及是否提供一键删除。</p></div>
-    <div class="prose"><h2>崩溃与诊断信息</h2><p>这个官网不使用 Cookie 分析、广告或营销追踪，页面显示也不依赖浏览器实时调用 GitHub API。</p><p><strong>需要进一步确认：</strong>桌面应用是否默认收集自动崩溃报告；如果以后启用，如何征得用户同意并允许删除。</p></div>
+    <div class="prose"><h2>日志与密钥</h2><p>API Key 通过应用的安全配置读取，不应出现在普通日志、截图或公开配置里。普通日志不记录完整语音转写正文。</p><p>反馈诊断使用单独的脱敏日志，默认保留 7 天，并受单文件大小和文件数量限制。你可以在“设置 → 帮助与反馈”关闭诊断包中的日志、修改保留期限、打开日志目录或清理旧日志。</p></div>
+    <div class="prose"><h2>崩溃与诊断信息</h2><p>纤云叙不会自动上传崩溃报告。上次可能未正常退出时，应用只在本机显示非阻塞提示；是否打开反馈、复制内容或导出诊断包，由你决定。</p><p>诊断包默认不包含音频、完整转写、历史或词典数据库、API Key、剪贴板和用户原始文件；发送前仍应自行检查。公开 GitHub Issue 不适合附加私人诊断包，可改用 <a href="mailto:gdhudev@126.com">gdhudev@126.com</a>。</p><p>这个官网不使用 Cookie 分析、广告或营销追踪，页面显示也不依赖浏览器实时调用 GitHub API。</p></div>
   </div></section>
   <section class="section section-tinted"><div class="shell"><StatusNotice tone="warning" title="使用云端服务前，请查看服务商条款">云端语音识别和 AI 整理如何传输、处理和保留数据，由你选择的服务和配置决定。本官网不会替第三方承诺“绝不保留”。填写 API Key 前，请先阅读对应服务的条款。</StatusNotice></div></section>
 </BaseLayout>

@@ -2,9 +2,11 @@ import { readFile, writeFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { validateManifest } from "./download-manifest-lib.mjs";
 import { buildWebsiteReleaseUpdate, releaseApiUrl } from "./release-sync-lib.mjs";
+import { syncWebsiteScreenshots } from "./website-screenshot-sync-lib.mjs";
 
 const manifestPath = fileURLToPath(new URL("../src/data/download-manifest.json", import.meta.url));
 const changelogPath = fileURLToPath(new URL("../src/content/changelog/current.md", import.meta.url));
+const screenshotsPath = fileURLToPath(new URL("../public/assets/screenshots", import.meta.url));
 /** @type {Record<string, string>} */
 const headers = {
   Accept: "application/vnd.github+json",
@@ -26,4 +28,5 @@ if (errors.length) throw new Error(`refusing to write invalid manifest:\n${error
 
 await writeFile(manifestPath, `${JSON.stringify(update.manifest, null, 2)}\n`, "utf8");
 await writeFile(changelogPath, update.changelog, "utf8");
-console.log(`Website release metadata synchronized to v${update.version}.`);
+const screenshots = await syncWebsiteScreenshots(release, screenshotsPath);
+console.log(`Website release metadata synchronized to v${update.version}; ${screenshots.length} screenshot assets refreshed.`);

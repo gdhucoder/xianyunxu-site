@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { buildWebsiteReleaseUpdate, extractCurrentReleaseNotes } from "./release-sync-lib.mjs";
+import { selectWebsiteScreenshotAssets } from "./website-screenshot-sync-lib.mjs";
 
 const manifest = {
   version: "0.1.5",
@@ -69,4 +70,25 @@ test("rejects a release without immutable SHA-256 metadata", () => {
   assert.ok(asset);
   asset.digest = "";
   assert.throws(() => buildWebsiteReleaseUpdate(invalid, manifest), /asset digest/);
+});
+
+test("accepts only complete allowlisted website screenshot pairs", () => {
+  const screenshotRelease = structuredClone(release);
+  screenshotRelease.assets.push(
+    {
+      name: "site-home-dashboard-macos.jpg",
+      browser_download_url: "https://github.com/gdhucoder/xianyun-releases/releases/download/v0.1.6/site-home-dashboard-macos.jpg",
+      size: 120,
+      digest: `sha256:${"c".repeat(64)}`,
+    },
+    {
+      name: "site-home-dashboard-macos.avif",
+      browser_download_url: "https://github.com/gdhucoder/xianyun-releases/releases/download/v0.1.6/site-home-dashboard-macos.avif",
+      size: 90,
+      digest: `sha256:${"d".repeat(64)}`,
+    },
+  );
+  assert.equal(selectWebsiteScreenshotAssets(screenshotRelease).length, 2);
+  screenshotRelease.assets.pop();
+  assert.throws(() => selectWebsiteScreenshotAssets(screenshotRelease), /both jpg and avif/);
 });

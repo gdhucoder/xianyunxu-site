@@ -38,9 +38,11 @@ Repository → Settings → Pages → Build and deployment → Source → GitHub
 3. 两个安装包必须带有 GitHub Release Asset 的 SHA-256 digest；
 4. Release Notes 必须包含 `## 本次更新`，该小节只写面向用户的功能条目；
 5. 安装限制、安全提示和排障内容继续放在官网常见问题，不写入“本次更新”；
-6. `.github/workflows/sync-latest-release.yml` 每 6 小时读取公开 Latest Release；
+6. 应用发布流程会立即向 `.github/workflows/sync-latest-release.yml` 发送事件；
+   每 6 小时读取公开 Latest Release 的定时任务继续作为兜底；
 7. 流程自动更新 `download-manifest.json` 和 `current.md`，验证网站后提交 `main`；
-8. `main` 更新会触发 GitHub Pages 重新部署。
+8. 同步任务提交后会显式触发 GitHub Pages 重新部署，避免机器人提交不能连锁触发
+   工作流的问题。
 
 同步过程只在 GitHub Actions 构建时调用公开 GitHub API，用户打开网页时不会请求 GitHub API。官网不读取 Tauri 的 `latest.json`，两套清单继续保持独立。需要立即同步时，可手动运行 `Sync latest app release` 工作流，或在本地执行 `pnpm sync:release`。
 
@@ -57,6 +59,10 @@ Repository → Settings → Pages → Build and deployment → Source → GitHub
 ## 更新截图
 
 使用干净测试配置重新截图。至少由另一位人工检查者确认没有正文、凭据、姓名、单位、私有路径和仓库信息后，再复制到 `public/assets/screenshots/`。
+
+应用 Release 也可以携带成对的 `site-<名称>.jpg` 和 `site-<名称>.avif`。
+官网同步任务只接受固定允许列表、官方 Release 下载地址和不超过 5 MB 的有效图片，
+通过后自动替换同名素材。没有截图资产时继续使用上一版，绝不从用户环境自动截屏。
 
 ## 依赖更新
 

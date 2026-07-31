@@ -2,7 +2,9 @@ name: Sync latest app release
 
 on:
   schedule:
-    - cron: "41 */6 * * *"
+    # Public-repository standard runners provide a token-free fallback when the
+    # private release workflow cannot dispatch across repositories.
+    - cron: "41 * * * *"
   workflow_dispatch:
   repository_dispatch:
     types: [release-published]

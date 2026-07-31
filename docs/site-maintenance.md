@@ -39,7 +39,7 @@ Repository → Settings → Pages → Build and deployment → Source → GitHub
 4. Release Notes 必须包含 `## 本次更新`，该小节只写面向用户的功能条目；
 5. 安装限制、安全提示和排障内容继续放在官网常见问题，不写入“本次更新”；
 6. 应用发布流程会立即向 `.github/workflows/sync-latest-release.yml` 发送事件；
-   每 6 小时读取公开 Latest Release 的定时任务继续作为兜底；
+   每小时读取公开 Latest Release 的定时任务继续作为无需跨仓库 Token 的兜底；
 7. 流程自动更新 `download-manifest.json` 和 `current.md`，验证网站后提交 `main`；
 8. 同步任务提交后会显式触发 GitHub Pages 重新部署，避免机器人提交不能连锁触发
    工作流的问题。

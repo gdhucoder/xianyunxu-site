@@ -2,8 +2,8 @@ name: Refresh download statistics
 
 on:
   schedule:
-    # Collect one cumulative snapshot every day at 10:17 China Standard Time.
-    - cron: "17 2 * * *"
+    # GitHub cron uses UTC. 22:00 UTC is 06:00 China Standard Time (UTC+8).
+    - cron: "0 22 * * *"
   workflow_dispatch:
     inputs:
       force:

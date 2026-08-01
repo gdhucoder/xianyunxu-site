@@ -44,7 +44,7 @@ http://localhost:4321/xianyunxu-site/
 ## 内容维护
 
 - 当前下载版本和简洁更新摘要每 6 小时从公开 Latest Release 自动同步；
-- 下载次数由 GitHub Actions 每天更新 `src/data/download-stats.json`；
+- 下载次数由 GitHub Actions 每天北京时间 06:00 更新 `src/data/download-stats.json`；
 - 发布前必须运行 manifest 校验、类型检查、静态构建和站内链接检查；
 - 产品截图需经过 `docs/screenshot-guidelines.md` 的隐私检查；
 - 当前更新日志由自动同步生成，其他长期内容仍在 `src/content/changelog/` 中管理；

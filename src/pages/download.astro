@@ -43,20 +43,20 @@ const model = downloadManifest.models["sensevoice-small"];
     </div>
   </div></section>
   <section class="section"><div class="shell">
-    <SectionHeading eyebrow="多人录音" title="说话人分离是独立扩展包" description="只有需要处理会议、访谈等多人录音时才安装，不会增加应用安装包本身的大小。" />
+    <SectionHeading eyebrow="录音文件转写" title="文件转写共用语音识别模型" description="SenseVoiceSmall 同时用于快捷语音输入和录音文件转写。只有开启“区分不同发言人”时，才需要额外安装多人分离扩展包。" />
     <div class="grid-2">
       <article class="feature-card">
-        <span class="eyebrow">基础识别包</span>
+        <span class="eyebrow">共用语音识别模型</span>
         <h2>SenseVoiceSmall INT8</h2>
-        <p>约 242 MiB。负责把语音识别成文字，首次启用本地 ASR 时下载。</p>
+        <p>约 242 MiB。负责把语音转成文字，快捷语音输入和录音文件转写共用；首次启用本地识别时下载一次。</p>
       </article>
       <article class="feature-card">
-        <span class="eyebrow">多人分离扩展包</span>
+        <span class="eyebrow">可选多人分离扩展</span>
         <h2>Pyannote Segmentation INT8 + 3D-Speaker ERes2Net</h2>
-        <p>约 46 MiB。在“设置 → 转写 → 本地模型”中按需安装，用于区分同一录音里的不同发言人。</p>
+        <p>约 46 MiB。仅在录音文件转写中开启“区分不同发言人”时使用；它负责区分发言人，不负责把语音转成文字。</p>
       </article>
     </div>
-    <p class="prose" style="margin-top: var(--space-5)">两套模型都在本机运行。说话人分离只使用编号，不推断真实姓名，也不建立跨任务声纹库。</p>
+    <p class="prose" style="margin-top: var(--space-5)">普通录音文件转写只需要 SenseVoiceSmall。两种模型都在本机运行；说话人分离只使用编号，不推断真实姓名，也不建立跨任务声纹库。</p>
   </div></section>
   <section class="section-compact"><div class="shell cta-band"><div><h2>第一次装？先看两分钟说明</h2><p>Mac 和 Windows 的步骤不太一样，照着对应页面操作会省事很多。</p></div><SecondaryButton href={sitePath("/install/")}>打开安装说明</SecondaryButton></div></section>
   <section class="section section-tinted"><div class="shell">

@@ -4,17 +4,27 @@
     "repository": "gdhucoder/xianyun-releases",
     "releasesUrl": "https://github.com/gdhucoder/xianyun-releases/releases"
   },
-  "generatedAt": "2026-08-03T22:51:17.006Z",
+  "generatedAt": "2026-08-04T22:51:41.799Z",
   "collectionIntervalDays": 1,
   "totals": {
-    "macosInstallerDownloads": 18,
-    "windowsPackageDownloads": 9,
+    "macosInstallerDownloads": 19,
+    "windowsPackageDownloads": 10,
     "identifiableUpdateDownloads": 23,
-    "updateMetadataDownloads": 37,
-    "modelDownloads": 9,
-    "appPackageDownloads": 50
+    "updateMetadataDownloads": 39,
+    "modelDownloads": 12,
+    "appPackageDownloads": 52
   },
   "versions": [
+    {
+      "version": "0.1.9",
+      "tagName": "v0.1.9",
+      "publishedAt": "2026-08-04T03:50:20Z",
+      "macosInstallerDownloads": 1,
+      "windowsPackageDownloads": 1,
+      "identifiableUpdateDownloads": 0,
+      "updateMetadataDownloads": 2,
+      "appPackageDownloads": 2
+    },
     {
       "version": "0.1.8",
       "tagName": "v0.1.8",
@@ -117,7 +127,7 @@
       "tagName": "model-sensevoice-small-q8-macos-arm64-v1",
       "platform": "macos-arm64",
       "publishedAt": "2026-07-19T12:03:33Z",
-      "modelDownloads": 8
+      "modelDownloads": 11
     }
   ],
   "snapshots": [
@@ -210,6 +220,15 @@
       "updateMetadataDownloads": 37,
       "modelDownloads": 9,
       "appPackageDownloads": 50
+    },
+    {
+      "capturedAt": "2026-08-04T22:51:41.799Z",
+      "macosInstallerDownloads": 19,
+      "windowsPackageDownloads": 10,
+      "identifiableUpdateDownloads": 23,
+      "updateMetadataDownloads": 39,
+      "modelDownloads": 12,
+      "appPackageDownloads": 52
     }
   ],
   "countingNotes": {

@@ -4,11 +4,10 @@ import DownloadCard from "../components/DownloadCard.astro";
 import DownloadStats from "../components/DownloadStats.astro";
 import SectionHeading from "../components/SectionHeading.astro";
 import SecondaryButton from "../components/SecondaryButton.astro";
-import { downloadManifest, formatBytes, formatPublishedDate } from "../data/downloadManifest";
+import { downloadManifest, formatPublishedDate } from "../data/downloadManifest";
 import { sitePath } from "../lib/urls";
 const macos = downloadManifest.platforms["macos-arm64"];
 const windows = downloadManifest.platforms["windows-x64"];
-const model = downloadManifest.models["sensevoice-small"];
 ---
 <BaseLayout title="下载" description="下载纤云叙 macOS Apple Silicon 与 Windows x64 Beta，查看版本、文件大小和安装包校验值。">
   <header class="page-hero"><div class="shell"><p class="eyebrow">下载</p><h1>选好系统，就可以下载了。</h1><p>Mac 和 Windows 目前都有 Beta 版本。这里的按钮会直接带你到公开的 GitHub Releases。</p></div></header>
@@ -33,12 +32,11 @@ const model = downloadManifest.models["sensevoice-small"];
   </div></section>
   <section class="section section-tinted"><div class="shell grid-2">
     <div>
-      <SectionHeading eyebrow="本地模型" title="安装包保持轻量，需要时再下载模型" description={`SenseVoiceSmall q8 约 ${formatBytes(model.sizeBytes)}，没有塞进 ${formatBytes(macos.sizeBytes)} 的安装包里。`} />
-      <p class="prose">第一次启用本地识别时，再从设置中下载并校验。语音可以留在本机识别；如果打开云端文字整理，识别后的文字仍会联网。</p>
+      <SectionHeading eyebrow="本地模型" title="首次使用时，再准备快速识别" description="v0.1.12 起，新安装会使用快速识别引擎。模型在应用界面打开后于后台加载，之后的短句不必重复启动识别程序。" />
+      <p class="prose">在“设置 → 本地模型”点击安装即可。下载包约 155 MiB，模型文件约 229 MiB；语音会留在本机识别。网络较慢时，也可以下载官方模型包后在这里导入，且不需要先解压。已经安装旧版本地模型的用户不需要马上更换，旧模型仍可正常使用。</p>
     </div>
     <div class="button-row">
-      <SecondaryButton href={model.platformReleaseUrls["macos-arm64"]} external>macOS 模型说明</SecondaryButton>
-      <SecondaryButton href={model.platformReleaseUrls["windows-x64"]} external>Windows 模型说明</SecondaryButton>
+      <SecondaryButton href={sitePath("/faq/#local-model")}>查看模型说明</SecondaryButton>
       <SecondaryButton href={downloadManifest.releasePageUrl} external>查看 v{downloadManifest.version} Release Notes</SecondaryButton>
     </div>
   </div></section>
@@ -47,8 +45,8 @@ const model = downloadManifest.models["sensevoice-small"];
     <div class="grid-2">
       <article class="feature-card">
         <span class="eyebrow">共用语音识别模型</span>
-        <h2>SenseVoiceSmall INT8</h2>
-        <p>约 242 MiB。负责把语音转成文字，快捷语音输入和录音文件转写共用；首次启用本地识别时下载一次。</p>
+        <h2>SenseVoiceSmall 快速识别</h2>
+        <p>负责把语音转成文字，快捷语音输入和录音文件转写共用。首次启用时由应用下载，随后在本次应用运行中复用已加载的模型。</p>
       </article>
       <article class="feature-card">
         <span class="eyebrow">可选多人分离扩展</span>
@@ -56,7 +54,7 @@ const model = downloadManifest.models["sensevoice-small"];
         <p>约 46 MiB。仅在录音文件转写中开启“区分不同发言人”时使用；它负责区分发言人，不负责把语音转成文字。</p>
       </article>
     </div>
-    <p class="prose" style="margin-top: var(--space-5)">普通录音文件转写只需要 SenseVoiceSmall。两种模型都在本机运行；说话人分离只使用编号，不推断真实姓名，也不建立跨任务声纹库。</p>
+    <p class="prose" style="margin-top: var(--space-5)">普通录音文件转写只需要 SenseVoiceSmall。两套模型都在本机运行；说话人分离只使用编号，不推断真实姓名，也不建立跨任务声纹库。</p>
   </div></section>
   <section class="section-compact"><div class="shell cta-band"><div><h2>第一次装？先看两分钟说明</h2><p>Mac 和 Windows 的步骤不太一样，照着对应页面操作会省事很多。</p></div><SecondaryButton href={sitePath("/install/")}>打开安装说明</SecondaryButton></div></section>
   <section class="section section-tinted"><div class="shell">

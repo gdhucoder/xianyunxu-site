@@ -4,17 +4,47 @@
     "repository": "gdhucoder/xianyun-releases",
     "releasesUrl": "https://github.com/gdhucoder/xianyun-releases/releases"
   },
-  "generatedAt": "2026-08-11T22:30:38.575Z",
+  "generatedAt": "2026-08-12T22:29:15.544Z",
   "collectionIntervalDays": 1,
   "totals": {
-    "macosInstallerDownloads": 21,
-    "windowsPackageDownloads": 11,
-    "identifiableUpdateDownloads": 24,
-    "updateMetadataDownloads": 44,
+    "macosInstallerDownloads": 22,
+    "windowsPackageDownloads": 13,
+    "identifiableUpdateDownloads": 25,
+    "updateMetadataDownloads": 51,
     "modelDownloads": 14,
-    "appPackageDownloads": 56
+    "appPackageDownloads": 60
   },
   "versions": [
+    {
+      "version": "0.1.12",
+      "tagName": "v0.1.12",
+      "publishedAt": "2026-08-12T07:40:13Z",
+      "macosInstallerDownloads": 0,
+      "windowsPackageDownloads": 1,
+      "identifiableUpdateDownloads": 1,
+      "updateMetadataDownloads": 4,
+      "appPackageDownloads": 2
+    },
+    {
+      "version": "0.1.11",
+      "tagName": "v0.1.11",
+      "publishedAt": "2026-08-12T06:02:25Z",
+      "macosInstallerDownloads": 0,
+      "windowsPackageDownloads": 0,
+      "identifiableUpdateDownloads": 0,
+      "updateMetadataDownloads": 1,
+      "appPackageDownloads": 0
+    },
+    {
+      "version": "0.1.10",
+      "tagName": "v0.1.10",
+      "publishedAt": "2026-08-12T01:11:44Z",
+      "macosInstallerDownloads": 1,
+      "windowsPackageDownloads": 1,
+      "identifiableUpdateDownloads": 0,
+      "updateMetadataDownloads": 2,
+      "appPackageDownloads": 2
+    },
     {
       "version": "0.1.9",
       "tagName": "v0.1.9",
@@ -283,6 +313,15 @@
       "updateMetadataDownloads": 44,
       "modelDownloads": 14,
       "appPackageDownloads": 56
+    },
+    {
+      "capturedAt": "2026-08-12T22:29:15.544Z",
+      "macosInstallerDownloads": 22,
+      "windowsPackageDownloads": 13,
+      "identifiableUpdateDownloads": 25,
+      "updateMetadataDownloads": 51,
+      "modelDownloads": 14,
+      "appPackageDownloads": 60
     }
   ],
   "countingNotes": {

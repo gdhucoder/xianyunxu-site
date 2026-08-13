@@ -4,17 +4,47 @@
     "repository": "gdhucoder/xianyun-releases",
     "releasesUrl": "https://github.com/gdhucoder/xianyun-releases/releases"
   },
-  "generatedAt": "2026-08-12T22:29:15.544Z",
+  "generatedAt": "2026-08-13T22:30:25.242Z",
   "collectionIntervalDays": 1,
   "totals": {
     "macosInstallerDownloads": 22,
-    "windowsPackageDownloads": 13,
+    "windowsPackageDownloads": 15,
     "identifiableUpdateDownloads": 25,
-    "updateMetadataDownloads": 51,
+    "updateMetadataDownloads": 57,
     "modelDownloads": 14,
-    "appPackageDownloads": 60
+    "appPackageDownloads": 62
   },
   "versions": [
+    {
+      "version": "0.1.15",
+      "tagName": "v0.1.15",
+      "publishedAt": "2026-08-13T09:29:01Z",
+      "macosInstallerDownloads": 0,
+      "windowsPackageDownloads": 0,
+      "identifiableUpdateDownloads": 0,
+      "updateMetadataDownloads": 1,
+      "appPackageDownloads": 0
+    },
+    {
+      "version": "0.1.14",
+      "tagName": "v0.1.14",
+      "publishedAt": "2026-08-13T08:42:04Z",
+      "macosInstallerDownloads": 0,
+      "windowsPackageDownloads": 1,
+      "identifiableUpdateDownloads": 0,
+      "updateMetadataDownloads": 3,
+      "appPackageDownloads": 1
+    },
+    {
+      "version": "0.1.13",
+      "tagName": "v0.1.13",
+      "publishedAt": "2026-08-13T06:29:03Z",
+      "macosInstallerDownloads": 0,
+      "windowsPackageDownloads": 1,
+      "identifiableUpdateDownloads": 0,
+      "updateMetadataDownloads": 1,
+      "appPackageDownloads": 1
+    },
     {
       "version": "0.1.12",
       "tagName": "v0.1.12",
@@ -22,7 +52,7 @@
       "macosInstallerDownloads": 0,
       "windowsPackageDownloads": 1,
       "identifiableUpdateDownloads": 1,
-      "updateMetadataDownloads": 4,
+      "updateMetadataDownloads": 5,
       "appPackageDownloads": 2
     },
     {
@@ -322,6 +352,15 @@
       "updateMetadataDownloads": 51,
       "modelDownloads": 14,
       "appPackageDownloads": 60
+    },
+    {
+      "capturedAt": "2026-08-13T22:30:25.242Z",
+      "macosInstallerDownloads": 22,
+      "windowsPackageDownloads": 15,
+      "identifiableUpdateDownloads": 25,
+      "updateMetadataDownloads": 57,
+      "modelDownloads": 14,
+      "appPackageDownloads": 62
     }
   ],
   "countingNotes": {

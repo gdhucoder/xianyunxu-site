@@ -5,19 +5,19 @@
     "nameEn": "XianYun AI Voice Input"
   },
   "channel": "beta",
-  "version": "0.1.13",
-  "publishedAt": "2026-08-13T06:29:03Z",
-  "releasePageUrl": "https://github.com/gdhucoder/xianyun-releases/releases/tag/v0.1.13",
+  "version": "0.1.14",
+  "publishedAt": "2026-08-13T08:42:04Z",
+  "releasePageUrl": "https://github.com/gdhucoder/xianyun-releases/releases/tag/v0.1.14",
   "platforms": {
     "macos-arm64": {
       "status": "available",
       "displayName": "macOS Apple Silicon",
       "architecture": "arm64",
       "minimumOsVersion": "macOS 10.15",
-      "downloadUrl": "https://github.com/gdhucoder/xianyun-releases/releases/download/v0.1.13/XianYunAIVoiceInput_0.1.13_aarch64.dmg",
-      "fileName": "XianYunAIVoiceInput_0.1.13_aarch64.dmg",
-      "sizeBytes": 22615823,
-      "sha256": "5e804adfb4f65c08e2893147a5fcaa138eb65def10828c0729deeae3c890ce4d",
+      "downloadUrl": "https://github.com/gdhucoder/xianyun-releases/releases/download/v0.1.14/XianYunAIVoiceInput_0.1.14_aarch64.dmg",
+      "fileName": "XianYunAIVoiceInput_0.1.14_aarch64.dmg",
+      "sizeBytes": 22637566,
+      "sha256": "f6b715bd3a74f64c580eedac12a698e6c1a533e27a16621b4b980971210a97ba",
       "installGuideUrl": "/install/macos/",
       "signingStatus": "self-signed-not-notarized"
     },
@@ -26,10 +26,10 @@
       "displayName": "Windows x64",
       "architecture": "x64",
       "minimumOsVersion": "Windows 10/11 x64（新增功能待真机验证）",
-      "downloadUrl": "https://github.com/gdhucoder/xianyun-releases/releases/download/v0.1.13/XianYunAIVoiceInput_0.1.13_x64-setup.exe",
-      "fileName": "XianYunAIVoiceInput_0.1.13_x64-setup.exe",
-      "sizeBytes": 12248356,
-      "sha256": "9d6ea496c6f40710e49523da0a31912ce30fe3acd79355c537ca753740397c88",
+      "downloadUrl": "https://github.com/gdhucoder/xianyun-releases/releases/download/v0.1.14/XianYunAIVoiceInput_0.1.14_x64-setup.exe",
+      "fileName": "XianYunAIVoiceInput_0.1.14_x64-setup.exe",
+      "sizeBytes": 12237107,
+      "sha256": "a6190c73c01a9bc434696234e3dea4e57c4143bc3c2f2b6166d2e56f371f9398",
       "installGuideUrl": "/install/windows/",
       "signingStatus": "unsigned"
     }

@@ -1,9 +1,12 @@
 ---
-title: 0.1.15 Beta
+title: 0.1.16 Beta
 status: beta
-publishedAt: 2026-08-13
+publishedAt: 2026-08-14
 ---
 
 ### 本次更新
 
-- 修复：wait for shortcut release before injection
+- 修复 Windows 应用更新后首次启动可能无法自动写入文本的问题。
+- 更新前会有序关闭快捷键、识别与文本写入资源，更新后只启动一个应用实例。
+- 启动后自动检查快捷键和文本写入组件，短暂占用时会有限重试。
+- 正式 Windows 发布增加微信、WPS、粤政易和记事本注入能力的回归门禁。

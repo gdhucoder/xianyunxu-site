@@ -9,6 +9,8 @@ import {
 const { totals, versions, models, snapshots } = downloadStats;
 const previous = snapshots.length > 1 ? snapshots.at(-2) : null;
 const modelByPlatform = Object.fromEntries(models.map((item) => [item.platform, item.modelDownloads]));
+const recentVersions = versions.slice(0, 3);
+const olderVersions = versions.slice(3);
 
 const cards: Array<{ key: keyof DownloadTotals; label: string; detail: string }> = [
   { key: "macosInstallerDownloads", label: "macOS 安装包", detail: "历次 DMG 下载" },
@@ -25,10 +27,10 @@ const cards: Array<{ key: keyof DownloadTotals; label: string; detail: string }>
 <details class="download-stats">
   <summary class="download-stats-toggle">
     <span>
-      <strong>查看详细下载统计</strong>
-      <small>平台、模型与各版本累计下载次数</small>
+      <strong>下载统计</strong>
+      <small>纤云叙累计下载 {formatDownloadCount(totals.appPackageDownloads)} 次 · 每天 06:00 更新</small>
     </span>
-    <span class="download-stats-toggle-action" aria-hidden="true">展开</span>
+    <span class="download-stats-toggle-action" aria-hidden="true">查看</span>
   </summary>
 
   <div class="download-stats-content">
@@ -58,14 +60,22 @@ const cards: Array<{ key: keyof DownloadTotals; label: string; detail: string }>
       })}
     </div>
 
-    <div class="download-version-table-wrap" tabindex="0" role="region" aria-label="各版本累计下载次数">
+    <div class="download-version-heading">
+      <div>
+        <h3>最近版本</h3>
+        <p>只显示最近三个版本，旧版本明细可以继续展开。</p>
+      </div>
+      <span>{versions.length} 个版本</span>
+    </div>
+
+    <div class="download-version-table-wrap" tabindex="0" role="region" aria-label="最近版本累计下载次数">
       <table class="download-version-table">
-        <caption>每个版本的累计下载次数</caption>
+        <caption class="sr-only">最近版本累计下载次数</caption>
         <thead>
           <tr><th scope="col">版本</th><th scope="col">macOS</th><th scope="col">Windows</th><th scope="col">更新包</th><th scope="col">合计</th></tr>
         </thead>
         <tbody>
-          {versions.map((version) => (
+          {recentVersions.map((version) => (
             <tr>
               <th scope="row">v{version.version}</th>
               <td>{formatDownloadCount(version.macosInstallerDownloads)}</td>
@@ -77,6 +87,29 @@ const cards: Array<{ key: keyof DownloadTotals; label: string; detail: string }>
         </tbody>
       </table>
     </div>
+
+    {olderVersions.length > 0 && <details class="download-version-history">
+      <summary>查看全部版本（{olderVersions.length} 个更早版本）</summary>
+      <div class="download-version-table-wrap" tabindex="0" role="region" aria-label="更早版本累计下载次数">
+        <table class="download-version-table">
+          <caption class="sr-only">更早版本累计下载次数</caption>
+          <thead>
+            <tr><th scope="col">版本</th><th scope="col">macOS</th><th scope="col">Windows</th><th scope="col">更新包</th><th scope="col">合计</th></tr>
+          </thead>
+          <tbody>
+            {olderVersions.map((version) => (
+              <tr>
+                <th scope="row">v{version.version}</th>
+                <td>{formatDownloadCount(version.macosInstallerDownloads)}</td>
+                <td>{formatDownloadCount(version.windowsPackageDownloads)}</td>
+                <td>{formatDownloadCount(version.identifiableUpdateDownloads)}</td>
+                <td><strong>{formatDownloadCount(version.appPackageDownloads)}</strong></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </details>}
 
     <details class="download-stats-notes">
       <summary>统计口径</summary>

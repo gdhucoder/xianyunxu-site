@@ -19,6 +19,8 @@ concurrency:
 
 jobs:
   sync:
+    # Manual dispatch must never publish or sync a feature branch.
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
       - name: Check out website source

@@ -14,7 +14,7 @@
 
 - Astro 7.1.1，纯静态输出；
 - TypeScript 6.0.3，strictest；
-- pnpm 11.13.0；
+- pnpm 11.19.0；
 - Astro Components + 原生 CSS；
 - GitHub Pages 官方 Actions 部署；
 - 无 React、无 UI 框架、无数据库、无后端、无远程字体、无分析 Cookie。

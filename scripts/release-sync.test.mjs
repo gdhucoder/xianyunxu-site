@@ -92,3 +92,32 @@ test("accepts only complete allowlisted website screenshot pairs", () => {
   screenshotRelease.assets.pop();
   assert.throws(() => selectWebsiteScreenshotAssets(screenshotRelease), /both jpg and avif/);
 });
+
+for (const tag of ['v0.1.7-feature', 'v0.1.7-beta.1', 'v0.1.7-rc.1', 'v0.1.7+feature', 'model-v0.1.7', 'v01.1.7']) {
+  test(`rejects non-stable tag ${tag} even without the prerelease flag`, () => {
+    assert.throws(() => buildWebsiteReleaseUpdate({ ...release, tag_name: tag }, manifest), /stable/);
+  });
+}
+
+for (const flags of [{ draft: true }, { prerelease: true }, { draft: undefined }, { prerelease: undefined }]) {
+  test(`rejects unpublished or ambiguous metadata ${JSON.stringify(flags)}`, () => {
+    assert.throws(() => buildWebsiteReleaseUpdate({ ...release, ...flags }, manifest), /published and non-prerelease/);
+  });
+}
+
+test('rejects installer URLs pointing at a different release tag', () => {
+  const invalid = structuredClone(release);
+  const asset = invalid.assets[0];
+  assert.ok(asset);
+  asset.browser_download_url = asset.browser_download_url.replace('/v0.1.6/', '/feature/');
+  assert.throws(() => buildWebsiteReleaseUpdate(invalid, manifest), /download URL/);
+});
+
+test('selects the highest clean stable version regardless of API order or feature builds', async () => {
+  const { selectStableRelease } = await import('./release-sync-lib.mjs');
+  const candidates = ['v0.1.9', 'v0.1.18', 'v9.0.0-feature', 'v0.1.10'].map(tag_name => ({ ...release, tag_name }));
+  candidates.push({ ...release, tag_name: 'v9.0.0', prerelease: true });
+  candidates.push({ ...release, tag_name: 'v8.0.0', draft: true });
+  assert.equal(selectStableRelease(candidates).tag_name, 'v0.1.18');
+  assert.equal(selectStableRelease([{ ...release, prerelease: true }]), null);
+});

@@ -1,7 +1,7 @@
 import { readFile, writeFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { validateManifest } from "./download-manifest-lib.mjs";
-import { buildWebsiteReleaseUpdate, releaseApiUrl } from "./release-sync-lib.mjs";
+import { buildWebsiteReleaseUpdate, releaseApiUrl, selectStableRelease } from "./release-sync-lib.mjs";
 import { syncWebsiteScreenshots } from "./website-screenshot-sync-lib.mjs";
 
 const manifestPath = fileURLToPath(new URL("../src/data/download-manifest.json", import.meta.url));
@@ -15,12 +15,19 @@ const headers = {
 };
 if (process.env.GITHUB_TOKEN) headers.Authorization = `Bearer ${process.env.GITHUB_TOKEN}`;
 
-const response = await fetch(releaseApiUrl, { headers });
-if (!response.ok) {
-  throw new Error(`GitHub latest release request failed: HTTP ${response.status}`);
+// Paginate instead of trusting /latest: a mislabelled feature tag must not
+// displace the latest published, clean application version.
+const releases = [];
+for (let page = 1; ; page++) {
+  const response = await fetch(`${releaseApiUrl}?per_page=100&page=${page}`, { headers });
+  if (!response.ok) throw new Error(`GitHub releases request failed: HTTP ${response.status}`);
+  const batch = await response.json();
+  if (!Array.isArray(batch)) throw new Error("GitHub releases response must be an array");
+  releases.push(...batch);
+  if (batch.length < 100) break;
 }
-
-const release = await response.json();
+const release = selectStableRelease(releases);
+if (!release) throw new Error("No published stable application release found; preserving current website");
 const currentManifest = JSON.parse(await readFile(manifestPath, "utf8"));
 const update = buildWebsiteReleaseUpdate(release, currentManifest);
 const errors = validateManifest(update.manifest);

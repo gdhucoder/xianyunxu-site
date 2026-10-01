@@ -1,6 +1,6 @@
 const RELEASE_REPOSITORY = "gdhucoder/xianyun-releases";
 const RELEASE_PREFIX = `https://github.com/${RELEASE_REPOSITORY}/`;
-const VERSION_TAG = /^v(?<version>\d+\.\d+\.\d+(?:[-+][0-9A-Za-z.-]+)?)$/;
+const VERSION_TAG = /^v(?<version>(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*))$/;
 
 /** @param {unknown} value @param {string} label */
 function expectString(value, label) {
@@ -18,15 +18,15 @@ function sha256FromDigest(value) {
   return match.groups.hash;
 }
 
-/** @param {any[]} assets @param {RegExp} pattern @param {string} label */
-function findUniqueAsset(assets, pattern, label) {
+/** @param {any[]} assets @param {RegExp} pattern @param {string} label @param {string} tagName */
+function findUniqueAsset(assets, pattern, label, tagName) {
   const matches = assets.filter((asset) => pattern.test(asset?.name ?? ""));
   if (matches.length !== 1) {
     throw new Error(`expected exactly one ${label} asset, found ${matches.length}`);
   }
   const asset = matches[0];
   const url = expectString(asset.browser_download_url, `${label} download URL`);
-  if (!url.startsWith(`${RELEASE_PREFIX}releases/download/`)) {
+  if (url !== `${RELEASE_PREFIX}releases/download/${tagName}/${asset.name}`) {
     throw new Error(`${label} download URL must use the official release repository`);
   }
   if (!Number.isSafeInteger(asset.size) || asset.size <= 0) {
@@ -65,11 +65,11 @@ export function extractCurrentReleaseNotes(body) {
 /** @param {any} release @param {any} currentManifest */
 export function buildWebsiteReleaseUpdate(release, currentManifest) {
   if (!release || typeof release !== "object") throw new Error("release payload must be an object");
-  if (release.draft || release.prerelease) throw new Error("latest website release must be published and non-prerelease");
+  if (release.draft !== false || release.prerelease !== false) throw new Error("latest website release must be published and non-prerelease");
 
   const tagName = expectString(release.tag_name, "release tag");
   const version = VERSION_TAG.exec(tagName)?.groups?.version;
-  if (!version) throw new Error(`release tag must be v<semver>, received ${tagName}`);
+  if (!version) throw new Error(`release tag must be stable v<major.minor.patch>, received ${tagName}`);
 
   const releasePageUrl = expectString(release.html_url, "release page URL");
   if (releasePageUrl !== `${RELEASE_PREFIX}releases/tag/${tagName}`) {
@@ -84,11 +84,13 @@ export function buildWebsiteReleaseUpdate(release, currentManifest) {
     assets,
     new RegExp(`^XianYunAIVoiceInput_${escapedVersion}_aarch64\\.dmg$`),
     "macOS installer",
+    tagName,
   );
   const windows = findUniqueAsset(
     assets,
     new RegExp(`^XianYunAIVoiceInput_${escapedVersion}_x64-setup\\.exe$`),
     "Windows installer",
+    tagName,
   );
   const bullets = extractCurrentReleaseNotes(release.body);
 
@@ -116,4 +118,22 @@ export function buildWebsiteReleaseUpdate(release, currentManifest) {
   return { manifest, changelog, version };
 }
 
-export const releaseApiUrl = `https://api.github.com/repos/${RELEASE_REPOSITORY}/releases/latest`;
+/** Published application tags only; ignore feature, model and prerelease builds.
+ * @param {any[]} releases
+ */
+export function selectStableRelease(releases) {
+  return releases.filter((release) =>
+    release?.draft === false && release?.prerelease === false &&
+    VERSION_TAG.test(release.tag_name ?? "") &&
+    typeof release.published_at === "string" && Number.isFinite(Date.parse(release.published_at))
+  ).sort((a, b) => {
+    const left = a.tag_name.slice(1).split(".").map(BigInt);
+    const right = b.tag_name.slice(1).split(".").map(BigInt);
+    for (let i = 0; i < 3; i++) {
+      if (left[i] !== right[i]) return left[i] > right[i] ? -1 : 1;
+    }
+    return 0;
+  })[0] ?? null;
+}
+
+export const releaseApiUrl = `https://api.github.com/repos/${RELEASE_REPOSITORY}/releases`;

@@ -40,3 +40,10 @@ test("the official English product capitalization is enforced", () => {
   manifest.product.nameEn = "Qianyunxu";
   assert.match(validateManifest(manifest).join("\n"), /official XianYun AI Voice Input capitalization/);
 });
+
+test('rejects prerelease versions and mismatched download tags at build time', () => {
+  const manifest = structuredClone(source);
+  manifest.version = '0.2.0-feature';
+  assert.match(validateManifest(manifest).join('\n'), /stable semantic/);
+  assert.match(validateManifest(manifest).join('\n'), /must match the manifest version/);
+});

@@ -35,11 +35,14 @@ function validatePlatform(id, platform, manifest, errors) {
   }
 
   if (platform.status === "available") {
-    if (!manifest.version || !/^\d+\.\d+\.\d+(?:[-+][0-9A-Za-z.-]+)?$/.test(manifest.version)) {
-      errors.push(`available platform ${id} requires a semantic manifest version`);
+    if (!manifest.version || !/^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)$/.test(manifest.version)) {
+      errors.push(`available platform ${id} requires a stable semantic manifest version`);
     }
     if (!isHttpUrl(platform.downloadUrl) || !platform.downloadUrl.startsWith(officialReleasePrefix)) {
       errors.push(`available platform ${id} requires a real xianyun-releases HTTPS URL`);
+    }
+    if (platform.downloadUrl !== `${officialReleasePrefix}releases/download/v${manifest.version}/${platform.fileName}`) {
+      errors.push(`available platform ${id} download URL must match the manifest version and file name`);
     }
     if (typeof platform.fileName !== "string" || !platform.fileName.trim()) {
       errors.push(`available platform ${id} requires fileName`);
@@ -72,6 +75,9 @@ export function validateManifest(manifest) {
   if (!["beta", "stable"].includes(manifest.channel)) errors.push("channel must be beta or stable");
   if (!isHttpUrl(manifest.releasePageUrl) || !manifest.releasePageUrl.startsWith(officialReleasePrefix)) {
     errors.push("releasePageUrl must point to the public xianyun-releases repository");
+  }
+  if (manifest.releasePageUrl !== `${officialReleasePrefix}releases/tag/v${manifest.version}`) {
+    errors.push("releasePageUrl must match the manifest version");
   }
   if (manifest.publishedAt !== null && Number.isNaN(Date.parse(manifest.publishedAt))) {
     errors.push("publishedAt must be null or an ISO-8601 date-time");

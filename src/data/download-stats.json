@@ -4,13 +4,13 @@
     "repository": "gdhucoder/xianyun-releases",
     "releasesUrl": "https://github.com/gdhucoder/xianyun-releases/releases"
   },
-  "generatedAt": "2026-10-28T00:48:54.688Z",
+  "generatedAt": "2026-10-29T01:21:43.530Z",
   "collectionIntervalDays": 1,
   "totals": {
     "macosInstallerDownloads": 23,
     "windowsPackageDownloads": 19,
     "identifiableUpdateDownloads": 27,
-    "updateMetadataDownloads": 76,
+    "updateMetadataDownloads": 77,
     "modelDownloads": 14,
     "appPackageDownloads": 69
   },
@@ -22,7 +22,7 @@
       "macosInstallerDownloads": 1,
       "windowsPackageDownloads": 2,
       "identifiableUpdateDownloads": 1,
-      "updateMetadataDownloads": 14,
+      "updateMetadataDownloads": 15,
       "appPackageDownloads": 4
     },
     {
@@ -983,6 +983,15 @@
       "windowsPackageDownloads": 19,
       "identifiableUpdateDownloads": 27,
       "updateMetadataDownloads": 76,
+      "modelDownloads": 14,
+      "appPackageDownloads": 69
+    },
+    {
+      "capturedAt": "2026-10-29T01:21:43.530Z",
+      "macosInstallerDownloads": 23,
+      "windowsPackageDownloads": 19,
+      "identifiableUpdateDownloads": 27,
+      "updateMetadataDownloads": 77,
       "modelDownloads": 14,
       "appPackageDownloads": 69
     }

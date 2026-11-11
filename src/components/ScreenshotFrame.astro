@@ -9,9 +9,10 @@ interface Props {
   aspect?: "wide" | "window";
   width?: number;
   height?: number;
+  preview?: boolean;
 }
 
-const { title, description, imageBase, alt, aspect = "wide", width = 960, height = 692 } = Astro.props;
+const { title, description, imageBase, alt, aspect = "wide", width = 960, height = 692, preview = false } = Astro.props;
 ---
 <figure class:list={["screenshot-frame", `is-${aspect}`]}>
   <div class="screenshot-toolbar" aria-hidden="true"><i></i><i></i><i></i></div>
@@ -34,5 +35,5 @@ const { title, description, imageBase, alt, aspect = "wide", width = 960, height
       <p>{description}</p>
     </div>
   )}
-  <figcaption><strong>{title}</strong><span>{description}</span></figcaption>
+  <figcaption><strong>{title}</strong><span>{description}</span>{preview && <small class="screenshot-provenance">新版界面预览 · 真实界面组件与合成示例，非实机验收截图</small>}</figcaption>
 </figure>

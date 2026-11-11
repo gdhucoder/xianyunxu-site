@@ -6,6 +6,7 @@ import FeatureCard from "../components/FeatureCard.astro";
 import SectionHeading from "../components/SectionHeading.astro";
 import ScreenshotFrame from "../components/ScreenshotFrame.astro";
 import PrivacyPathCard from "../components/PrivacyPathCard.astro";
+import PublicPreviewNotice from "../components/PublicPreviewNotice.astro";
 import FAQItem from "../components/FAQItem.astro";
 import PrimaryButton from "../components/PrimaryButton.astro";
 import SecondaryButton from "../components/SecondaryButton.astro";
@@ -13,165 +14,59 @@ import PlatformBadge from "../components/PlatformBadge.astro";
 import { downloadManifest } from "../data/downloadManifest";
 import { downloadStats, formatDownloadCount } from "../data/downloadStats";
 import { sitePath } from "../lib/urls";
-
 const macos = downloadManifest.platforms["macos-arm64"];
 const windows = downloadManifest.platforms["windows-x64"];
 const totalDownloads = downloadStats.totals.appPackageDownloads + downloadStats.totals.modelDownloads;
 ---
-
 <BaseLayout footerDownloadTotal={formatDownloadCount(totalDownloads)}>
   <Hero macos={macos} windows={windows} />
-
-  <section class="section-compact" aria-labelledby="workflow-title">
-    <div class="shell">
-      <SectionHeading eyebrow="怎么用" title="按下快捷键，说完就行" description="录音、识别、整理和写入都会显示进度。中途出了问题，也能看到文字有没有保住。" />
-      <h2 id="workflow-title" class="visually-hidden">语音输入的四个步骤</h2>
-      <WorkflowSteps />
+  <section class="section-compact"><div class="shell"><PublicPreviewNotice /></div></section>
+  <section class="section-compact" aria-labelledby="workflow-title"><div class="shell">
+    <SectionHeading eyebrow="日常输入" title="说完，文字回到你手边" description="用系统麦克风开始和停止录音。识别在本机完成，不要求先配置在线服务。自动写入需要相应系统权限，不可用时按提示复制。" />
+    <h2 id="workflow-title" class="visually-hidden">语音输入流程</h2><WorkflowSteps />
+  </div></section>
+  <section class="section section-tinted" aria-labelledby="values-title"><div class="shell">
+    <SectionHeading eyebrow="只保留必要的步骤" title="识别快、识别准、好用" description="这是改进方向，不是对每句话的准确率或速度承诺。先让第一次输入简单，再把常用操作做顺手。" />
+    <h2 id="values-title" class="visually-hidden">新版的三个改进方向</h2>
+    <div class="grid-3">
+      <FeatureCard index="01" title="先说一句，不先填配置">新版完整包准备随包提供识别模型，首次自动导入；有效模型在后续更新中继续复用。</FeatureCard>
+      <FeatureCard index="02" title="常用写法，自己掌握">只填正确写法就能加词；明确的错写映射需确认适用范围，候选不会自动当成正确答案。</FeatureCard>
+      <FeatureCard index="03" title="文字整理，按需开启">原话直出、日常聊天、AI 需求、书面表达四种方式。初次试录不调用整理模型，也不用填写密钥。</FeatureCard>
     </div>
-  </section>
-
-  <section class="section section-tinted" aria-labelledby="values-title">
-    <div class="shell">
-      <SectionHeading eyebrow="用起来" title="不用先打开另一个窗口" description="写邮件也好，回消息也好，光标停在哪里，就在那里开始说。" />
-      <h2 id="values-title" class="visually-hidden">三项核心价值</h2>
-      <div class="grid-3">
-        <FeatureCard index="01" title="光标在哪，就写到哪">按下快捷键，在常用的办公、沟通和写作软件里直接说。个别应用可能会有兼容差异。</FeatureCard>
-        <FeatureCard index="02" title="还是你原来的意思">它会去掉明显的重复和口头语，顺一顺标点，但不该替你改事实、数字和观点。</FeatureCard>
-        <FeatureCard index="03" title="想用本地识别，也可以">本地模型可以单独安装。语音在哪儿识别、文字会不会交给云端整理，设置里都能看到。</FeatureCard>
-      </div>
+  </div></section>
+  <section class="section" id="public-preview" aria-labelledby="screenshots-title"><div class="shell">
+    <SectionHeading eyebrow="新版界面预览" title="少一点设置，多一点开始" description="以下图片由当前应用界面组件在隔离环境中渲染。文字、词条和统计均为合成示例；不代表当前公开安装包或干净账户验收已完成。" />
+    <h2 id="screenshots-title" class="visually-hidden">新版公开版界面</h2>
+    <div class="screenshot-featured"><ScreenshotFrame preview title="首页：统计与最近输入" description="看看输入字数、速度、估算节省时间和使用应用数。最近五条文字直接展开，不用先跳到历史页。估算不等于实测效率。" imageBase="preview-home-macos" alt="新版首页预览，显示四项合成统计和五条示例输入历史" width={1680} height={1200} /></div>
+    <div class="grid-2">
+      <ScreenshotFrame preview title="首次使用：先试说一句" description="新版完整包内置模型，准备好后允许麦克风并试录；看到文字后即可开始使用。辅助功能可稍后设置。" imageBase="preview-first-use-macos" alt="新版两步引导的试录页预览，本地模型已准备好，不要求配置在线服务" width={1680} height={1200} />
+      <ScreenshotFrame preview title="模型准备好，就够了" description="平时只显示是否已准备好，模型名称、参数和维护操作收在管理入口。更新不要求重复下载有效模型。" imageBase="preview-model-ready-macos" alt="新版模型设置预览，显示已准备好和管理模型入口" width={1680} height={1200} />
     </div>
-  </section>
-
-  <section class="section" aria-labelledby="file-transcription-title">
-    <div class="shell">
-      <SectionHeading eyebrow="已有录音" title="手机录音和会议录音，也可以直接整理" description="把音频文件拖进来，纤云叙会在后台生成逐字稿。多人录音还可以区分不同发言人，再由你校正姓名和片段归属。" />
-      <h2 id="file-transcription-title" class="visually-hidden">文件转写与多人说话人分离</h2>
-      <div class="grid-3">
-        <FeatureCard index="01" title="常见格式直接导入">支持 WAV、MP3、M4A 和 FLAC。处理在后台继续，不会卡住日常语音输入。</FeatureCard>
-        <FeatureCard index="02" title="逐字稿带时间信息">每段文字保留开始和结束时间，方便回听、复制，并导出 TXT 或 Markdown。</FeatureCard>
-        <FeatureCard index="03" title="多人录音可以分开看">可自动估计或指定说话人数。系统只使用“说话人 1、2、3”等标签，不会猜测真实身份。</FeatureCard>
-      </div>
+    <div class="screenshot-featured"><ScreenshotFrame preview title="个人词典：加词与替换分开" description="正确写法是一格录入，明确替换需看清词对和范围。学习建议等待你确认，不承诺添加后下一次一定识别正确。" imageBase="preview-dictionary-macos" alt="新版个人词典预览，包含紧凑的合成词条、范围选择和快速录入入口" width={1680} height={1200} /></div>
+    <div class="screenshot-featured"><ScreenshotFrame preview title="四种方式，整理到刚刚好" description="默认关闭 AI 整理。可选原话直出、日常聊天、AI 需求或书面表达；macOS 可手动绑定应用，浏览器绑定作用于整个浏览器。" imageBase="preview-cleanup-macos" alt="新版文字整理设置预览，显示关闭的 AI 总开关与四种整理方式" width={1680} height={1268} /></div>
+  </div></section>
+  <section class="section section-tinted" aria-labelledby="paths-title"><div class="shell">
+    <SectionHeading eyebrow="数据去向" title="本地识别是默认，云端整理是选择" description="本地语音识别与在线文字整理是两件事。新版不提供在线语音识别入口；只有主动配置并开启在线整理，文字才会发送给该服务。" />
+    <h2 id="paths-title" class="visually-hidden">新版数据处理路径</h2>
+    <div class="grid-2">
+      <PrivacyPathCard title="原话直出 · 不调用整理模型" path="语音 → 本地识别 → 基础处理与词典 → 写入或复制" tone="local">不是未经处理的逐字转写。准备好本地模型后，这条识别路径不需要在线模型服务。</PrivacyPathCard>
+      <PrivacyPathCard title="可选 AI 文字整理" path="本地识别 → 按设置整理文字 → 写入或复制" tone="mixed">如果选择在线服务，转写全文及相关词典上下文可能发送给它。关闭总开关或选原话直出，不发起这一步模型请求。</PrivacyPathCard>
     </div>
-  </section>
-
-  <section class="section section-tinted" aria-labelledby="screenshots-title">
-    <div class="shell">
-      <SectionHeading eyebrow="现在的样子" title="打开以后，你会看到这些" description="下面都是实际运行截图。示例文字经过处理，不含密钥、私人路径或真实办公内容。" />
-      <h2 id="screenshots-title" class="visually-hidden">产品截图</h2>
-      <div class="screenshot-featured">
-        <ScreenshotFrame
-          title="运行准备与系统权限"
-          description="快捷键、麦克风、识别方式、文字整理和系统权限，都放在首页。"
-          imageBase="home-dashboard-macos"
-          alt="纤云叙 macOS 首页，显示运行准备、快捷键、本地识别和系统权限状态"
-          aspect="window"
-        />
-      </div>
-      <div class="grid-2">
-        <ScreenshotFrame
-          title="文件转写与多人分离"
-          description="导入录音后，可以看到时长、识别模型、处理进度和说话人数，并复制或导出结果。"
-          imageBase="file-transcription-speakers-macos"
-          alt="纤云叙文件转写页面，显示四人测试录音、本地识别、说话人分离和导出操作"
-        />
-        <ScreenshotFrame
-          title="说话人时间轴"
-          description="按时间查看各位说话人的片段；多人重叠和不确定结果会单独标出，方便人工确认。"
-          imageBase="file-transcription-speakers-sanitized-macos"
-          alt="纤云叙多人录音时间轴，显示说话人片段和多人重叠提示"
-          width={560}
-          height={700}
-        />
-      </div>
-      <div class="screenshot-featured">
-        <ScreenshotFrame
-          title="个人词典"
-          description="把姓名、机构名和专业词记下来；常见错误写法保留在词条详情中。"
-          imageBase="personal-dictionary-macos"
-          alt="纤云叙个人词典页面，显示正确词条、自动添加和手工添加来源"
-        />
-      </div>
-      <div class="screenshot-overlay-feature">
-        <ScreenshotFrame
-          title="录音状态浮层"
-          description="录音时，屏幕底部会出现一个轻量波形。浮层不会抢走光标，也不会挡住鼠标操作。"
-          imageBase="status-overlay-recording-macos"
-          alt="纤云叙在浅色应用背景上显示录音中的圆形状态浮层"
-          width={640}
-          height={300}
-        />
-      </div>
-    </div>
-  </section>
-
-  <section class="section section-tinted" aria-labelledby="paths-title">
-    <div class="shell">
-      <SectionHeading eyebrow="数据去向" title="语音在哪识别，文字会不会联网" description="用本地识别时，语音留在电脑上。如果又打开了云端文字整理，识别后的文字还是会发给你选的服务。" />
-      <h2 id="paths-title" class="visually-hidden">本地与云端的数据去向</h2>
-      <div class="grid-3">
-        <PrivacyPathCard title="本地识别 · 不用 AI 整理" path="语音 → 本机识别 → 基础整理 → 写入" tone="local">识别时不需要把语音发到云端。本地模型由你主动下载安装。</PrivacyPathCard>
-        <PrivacyPathCard title="本地识别 · 云端 AI 整理" path="本机识别语音 → 云端整理文字 → 写入" tone="mixed">音频在本机识别，识别后的文字会按你的设置交给云端服务整理。</PrivacyPathCard>
-        <PrivacyPathCard title="云端识别 · 可选 AI 整理" path="云端识别语音 → 可选整理 → 写入" tone="cloud">音频会发送给你选择的识别服务，数据如何保留由对应服务的政策决定。</PrivacyPathCard>
-      </div>
-      <div style="margin-top: var(--space-5)"><SecondaryButton href={sitePath("/privacy/")}>查看完整隐私说明</SecondaryButton></div>
-    </div>
-  </section>
-
-  <section class="section" aria-labelledby="platforms-title">
-    <div class="shell grid-2">
-      <div>
-        <SectionHeading eyebrow="支持平台" title="Mac 和 Windows 都有安装包" description="macOS Apple Silicon 版已完成当前版本真机验证。Windows x64 版由 GitHub Actions 构建发布，新增功能还在等待更多 Windows 真机反馈。" />
-        <h2 id="platforms-title" class="visually-hidden">平台支持状态</h2>
-        <div class="hero-badges">
-          <PlatformBadge tone="success">macOS Apple Silicon · Beta</PlatformBadge>
-          <PlatformBadge>Intel Mac · 暂不支持</PlatformBadge>
-          <PlatformBadge tone="success">Windows x64 · Beta</PlatformBadge>
-        </div>
-      </div>
-      <div class="cta-band">
-        <div><h2>你用哪台电脑？</h2><p>Mac 和 Windows 都准备了单独的安装包与安装步骤。</p></div>
-        <div class="button-row"><PrimaryButton href={sitePath("/download/")}>立即下载</PrimaryButton><SecondaryButton href={sitePath("/install/")}>安装说明</SecondaryButton></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section section-tinted" aria-labelledby="privacy-title">
-    <div class="shell grid-2">
-      <div>
-        <SectionHeading eyebrow="你可以自己定" title="历史要不要留，云端整理要不要开" description="历史可以只留统计，也可以完全关闭。本地模型只有在你点击安装后才会下载。" />
-        <h2 id="privacy-title" class="visually-hidden">隐私与透明性</h2>
-      </div>
-      <div class="prose">
-        <p><strong>刚装好时：</strong>只保存使用统计，保留 30 天，并自动删除临时音频。具体设置可以随时在应用里改。</p>
-        <p><strong>如果出错：</strong>文字整理失败会退回基础文本；写不进输入框时，会尝试复制到剪贴板。</p>
-        <p><a href={sitePath("/privacy/")}>看看数据会去哪里</a></p>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" aria-labelledby="download-cta-title">
-    <div class="shell cta-band">
-      <div><h2 id="download-cta-title">选好系统，就可以下载</h2><p>Mac 和 Windows 都有单独的安装包，第一次安装也准备了详细步骤。</p></div>
-      <div class="button-row">
-        <PrimaryButton href={sitePath("/download/")}>前往下载中心</PrimaryButton>
-        <SecondaryButton href={sitePath("/install/")}>安装说明</SecondaryButton>
-      </div>
-    </div>
-  </section>
-
-  <section class="section section-tinted" aria-labelledby="faq-title">
-    <div class="shell">
-      <SectionHeading eyebrow="常见问题" title="几个大家经常会问的问题" />
-      <h2 id="faq-title" class="visually-hidden">常见问题摘要</h2>
-      <div class="faq-list">
-        <FAQItem question="Mac 和 Windows 都可以用吗？" open>可以下载 macOS Apple Silicon Beta 和 Windows x64 Beta。macOS 当前版本已经过真机验证；Windows 安装包已发布，但文件转写和多人分离仍在等待更多 Windows 真机反馈。Intel Mac 暂不支持。</FAQItem>
-        <FAQItem question="多人录音能自动认出姓名吗？">不能。纤云叙只把不同声音标成“说话人 1、2、3”等，你可以在当前任务里手工改名。它不会建立跨录音的永久声纹身份。</FAQItem>
-        <FAQItem question="用了本地识别，就完全不会联网吗？">不一定。本地识别只负责把语音变成文字；如果你开启云端 AI 整理，识别后的文字仍可能联网。</FAQItem>
-        <FAQItem question="为什么需要麦克风和辅助功能权限？">麦克风用于录音，辅助功能用于把整理好的文字写进你正在使用的应用。两项权限都可以在系统设置中管理。</FAQItem>
-        <FAQItem question="输入失败后，文字还能找回来吗？">AI 整理失败时会尽量保留基础文本；写入失败时会尝试复制到剪贴板。最终结果请以应用当时的提示为准。</FAQItem>
-      </div>
-      <div style="margin-top: var(--space-5)"><SecondaryButton href={sitePath("/faq/")}>查看全部问题</SecondaryButton></div>
-    </div>
-  </section>
-
+    <div style="margin-top: var(--space-5)"><SecondaryButton href={sitePath("/privacy/")}>查看数据与录音保存说明</SecondaryButton></div>
+  </div></section>
+  <section class="section" aria-labelledby="platforms-title"><div class="shell grid-2">
+    <div><SectionHeading eyebrow="平台与发布" title="按实际版本下载" description="目前公开提供 macOS Apple Silicon 和 Windows x64 Beta。这里的新版预览来自 Mac 界面；不代表 Windows 新版或干净机器已经完成验收。" /><h2 id="platforms-title" class="visually-hidden">平台发布状态</h2>
+      <div class="hero-badges"><PlatformBadge>macOS Apple Silicon · Beta</PlatformBadge><PlatformBadge>Windows x64 · Beta</PlatformBadge><PlatformBadge>Intel Mac · 暂不支持</PlatformBadge></div></div>
+    <div class="cta-band"><div><h2>先看版本，再下载</h2><p>新版完整包尚未公开。当前下载链接、版本和校验值保持原样。</p></div><PrimaryButton href={sitePath("/download/")}>下载当前公开版</PrimaryButton></div>
+  </div></section>
+  <section class="section section-tinted" aria-labelledby="faq-title"><div class="shell">
+    <SectionHeading eyebrow="常见问题" title="开始之前，先说清楚" /><h2 id="faq-title" class="visually-hidden">常见问题</h2>
+    <div class="faq-list">
+      <FAQItem question="第一次使用必须配置大语言模型吗？" open>不需要。新版试录只用本地识别；在线文字整理默认关闭，以后到设置里主动配置即可。</FAQItem>
+      <FAQItem question="安装后还要下载识别模型吗？">新版完整包准备内置模型并自动导入，轻量更新复用已有模型。这项新版能力仍待干净 Mac 断网实测；当前公开 v{downloadManifest.version} 仍按旧版模型安装步骤使用。</FAQItem>
+      <FAQItem question="录音会自动保存吗？">默认不保存录音。主动开启后，录音保存在本机并随对应历史的保留期限和删除操作清理；已导出的副本不受影响。</FAQItem>
+      <FAQItem question="添加词条就一定能识别对吗？">不能保证。加词用于转写后的候选、纠正和保护，不是已验证的 ASR 热词。明确的替换映射与只填正确写法是两种不同操作。</FAQItem>
+      <FAQItem question="需要专用硬件吗？">不需要。公开版使用系统麦克风与现有桌面快捷键，不提供专用蓝牙设备入口。</FAQItem>
+    </div><div style="margin-top: var(--space-5)"><SecondaryButton href={sitePath("/faq/")}>查看全部问题</SecondaryButton></div>
+  </div></section>
 </BaseLayout>

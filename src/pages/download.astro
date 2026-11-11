@@ -4,6 +4,7 @@ import DownloadCard from "../components/DownloadCard.astro";
 import DownloadStats from "../components/DownloadStats.astro";
 import SectionHeading from "../components/SectionHeading.astro";
 import SecondaryButton from "../components/SecondaryButton.astro";
+import PublicPreviewNotice from "../components/PublicPreviewNotice.astro";
 import { downloadManifest, formatPublishedDate } from "../data/downloadManifest";
 import { sitePath } from "../lib/urls";
 const macos = downloadManifest.platforms["macos-arm64"];
@@ -12,6 +13,7 @@ const windows = downloadManifest.platforms["windows-x64"];
 <BaseLayout title="下载" description="下载纤云叙 macOS Apple Silicon 与 Windows x64 Beta，查看版本、文件大小和安装包校验值。">
   <header class="page-hero"><div class="shell"><p class="eyebrow">下载</p><h1>选好系统，就可以下载了。</h1><p>Mac 和 Windows 目前都有 Beta 版本。这里的按钮会直接带你到公开的 GitHub Releases。</p></div></header>
   <section class="section-compact"><div class="shell">
+    <PublicPreviewNotice />
     <div class="metadata-strip" aria-label="当前发布信息">
       <span>Beta 版本</span><span>v{downloadManifest.version}</span><span>{formatPublishedDate(downloadManifest.publishedAt)}发布</span><span>版本信息来自 GitHub Releases</span>
     </div>
@@ -32,7 +34,7 @@ const windows = downloadManifest.platforms["windows-x64"];
   </div></section>
   <section class="section section-tinted"><div class="shell grid-2">
     <div>
-      <SectionHeading eyebrow="本地模型" title="首次使用时，再准备快速识别" description="v0.1.12 起，新安装会使用快速识别引擎。模型在应用界面打开后于后台加载，之后的短句不必重复启动识别程序。" />
+      <SectionHeading eyebrow="当前公开版" title="旧版模型安装方式保持不变" description="本页下载按钮仍指向已发布版本，不是新版内置模型测试包。新版完整包通过验收并正式发布后，才会更新下载信息。" />
       <p class="prose">在“设置 → 本地模型”点击安装即可。下载包约 155 MiB，模型文件约 229 MiB；语音会留在本机识别。网络较慢时，也可以下载官方模型包后在这里导入，且不需要先解压。已经安装旧版本地模型的用户不需要马上更换，旧模型仍可正常使用。</p>
     </div>
     <div class="button-row">
@@ -41,20 +43,20 @@ const windows = downloadManifest.platforms["windows-x64"];
     </div>
   </div></section>
   <section class="section"><div class="shell">
-    <SectionHeading eyebrow="录音文件转写" title="文件转写共用语音识别模型" description="SenseVoiceSmall 同时用于快捷语音输入和录音文件转写。只有开启“区分不同发言人”时，才需要额外安装多人分离扩展包。" />
+    <SectionHeading eyebrow="新版准备中" title="新安装用完整包，更新复用已有模型" description="公开版只提供系统麦克风输入。完整包准备内置固定的本地模型；在线文字整理是可选项，不是首次试录的前置条件。" />
     <div class="grid-2">
       <article class="feature-card">
-        <span class="eyebrow">共用语音识别模型</span>
-        <h2>SenseVoiceSmall 快速识别</h2>
-        <p>负责把语音转成文字，快捷语音输入和录音文件转写共用。首次启用时由应用下载，随后在本次应用运行中复用已加载的模型。</p>
+        <span class="eyebrow">首次安装</span>
+        <h2>完整包 · 模型随包提供</h2>
+        <p>准备从安装包本地校验并导入识别模型，不要求打开后再下载一次。首次仍有校验、解包与加载等待，不承诺零等待或固定出字秒数。</p>
       </article>
       <article class="feature-card">
-        <span class="eyebrow">可选多人分离扩展</span>
-        <h2>Pyannote Segmentation INT8 + 3D-Speaker ERes2Net</h2>
-        <p>约 46 MiB。仅在录音文件转写中开启“区分不同发言人”时使用；它负责区分发言人，不负责把语音转成文字。</p>
+        <span class="eyebrow">后续更新</span>
+        <h2>轻量包 · 保留已有模型</h2>
+        <p>复用已经安装且校验有效的模型，保留原有词库、历史、录音与设置。缺失或损坏时明确提示修复，不静默改用在线识别。</p>
       </article>
     </div>
-    <p class="prose" style="margin-top: var(--space-5)">普通录音文件转写只需要 SenseVoiceSmall。两套模型都在本机运行；说话人分离只使用编号，不推断真实姓名，也不建立跨任务声纹库。</p>
+    <p class="prose" style="margin-top: var(--space-5)">当前没有新版公开下载链接。Mac 干净账户断网、实际麦克风与系统权限验收已暂停；Windows、正式签名和发布条件也需分别核验。此处不是公开发布通知。</p>
   </div></section>
   <section class="section-compact"><div class="shell cta-band"><div><h2>第一次装？先看两分钟说明</h2><p>Mac 和 Windows 的步骤不太一样，照着对应页面操作会省事很多。</p></div><SecondaryButton href={sitePath("/install/")}>打开安装说明</SecondaryButton></div></section>
   <section class="section section-tinted"><div class="shell">

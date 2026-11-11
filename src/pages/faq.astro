@@ -1,35 +1,31 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import FAQItem from "../components/FAQItem.astro";
+import PublicPreviewNotice from "../components/PublicPreviewNotice.astro";
 import SecondaryButton from "../components/SecondaryButton.astro";
 import { downloadManifest } from "../data/downloadManifest";
 import { sitePath } from "../lib/urls";
 ---
-<BaseLayout title="常见问题" description="了解纤云叙支持的平台、安装权限、本地识别、AI 整理、历史记录、模型、卸载和更新。">
-  <header class="page-hero"><div class="shell"><p class="eyebrow">常见问题</p><h1>有问题，先在这里找找。</h1><p>安装、权限、本地识别、文字整理和失败恢复，常见情况基本都放在这里了。如果页面和应用里的提示不一样，以应用为准。</p></div></header>
-  <section class="section-compact"><div class="shell faq-list">
-    <FAQItem question="1. 纤云叙是什么？" open>它是一款给 Mac 和 Windows 用的语音输入工具。按下快捷键直接说，纤云叙会把话变成文字，按你的设置顺一顺，再写回光标所在的位置。</FAQItem>
-    <FAQItem question="2. 支持哪些系统？">目前可以下载 macOS Apple Silicon Beta 和 Windows x64 Beta。macOS 当前版本已经过真机验证；Windows 安装包已由 GitHub Actions 构建发布，文件转写和多人分离仍待更多 Windows 真机反馈。Intel Mac 暂不支持。</FAQItem>
-    <FAQItem question="3. 为什么 Mac 提示无法验证开发者？">因为当前 Beta 没有 Apple Developer ID，也没有经过 Apple 公证，macOS 可能会阻止第一次打开。请只从本官网或官方 GitHub Releases 下载，再按安装说明到“隐私与安全性”中确认。</FAQItem>
-    <FAQItem question="4. Intel Mac 可以用吗？">目前的 DMG 只支持 Apple Silicon（arm64），不能在 Intel Mac 上运行。以后是否提供 Intel 版本，需要进一步确认。</FAQItem>
-    <FAQItem question="5. Windows 怎么安装？">从官网下载 x64 安装程序，并核对 SHA-256。因为安装包还没有代码签名，SmartScreen 可能提示未知发布者。确认下载来源和校验值后再继续，不要全局关闭 SmartScreen。</FAQItem>
-    <FAQItem question="6. 为什么需要麦克风权限？">只有在你主动开始语音输入时，纤云叙才需要用麦克风录音。没有这项权限，就无法采集和识别语音。</FAQItem>
-    <FAQItem question="7. 为什么还需要辅助功能权限？">在 Mac 上，辅助功能权限用来把最终文字写进录音前正在使用的应用。Windows 没有同名开关，但应用权限差异也可能导致写入失败。写不进去时，纤云叙会尽量把文字复制到剪贴板。</FAQItem>
-    <FAQItem question="8. 本地识别就完全不会联网吗？">不一定。本地语音识别时，音频不需要发到云端；但第一次安装模型需要联网下载。如果你开启云端 AI 整理，识别后的文字仍会联网。因此，“本地识别”不等于整个流程都离线。</FAQItem>
-    <FAQItem question="9. AI 整理会把文字发到云端吗？">如果你配置并开启了云端 AI 整理，文字可能会通过网络交给相应服务处理。关闭 AI 整理或选择“原文”模式时，不会发起这一步调用。请以应用设置页显示为准。</FAQItem>
-    <FAQItem question="10. 怎么删除历史记录？">在“历史与隐私”设置中，可以选择保存多少内容、保留多久，也可以一键清空。可选项包括不保存、只存统计、只存最终文本，以及同时保存原文和最终文本。</FAQItem>
-    <FAQItem question="11. 本地模型要怎么安装或更新？" id="local-model">新安装的 v0.1.12 及以后版本，在“设置 → 本地模型”安装“快速识别引擎”即可。它会在应用界面出现后于后台加载，后续短句可复用已加载的模型。网络较慢时，可先下载官方模型包，再使用同一页面的“导入本地模型包”；请直接选择完整压缩包，不要先解压。旧版 GGUF 本地模型仍能继续使用，不会被自动替换；想提升短句速度时，再手动安装或导入快速引擎即可。</FAQItem>
-    <FAQItem question="12. 怎么删除本地模型？">到“设置 → 本地模型”中选择删除即可。删除后，本地语音识别会暂时不可用；如果还要使用，需要重新安装或导入。云端识别能否使用，取决于你是否已经单独配置。</FAQItem>
-    <FAQItem question="13. 怎么卸载？">Mac 用户可退出应用后，从“应用程序”中删除纤云叙；Windows 用户可在“设置 → 应用 → 已安装的应用”中卸载。本地历史和模型可能仍留在应用数据目录，当前版本还没有确认好一键彻底清理方式。</FAQItem>
-    <FAQItem question="14. 怎么检查更新？">在应用设置里找到更新区域，点击手动检查。更新文件来自公开的 GitHub Releases；即使检查失败，也不会影响已经安装的版本。</FAQItem>
-    <FAQItem question="15. 输入失败后，文字还能找回来吗？">AI 整理失败或超时时，会尽量退回基础文本；写入失败时，会尝试把文字复制到剪贴板。能否完整找回，还取决于出错发生在哪一步，以及你是否开启了历史保存。</FAQItem>
-    <FAQItem question="16. 文件转写支持哪些格式？">当前支持 WAV、MP3、M4A 和 FLAC。格式、编码或文件损坏情况不同，实际能否解码仍以应用检查结果为准。原始录音默认留在原位置，不会被应用删除。</FAQItem>
-    <FAQItem question="17. 多人录音能自动认出真实姓名吗？">不能。系统只会把不同声音标成“说话人 1、2、3”等，你可以在当前任务中手工改名或调整片段归属。纤云叙不会建立跨任务的永久声纹身份。</FAQItem>
-    <FAQItem question="18. 为什么自动判断的人数不准确？">自动人数是根据声音特征聚类得到的估计。相似音色、短插话、远距离收音、噪声和多人同时讲话都会影响结果。如果已知参会人数，建议直接选择“指定人数”后重新区分。</FAQItem>
-    <FAQItem question="19. 录音文件转写需要另外下载识别模型吗？">不需要。快捷语音输入和录音文件转写共用 SenseVoiceSmall。只有在文件转写中开启“区分不同发言人”时，才需要另外安装约 46 MiB 的多人分离扩展；它只负责区分发言人，不参与语音识别。</FAQItem>
-    <FAQItem question="20. 遇到问题怎么反馈？">可以在纤云叙的“设置 → 帮助与反馈”填写说明，再选择打开 GitHub、发送邮件、复制反馈内容或导出诊断包。反馈邮箱是 <a href="mailto:gdhudev@126.com">gdhudev@126.com</a>。应用不会在后台自动发送反馈。</FAQItem>
-    <FAQItem question="21. 诊断包里有什么？">诊断包只包含应用版本、系统与模型状态、权限状态、错误码、脱敏错误和你允许附加的最近十分钟脱敏日志。它不包含音频、完整转写、历史或词典数据库、API Key、剪贴板和原始用户文件。发送前仍建议自行打开检查。</FAQItem>
-    <FAQItem question="22. 为什么提示上次可能未正常退出？">应用启动时发现上一次没有留下正常退出标记，或存在未查看的本地崩溃记录。断电、强制结束和更新重启也可能触发，所以这不等于确定发生崩溃。你可以继续使用、忽略提示，或在反馈页查看脱敏诊断。</FAQItem>
+<BaseLayout title="常见问题" description="了解纤云叙本地输入、首次模型准备、可选 AI 整理、个人词典、录音保存和当前发布边界。">
+  <header class="page-hero"><div class="shell"><p class="eyebrow">常见问题</p><h1>少一点准备，先把话说出来。</h1><p>新版方向和当前下载版分开说明。遇到界面差异时，先核对自己使用的版本。</p></div></header>
+  <section class="section-compact"><div class="shell"><PublicPreviewNotice /></div></section>
+  <section class="section"><div class="shell faq-list">
+    <FAQItem question="1. 现在能下载到新版吗？" open>还不能。当前公开下载仍是 v{downloadManifest.version}。本站展示的新版界面来自当前代码的合成预览，不是正式发布通知；旧安装包的地址、大小和 SHA-256 没有改动。</FAQItem>
+    <FAQItem question="2. 支持哪些电脑？">目前公开提供 macOS Apple Silicon Beta 和 Windows x64 Beta，Intel Mac 暂不支持。新版截图来自 Mac 界面，不代表 Windows 新版已经完成真实安装或识别验收。</FAQItem>
+    <FAQItem question="3. 第一次使用需要配置大语言模型或密钥吗？">新版不需要。先允许麦克风、说一句、停止后看结果；辅助功能可稍后授权。在线文字整理默认关闭，以后需要时再自行配置。</FAQItem>
+    <FAQItem question="4. 完整包和轻量包有什么区别？" id="local-model">新版完整包准备内置识别模型并自动导入，避免应用打开后再下载模型；首次仍有校验、解包和加载等待。轻量更新复用已有有效模型，缺失时明确提示安装或修复。当前公开旧版仍需按设置里的模型安装或导入入口准备；请勿把旧下载包当成新版完整包。</FAQItem>
+    <FAQItem question="5. 本地识别等于完全离线吗？">只对本地识别路径而言，不需要向在线识别服务发送音频。如果主动开启在线文字整理，全文及相关词典上下文可能发送给对应服务；主动下载修复、检查更新也可能联网。新版试录不调用整理模型，但干净 Mac 断网验收尚未完成。</FAQItem>
+    <FAQItem question="6. 四种整理方式怎么选？">原话直出跳过 AI 整理，仍沿用基础处理和个人词典；日常聊天保留自己的说法；AI 需求用于理清已有要求与限制，不应回答或擅自执行；书面表达改善句式，不应增加事实。真实整理质量仍取决于模型和输入，不能把请求成功当作语义正确。</FAQItem>
+    <FAQItem question="7. 能按应用自动选方式吗？">新版 macOS 可手动绑定应用，用录音开始时捕获的目标；中途切应用或改设置只影响后续会话。浏览器绑定对整个浏览器生效，不能区分网站。Windows 保留手动模式，暂不承诺可靠的自动应用绑定。</FAQItem>
+    <FAQItem question="8. 为什么需要麦克风和辅助功能权限？">麦克风用于用户主动开始的录音。Mac 辅助功能用于把文字写入原目标应用，不是新版应用内试录的前置条件。写入失败时，应按提示使用保留结果或复制；不是保证所有控件都能自动写入。</FAQItem>
+    <FAQItem question="9. 加一个正确词就一定识别对吗？">不能保证。正确词参与转写后的候选、纠正和保护，不是已验证的识别前 ASR 热词。若知道固定的错误写法，可明确保存“错写 → 正确写法”，并选择适用范围；只改这次不会创建长期规则。</FAQItem>
+    <FAQItem question="10. 手工改字会自动变成全局规则吗？">不会。能观察到的修改只生成待确认候选，用户确认后才启用；部分应用或控件无法安全读取局部变化，可在结果或历史里手动纠正。不承诺跨所有应用自动观察。</FAQItem>
+    <FAQItem question="11. 录音会保存吗，怎么播放与导出？">新版默认不保存录音。主动开启“保存录音到历史记录”后，录音关联对应历史，可播放和导出 WAV。它是标准化识别音频，不是硬件未经处理的原始录音。旧记录未保存音频时不能恢复。</FAQItem>
+    <FAQItem question="12. 删除历史会把录音一起删掉吗？">会清理对应归档录音，删除前会提示。清空和到期清理也遵守同样的关联规则；已导出的独立副本不受影响。“永久保留”只关闭到期清理，不阻止手动删除。</FAQItem>
+    <FAQItem question="13. 首页的节省时间准确吗？">它是估算值：按每分钟 60 字计算打字时间，再减去录音时间，不包含识别、整理和手工修改的等待。只统计仍保留且符合条件的本地记录；不是效率承诺。</FAQItem>
+    <FAQItem question="14. 需要专用设备吗？">公开版不需要，使用系统麦克风和桌面快捷键。外接麦克风按系统输入设置使用；不提供专用蓝牙输入源或相关硬件功能入口。</FAQItem>
+    <FAQItem question="15. 为什么首次打开仍有系统安全提示？">当前公开 Beta 的签名与公证限制没有因网站改版改变。请只从官方链接下载，核对文件后按对应平台说明操作；不要关闭整台电脑的安全防护。<a href={sitePath("/install/")}>查看安装说明</a>。</FAQItem>
+    <FAQItem question="16. 如何更新、卸载和反馈？">设置中可手动检查更新。卸载程序不等于删除本地数据；不为解决授权问题清空词库和历史。反馈请使用“帮助与反馈”或 <a href="mailto:gdhudev@126.com">gdhudev@126.com</a>，日志不会自动发送，提交前应自行检查。</FAQItem>
   </div></section>
-  <section class="section"><div class="shell cta-band"><div><h2>准备安装 v{downloadManifest.version}？</h2><p>选择你的系统，再看看安装时可能出现的安全提示。</p></div><SecondaryButton href={sitePath("/install/")}>查看安装说明</SecondaryButton></div></section>
+  <section class="section-compact"><div class="shell cta-band"><div><h2>下载与预览，不混为一谈。</h2><p>安装说明继续对应当前公开版，新版通过验收后再更新下载。</p></div><SecondaryButton href={sitePath("/download/")}>查看当前版本</SecondaryButton></div></section>
 </BaseLayout>

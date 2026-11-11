@@ -244,6 +244,7 @@ code { padding: 0.1em 0.35em; border-radius: 0.35em; background: var(--surface-s
 .download-stats-notes > div { max-width: 52rem; margin-top: var(--space-3); color: var(--text-muted); font-size: 0.82rem; }
 .download-stats-notes p + p { margin-top: var(--space-2); }
 
+.screenshot-provenance { display: block; margin-top: var(--space-2); color: var(--text-muted); font-size: 0.76rem; line-height: 1.6; }
 .faq-list { border-top: 1px solid var(--border); }
 .faq-item { border-bottom: 1px solid var(--border); }
 .faq-item summary { min-height: 4rem; display: flex; align-items: center; justify-content: space-between; gap: var(--space-5); cursor: pointer; list-style: none; color: var(--text-primary); font-weight: 720; }

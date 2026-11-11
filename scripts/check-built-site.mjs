@@ -1,7 +1,8 @@
 import { access, readFile, readdir } from "node:fs/promises";
-import { constants } from "node:fs";
-import { extname, join, relative } from "node:path";
+import { constants, readFileSync } from "node:fs";
+import { extname, join, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
+import { validatePreviewProvenance, validatePublicPreviewPages } from "./public-preview-lib.mjs";
 
 const root = fileURLToPath(new URL("../dist/", import.meta.url));
 const base = "/xianyunxu-site";
@@ -34,10 +35,13 @@ async function walk(directory) {
 const files = await walk(root);
 const htmlFiles = files.filter((file) => extname(file) === ".html");
 const failures = [];
+/** @type {Record<string,string>} */
+const pages = {};
 
 for (const file of htmlFiles) {
   const html = await readFile(file, "utf8");
   const label = relative(root, file);
+  pages[label] = html;
   if (!/<title>[^<]+<\/title>/.test(html)) failures.push(`${label}: missing title`);
   if (!/<meta name="description" content="[^"]+"/.test(html)) failures.push(`${label}: missing description`);
   if (!/<link rel="canonical" href="https:\/\/gdhucoder\.github\.io\/xianyunxu-site\//.test(html)) {
@@ -46,10 +50,25 @@ for (const file of htmlFiles) {
   for (const match of html.matchAll(/(?:href|src)="(\/[^"]*)"/g)) {
     const url = match[1];
     if (!url) continue;
-    if (url === base || url.startsWith(`${base}/`)) continue;
+    if (url === base || url.startsWith(`${base}/`)) {
+      const clean = decodeURIComponent((url.split(/[?#]/)[0] ?? "").slice(base.length));
+      const resolved = resolve(root, `.${clean}`);
+      if (!resolved.startsWith(root.endsWith(sep) ? root : root + sep) && resolved !== resolve(root)) {
+        failures.push(`${label}: URL escapes build root`); continue;
+      }
+      const target = extname(resolved) ? resolved : join(resolved, "index.html");
+      try { await access(target, constants.R_OK); } catch { failures.push(`${label}: missing local target: ${url}`); }
+      continue;
+    }
     failures.push(`${label}: root-absolute URL bypasses base path: ${url}`);
   }
 }
+
+try {
+  const screenshots = join(root, "assets/screenshots");
+  validatePreviewProvenance(JSON.parse(await readFile(join(screenshots, "preview-provenance.json"), "utf8")), name => readFileSync(join(screenshots, name)));
+  validatePublicPreviewPages(pages);
+} catch (error) { failures.push(`Public preview contract: ${error instanceof Error ? error.message : String(error)}`); }
 
 if (failures.length) {
   console.error(failures.join("\n"));

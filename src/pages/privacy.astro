@@ -1,50 +1,24 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import PrivacyPathCard from "../components/PrivacyPathCard.astro";
-import SectionHeading from "../components/SectionHeading.astro";
 import StatusNotice from "../components/StatusNotice.astro";
+import PublicPreviewNotice from "../components/PublicPreviewNotice.astro";
+import { sitePath } from "../lib/urls";
 ---
-<BaseLayout title="隐私说明" description="了解纤云叙如何处理语音、文字、历史记录、临时音频、本地模型和诊断信息。">
-  <header class="page-hero"><div class="shell"><p class="eyebrow">隐私说明</p><h1>语音在哪识别，文字会不会联网？</h1><p>这里按不同用法说清楚。还没确认的地方也会直接写出来，不绕弯子。</p></div></header>
-  <section class="section-compact"><div class="shell"><StatusNotice title="本地识别不等于全程离线">本地语音识别只表示音频在电脑上完成识别。如果开启云端 AI 整理，识别后的文字仍可能发送给你配置的服务。</StatusNotice></div></section>
-  <section class="section"><div class="shell">
-    <SectionHeading eyebrow="数据去向" title="常见的三种用法" />
-    <div class="grid-3">
-      <PrivacyPathCard title="本地识别，不用 AI 整理" path="语音 → 本机模型 → 基础文本 → 当前应用" tone="local">识别语音时不需要连接云端。本地模型需要由你主动下载安装。</PrivacyPathCard>
-      <PrivacyPathCard title="本地识别，使用云端 AI 整理" path="本机识别语音 → 云端整理文字 → 当前应用" tone="mixed">音频留在电脑上识别，识别后的文字会按你的设置发送给云端服务整理。</PrivacyPathCard>
-      <PrivacyPathCard title="云端识别，可选 AI 整理" path="云端识别语音 → 可选整理 → 当前应用" tone="cloud">音频会发送给你选择的识别服务。服务如何处理和保留数据，请查看相应服务商的政策。</PrivacyPathCard>
-    </div>
+<BaseLayout title="隐私与数据" description="区分本地语音识别、可选在线文字整理，以及本机历史和录音的保存、删除与导出规则。">
+  <header class="page-hero"><div class="shell"><p class="eyebrow">隐私与数据</p><h1>语音在本机，整理由你选择。</h1><p>以下按准备中的新版公开版说明；当前旧版可能仍显示在线识别和旧功能入口，请结合实际版本与设置查看。</p></div></header>
+  <section class="section-compact"><div class="shell"><PublicPreviewNotice /></div></section>
+  <section class="section"><div class="shell grid-2">
+    <PrivacyPathCard title="本地识别，不用整理模型" path="语音 → 本地识别 → 基础处理和词典 → 写入或复制" tone="local">新版统一使用本地识别；原话直出仍包含基础处理和词典，不是未经处理的逐字转写。首次试录不调用大语言模型。</PrivacyPathCard>
+    <PrivacyPathCard title="主动开启在线文字整理" path="本机识别语音 → 文字发给配置服务 → 返回结果" tone="mixed">转写全文与相关词典上下文可能发送给你配置的服务，包括已经在本地纠正的词。不能把“本地 ASR”宣传为整条链路完全离线。</PrivacyPathCard>
   </div></section>
   <section class="section section-tinted"><div class="shell grid-2">
-    <div class="prose">
-      <h2>本地历史</h2>
-      <p>历史记录保存在这台电脑的本地数据库中，不会把正文放在浏览器存储里。</p>
-      <ul><li><strong>不保存（off）：</strong>文本和统计都不保存。</li><li><strong>只存统计（stats_only）：</strong>只保存次数、时长、字数、耗时和任务结果。</li><li><strong>只存最终文本（final_only）：</strong>保存最终文本和统计。</li><li><strong>原文和最终文本（raw_and_final）：</strong>两种文本和统计都会保存。</li></ul>
-      <p>当前默认设计是：只存统计、保留 30 天、自动删除临时音频。最终请以应用设置页显示为准。</p>
-    </div>
-    <div class="prose">
-      <h2>临时音频</h2>
-      <p>默认不会把音频作为历史记录长期保存，也可以在任务完成后自动删除临时音频。</p>
-      <p><strong>需要进一步确认：</strong>断电、程序崩溃或其他异常退出时，临时音频会在什么时候清理完毕。</p>
-      <h2>模型文件</h2>
-      <p>只有在你点击安装后，应用才会下载本地识别或多人分离模型。模型保存在系统的应用数据目录中，也可以从设置里删除。模型文件本身不包含你的语音或文字。</p>
-    </div>
+    <div class="prose"><h2>历史保存什么，由你决定</h2><p>记录保存在本机，不随账号同步。文本可选不保存、仅统计、最终文本、原始与最终文本。默认仅统计，保留 30 天；旧用户设置不会因更新被重置。</p><p>录音保存是独立开关，默认关闭。即使文本选“仅统计”，只要你开启录音保存，音频仍包含说话内容。旧记录没有音频，不能凭空恢复。</p><h2>开启录音保存以后</h2><p>归档为识别链路使用的标准化 16 kHz 单声道 PCM WAV，不是未经处理的硬件原始录音。可以在历史中播放或导出，保存失败会单独提示，不应阻止原本可完成的转写。</p></div>
+    <div class="prose"><h2>删除与保留期限</h2><p>录音跟随对应历史的保留期限，可选择永久保留。删除单条、清空或到期清理会同时清理关联录音；永久保留只关闭到期清理，不阻止手动删除。</p><p>已经导出的 WAV 是独立副本，不随历史删除。历史已删但录音清理暂未完成时，应用会提示部分完成并保留重试机制，不声称已全部删除。</p><h2>临时音频不是历史归档</h2><p>“删除临时音频”与“保存录音到历史”是不同设置。关闭录音保存只影响后续会话，不自动删除此前归档；临时文件清理也不应删除用户导出的副本。</p></div>
   </div></section>
   <section class="section"><div class="shell grid-2">
-    <div class="prose">
-      <h2>文件转写</h2>
-      <p>导入文件时，应用默认读取你选择的原始文件，不会把它复制进数据库，也不会删除用户的原文件。本地识别时，音频不会发送给在线语音识别服务。</p>
-      <p>逐字稿、时间轴和任务状态保存在本机。删除任务时会清理应用生成的临时音频和中间文件，不会删除原始录音。</p>
-    </div>
-    <div class="prose">
-      <h2>多人说话人分离</h2>
-      <p>多人分离在本机提取短期说话人特征，用来区分同一份录音里的不同声音。默认标签只是“说话人 1、2、3”等，不用于推断真实姓名。</p>
-      <p>应用不会建立跨任务声纹库，也不会把说话人特征上传到纤云叙自己的服务器。删除任务时，相关临时特征和聚类缓存会一并清理。</p>
-    </div>
+    <div class="prose"><h2>模型准备与联网</h2><p>新版完整包准备内置识别模型，首次在本机校验并导入。轻量更新复用已有的有效模型；模型缺失或损坏时明确提供修复入口。当前公开旧版仍按其模型安装步骤操作。</p><p>模型就绪后，不需要在线识别服务即可转写；检查更新、主动下载修复和你开启的在线整理是不同的联网行为。完整包的干净 Mac 断网验收尚未完成，不公布固定首用时间。</p><h2>词典与应用身份</h2><p>词典保存在本机。加词不是已经接入 ASR 解码器的热词；观察到的改字只生成待确认建议。macOS 应用规则使用可靠应用身份，不读取聊天对象或网页内容猜场景。</p><p>不承诺每个控件都能观察改字，也没有逐词“禁止上传”的完整隐私开关。<a href={sitePath("/faq/")}>查看词典和应用绑定说明</a>。</p></div>
+    <div class="prose"><h2>日志与反馈</h2><p>应用不会自动上传录音、转写或反馈。是否打开邮件、复制说明或导出诊断包，由你决定。诊断包不应包含完整转写、音频、词库或历史数据库、密钥、剪贴板或用户原文件；发送前仍应检查。</p><p>截图只使用合成文字、词条和统计，不使用真实账户历史。本次网站更新没有启动用户数据库，也没有继续已暂停的干净账户验收。</p><h2>第三方整理服务</h2><p>只有用户主动配置并开启时才使用。数据如何传输和保留由所选服务及其条款决定，本网站不替第三方承诺“不保留”。反馈可发到 <a href="mailto:gdhudev@126.com">gdhudev@126.com</a>，不要把私人日志直接放进公开 Issue。</p></div>
   </div></section>
-  <section class="section"><div class="shell grid-2">
-    <div class="prose"><h2>日志与密钥</h2><p>API Key 通过应用的安全配置读取，不应出现在普通日志、截图或公开配置里。普通日志不记录完整语音转写正文。</p><p>反馈诊断使用单独的脱敏日志，默认保留 7 天，并受单文件大小和文件数量限制。你可以在“设置 → 帮助与反馈”关闭诊断包中的日志、修改保留期限、打开日志目录或清理旧日志。</p></div>
-    <div class="prose"><h2>崩溃与诊断信息</h2><p>纤云叙不会自动上传崩溃报告。上次可能未正常退出时，应用只在本机显示非阻塞提示；是否打开反馈、复制内容或导出诊断包，由你决定。</p><p>诊断包默认不包含音频、完整转写、历史或词典数据库、API Key、剪贴板和用户原始文件；发送前仍应自行检查。公开 GitHub Issue 不适合附加私人诊断包，可改用 <a href="mailto:gdhudev@126.com">gdhudev@126.com</a>。</p><p>这个官网不使用 Cookie 分析、广告或营销追踪，页面显示也不依赖浏览器实时调用 GitHub API。</p></div>
-  </div></section>
-  <section class="section section-tinted"><div class="shell"><StatusNotice tone="warning" title="使用云端服务前，请查看服务商条款">云端语音识别和 AI 整理如何传输、处理和保留数据，由你选择的服务和配置决定。本官网不会替第三方承诺“绝不保留”。填写 API Key 前，请先阅读对应服务的条款。</StatusNotice></div></section>
+  <section class="section-compact"><div class="shell"><StatusNotice title="官网与应用数据分开">官网不读取你的本地历史、词库或录音，也不使用广告或营销追踪。下载链接继续指向已核对的公开制品，网站预览不代表新版应用已发布。</StatusNotice></div></section>
 </BaseLayout>

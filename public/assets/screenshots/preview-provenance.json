@@ -1,0 +1,24 @@
+{
+  "schema": "xianyunxu-public-ui-previews-v1",
+  "capturedOn": "2026-11-11",
+  "status": "unreleased-preview",
+  "provenance": "Real product React components with synthetic read-only IPC; not native app screenshots or clean-account acceptance",
+  "sourceCommit": "725154039ea36426e5cf18f74000bedadfc758b8",
+  "sourceIncludesUncommittedChanges": true,
+  "captureScriptSha256": "8430e0d19b110237f069a5a1d06b319ac60367d9a2b093ad532468ee5e9d83ca",
+  "syntheticFixtureSha256": "9ea8afeca58ee5da042e3982dcff8e2d93575219429f34827498037a43c1e5fd",
+  "nativeAcceptance": "paused-not-performed",
+  "publicInput": "system-microphone-only",
+  "scenes": [
+    { "base": "preview-home-macos", "width": 1680, "height": 1200,
+      "jpgSha256": "bdd4f1bd03caebf1fadfdf5cc1902a042970143c6eeb08cf9fd3fbbb1ffa11a1", "avifSha256": "3f1c7740716238a2f8281c1b782019cad498de8a708418423d33d70273ffab68" },
+    { "base": "preview-dictionary-macos", "width": 1680, "height": 1200,
+      "jpgSha256": "caf3c4f02e59355552a7fad65d07f1cda858887bdb4db82b2dafb8f2c1387472", "avifSha256": "61a6070e60fb055b9264230881f6bad1b7421bf8665d6acad68b33e8dc9cf93b" },
+    { "base": "preview-model-ready-macos", "width": 1680, "height": 1200,
+      "jpgSha256": "d148f053badefaaabb98ca210e4f8081ccfbf61b6a849f6b9970bd50dd986943", "avifSha256": "c615a32c8721425a80c15879ce10b972e10cf4d8b17a2af10e502df357eb6fd1" },
+    { "base": "preview-cleanup-macos", "width": 1680, "height": 1268,
+      "jpgSha256": "317720298b95ba183e1650c29a21e0684de65e58bec4d1fafa84bee4d2445de9", "avifSha256": "9675efab4142507d8a2ccd28c1dd8feeaf08f74097ccf115e0dacfe51ede8a2f" },
+    { "base": "preview-first-use-macos", "width": 1680, "height": 1200,
+      "jpgSha256": "76dce2a307ae4a6e81173f20febf9afb9c9a7a2659181d63ad1ef395bc8fa939", "avifSha256": "40c9580798e873b67c614077ae0f5c49aea405c5acf73030aba5a4fa91398fc0" }
+  ]
+}

@@ -1,0 +1,12 @@
+---
+import StatusNotice from "./StatusNotice.astro";
+import { downloadManifest } from "../data/downloadManifest";
+import { sitePath } from "../lib/urls";
+---
+<div data-public-preview-notice>
+  <StatusNotice title="新版公开版预览 · 尚未发布">
+    本页的新版界面使用合成示例展示，不是私人使用记录。当前下载仍为已发布的
+    v{downloadManifest.version}；不包含这里展示的全部改进。内置模型与两步试录仍待干净 Mac 实机验收。
+    <a href={sitePath("/download/")}>查看当前可下载版本</a>。
+  </StatusNotice>
+</div>

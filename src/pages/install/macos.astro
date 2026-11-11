@@ -5,12 +5,14 @@ import SecondaryButton from "../../components/SecondaryButton.astro";
 import StatusNotice from "../../components/StatusNotice.astro";
 import FAQItem from "../../components/FAQItem.astro";
 import SectionHeading from "../../components/SectionHeading.astro";
+import PublicPreviewNotice from "../../components/PublicPreviewNotice.astro";
 import { downloadManifest, formatBytes } from "../../data/downloadManifest";
 import { sitePath } from "../../lib/urls";
 const macos = downloadManifest.platforms["macos-arm64"];
 ---
 <BaseLayout title="macOS 安装说明" description="安装纤云叙 macOS Apple Silicon Beta：完成下载、首次打开、麦克风和辅助功能授权。">
   <header class="page-hero"><div class="shell"><p class="eyebrow">macOS 安装说明</p><h1>在 Mac 上安装，并完成第一次输入。</h1><p>下载 Apple Silicon 版 DMG，拖入“应用程序”，再跟着页面完成首次打开和两项必要权限。</p></div></header>
+  <section class="section-compact"><div class="shell"><PublicPreviewNotice /><p class="prose" style="margin-top: var(--space-4)">以下步骤对应当前公开旧版。新版准备改为「试录 → 结果」两屏：先允许麦克风，停止后看文字，再进入首页；辅助功能和 AI 整理都不是本地试录的前置条件。<a href={sitePath("/#public-preview")}>查看新版界面预览</a>。</p></div></section>
   <section class="section-compact"><div class="shell"><StatusNotice title="按照系统步骤确认即可">不需要修改整台 Mac 的安全设置，也不需要运行终端命令。遇到提示时，请继续查看本页对应步骤。</StatusNotice></div></section>
 
   <section class="section section-tinted"><div class="shell">

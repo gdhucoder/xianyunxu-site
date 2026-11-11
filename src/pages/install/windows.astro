@@ -4,6 +4,7 @@ import PrimaryButton from "../../components/PrimaryButton.astro";
 import SecondaryButton from "../../components/SecondaryButton.astro";
 import StatusNotice from "../../components/StatusNotice.astro";
 import FAQItem from "../../components/FAQItem.astro";
+import PublicPreviewNotice from "../../components/PublicPreviewNotice.astro";
 import { downloadManifest } from "../../data/downloadManifest";
 import { sitePath } from "../../lib/urls";
 
@@ -12,6 +13,7 @@ const windows = downloadManifest.platforms["windows-x64"];
 
 <BaseLayout title="Windows 安装说明" description="安装纤云叙 Windows x64 Beta：完成下载、文件校验、麦克风设置和第一次输入。">
   <header class="page-hero"><div class="shell"><p class="eyebrow">Windows 安装说明</p><h1>在 Windows 上安装，并完成第一次输入。</h1><p>下载 Windows x64 安装程序，核对文件后，跟着页面完成安装、麦克风设置和第一次输入。</p></div></header>
+  <section class="section-compact"><div class="shell"><PublicPreviewNotice /><p class="prose" style="margin-top: var(--space-4)">本页仍为当前公开旧版步骤。Mac 新版界面和离线导入的自动测试，不能代替 Windows 安装、权限和实际识别验收。</p></div></section>
   <section class="section-compact"><div class="shell"><StatusNotice title="按照系统步骤确认即可">不需要关闭 Windows 安全中心或防病毒软件。遇到系统提示时，请继续查看本页对应步骤。</StatusNotice></div></section>
   <section class="section"><div class="shell grid-2">
     <ol class="install-steps">

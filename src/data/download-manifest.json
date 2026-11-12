@@ -5,19 +5,19 @@
     "nameEn": "XianYun AI Voice Input"
   },
   "channel": "beta",
-  "version": "0.1.18",
-  "publishedAt": "2026-08-15T18:09:53Z",
-  "releasePageUrl": "https://github.com/gdhucoder/xianyun-releases/releases/tag/v0.1.18",
+  "version": "0.1.19",
+  "publishedAt": "2026-11-12T11:43:16Z",
+  "releasePageUrl": "https://github.com/gdhucoder/xianyun-releases/releases/tag/v0.1.19",
   "platforms": {
     "macos-arm64": {
       "status": "available",
       "displayName": "macOS Apple Silicon",
       "architecture": "arm64",
-      "minimumOsVersion": "macOS 10.15",
-      "downloadUrl": "https://github.com/gdhucoder/xianyun-releases/releases/download/v0.1.18/XianYunAIVoiceInput_0.1.18_aarch64.dmg",
-      "fileName": "XianYunAIVoiceInput_0.1.18_aarch64.dmg",
-      "sizeBytes": 22657277,
-      "sha256": "dd68da1bef069eab83b1823abd8c7b1e2789dbb1f668c088f79348275061c9b4",
+      "minimumOsVersion": "建议 macOS 15+；更早系统未实机验证",
+      "downloadUrl": "https://github.com/gdhucoder/xianyun-releases/releases/download/v0.1.19/XianYunAIVoiceInput_0.1.19_aarch64.dmg",
+      "fileName": "XianYunAIVoiceInput_0.1.19_aarch64.dmg",
+      "sizeBytes": 190697568,
+      "sha256": "16d7afe7e21d4fc13d7eaef25bb02be85ae13b96d4a6fbeb70bba060b68242a2",
       "installGuideUrl": "/install/macos/",
       "signingStatus": "self-signed-not-notarized"
     },
@@ -26,10 +26,10 @@
       "displayName": "Windows x64",
       "architecture": "x64",
       "minimumOsVersion": "Windows 10/11 x64（新增功能待真机验证）",
-      "downloadUrl": "https://github.com/gdhucoder/xianyun-releases/releases/download/v0.1.18/XianYunAIVoiceInput_0.1.18_x64-setup.exe",
-      "fileName": "XianYunAIVoiceInput_0.1.18_x64-setup.exe",
-      "sizeBytes": 12247282,
-      "sha256": "caba87f2ffc2b2c4d07f850071a75941147d080b017fbaf819b3b523559cf4cd",
+      "downloadUrl": "https://github.com/gdhucoder/xianyun-releases/releases/download/v0.1.19/XianYunAIVoiceInput_0.1.19_x64-setup.exe",
+      "fileName": "XianYunAIVoiceInput_0.1.19_x64-setup.exe",
+      "sizeBytes": 384063969,
+      "sha256": "16fc79ea7772e5f17bedc94e03e03ea0c20d7c9254419082350ee295f1e4231e",
       "installGuideUrl": "/install/windows/",
       "signingStatus": "unsigned"
     }

@@ -3,29 +3,29 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import FAQItem from "../components/FAQItem.astro";
 import PublicPreviewNotice from "../components/PublicPreviewNotice.astro";
 import SecondaryButton from "../components/SecondaryButton.astro";
-import { downloadManifest } from "../data/downloadManifest";
+import { downloadManifest, bundledModelInstallers } from "../data/downloadManifest";
 import { sitePath } from "../lib/urls";
 ---
 <BaseLayout title="常见问题" description="了解纤云叙本地输入、首次模型准备、可选 AI 整理、个人词典、录音保存和当前发布边界。">
   <header class="page-hero"><div class="shell"><p class="eyebrow">常见问题</p><h1>少一点准备，先把话说出来。</h1><p>新版方向和当前下载版分开说明。遇到界面差异时，先核对自己使用的版本。</p></div></header>
   <section class="section-compact"><div class="shell"><PublicPreviewNotice /></div></section>
   <section class="section"><div class="shell faq-list">
-    <FAQItem question="1. 现在能下载到新版吗？" open>还不能。当前公开下载仍是 v{downloadManifest.version}。本站展示的新版界面来自当前代码的合成预览，不是正式发布通知；旧安装包的地址、大小和 SHA-256 没有改动。</FAQItem>
+    <FAQItem question="1. 现在能下载到新版吗？" open>{bundledModelInstallers ? '可以，当前公开下载提供含模型的完整包。' : '新版完整包尚未发布。'}当前公开版本为 v{downloadManifest.version}。本站界面图片与动画是合成示例，不作为真实安装或识别验收证据。</FAQItem>
     <FAQItem question="2. 支持哪些电脑？">目前公开提供 macOS Apple Silicon Beta 和 Windows x64 Beta，Intel Mac 暂不支持。新版截图来自 Mac 界面，不代表 Windows 新版已经完成真实安装或识别验收。</FAQItem>
     <FAQItem question="3. 第一次使用需要配置大语言模型或密钥吗？">新版不需要。先允许麦克风、说一句、停止后看结果；辅助功能可稍后授权。在线文字整理默认关闭，以后需要时再自行配置。</FAQItem>
-    <FAQItem question="4. 完整包和轻量包有什么区别？" id="local-model">新版完整包准备内置识别模型并自动导入，避免应用打开后再下载模型；首次仍有校验、解包和加载等待。轻量更新复用已有有效模型，缺失时明确提示安装或修复。当前公开旧版仍需按设置里的模型安装或导入入口准备；请勿把旧下载包当成新版完整包。</FAQItem>
+    <FAQItem question="4. 完整包和轻量包有什么区别？" id="local-model">0.1.19 起，完整包内置识别模型并自动导入；首次仍有校验和加载等待。轻量更新只更新软件，复用已有有效模型，缺失或损坏时需要修复。0.1.18 旧包仍需按设置里的模型安装或导入入口准备；请先核对下载版本。</FAQItem>
     <FAQItem question="5. 本地识别等于完全离线吗？">只对本地识别路径而言，不需要向在线识别服务发送音频。如果主动开启在线文字整理，全文及相关词典上下文可能发送给对应服务；主动下载修复、检查更新也可能联网。新版试录不调用整理模型，但干净 Mac 断网验收尚未完成。</FAQItem>
     <FAQItem question="6. 四种整理方式怎么选？">原话直出跳过 AI 整理，仍沿用基础处理和个人词典；日常聊天保留自己的说法；AI 需求用于理清已有要求与限制，不应回答或擅自执行；书面表达改善句式，不应增加事实。真实整理质量仍取决于模型和输入，不能把请求成功当作语义正确。</FAQItem>
     <FAQItem question="7. 能按应用自动选方式吗？">新版 macOS 可手动绑定应用，用录音开始时捕获的目标；中途切应用或改设置只影响后续会话。浏览器绑定对整个浏览器生效，不能区分网站。Windows 保留手动模式，暂不承诺可靠的自动应用绑定。</FAQItem>
     <FAQItem question="8. 为什么需要麦克风和辅助功能权限？">麦克风用于用户主动开始的录音。Mac 辅助功能用于把文字写入原目标应用，不是新版应用内试录的前置条件。写入失败时，应按提示使用保留结果或复制；不是保证所有控件都能自动写入。</FAQItem>
     <FAQItem question="9. 加一个正确词就一定识别对吗？">不能保证。正确词参与转写后的候选、纠正和保护，不是已验证的识别前 ASR 热词。若知道固定的错误写法，可明确保存“错写 → 正确写法”，并选择适用范围；只改这次不会创建长期规则。</FAQItem>
     <FAQItem question="10. 手工改字会自动变成全局规则吗？">不会。能观察到的修改只生成待确认候选，用户确认后才启用；部分应用或控件无法安全读取局部变化，可在结果或历史里手动纠正。不承诺跨所有应用自动观察。</FAQItem>
-    <FAQItem question="11. 录音会保存吗，怎么播放与导出？">新版默认不保存录音。主动开启“保存录音到历史记录”后，录音关联对应历史，可播放和导出 WAV。它是标准化识别音频，不是硬件未经处理的原始录音。旧记录未保存音频时不能恢复。</FAQItem>
+    <FAQItem question="11. 录音会保存吗，怎么播放与导出？">0.1.19 新安装默认保存文本和录音、永久保留，可在“隐私与数据”关闭或调整；升级保留原设置。录音可播放或导出 WAV，是标准化识别音频，不是硬件原始录音。旧记录未保存音频时不能恢复。</FAQItem>
     <FAQItem question="12. 删除历史会把录音一起删掉吗？">会清理对应归档录音，删除前会提示。清空和到期清理也遵守同样的关联规则；已导出的独立副本不受影响。“永久保留”只关闭到期清理，不阻止手动删除。</FAQItem>
     <FAQItem question="13. 首页的节省时间准确吗？">它是估算值：按每分钟 60 字计算打字时间，再减去录音时间，不包含识别、整理和手工修改的等待。只统计仍保留且符合条件的本地记录；不是效率承诺。</FAQItem>
     <FAQItem question="14. 需要专用设备吗？">公开版不需要，使用系统麦克风和桌面快捷键。外接麦克风按系统输入设置使用；不提供专用蓝牙输入源或相关硬件功能入口。</FAQItem>
     <FAQItem question="15. 为什么首次打开仍有系统安全提示？">当前公开 Beta 的签名与公证限制没有因网站改版改变。请只从官方链接下载，核对文件后按对应平台说明操作；不要关闭整台电脑的安全防护。<a href={sitePath("/install/")}>查看安装说明</a>。</FAQItem>
     <FAQItem question="16. 如何更新、卸载和反馈？">设置中可手动检查更新。卸载程序不等于删除本地数据；不为解决授权问题清空词库和历史。反馈请使用“帮助与反馈”或 <a href="mailto:gdhudev@126.com">gdhudev@126.com</a>，日志不会自动发送，提交前应自行检查。</FAQItem>
   </div></section>
-  <section class="section-compact"><div class="shell cta-band"><div><h2>下载与预览，不混为一谈。</h2><p>安装说明继续对应当前公开版，新版通过验收后再更新下载。</p></div><SecondaryButton href={sitePath("/download/")}>查看当前版本</SecondaryButton></div></section>
+  <section class="section-compact"><div class="shell cta-band"><div><h2>下载与演示，不混为一谈。</h2><p>请按下载页的版本、文件名和 SHA-256 获取正式制品；界面演示不代表实机验收。</p></div><SecondaryButton href={sitePath("/download/")}>查看当前版本</SecondaryButton></div></section>
 </BaseLayout>

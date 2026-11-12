@@ -11,7 +11,7 @@ const copy = () => structuredClone(manifest);
 const pathList = ["index.html", "download/index.html", "privacy/index.html", "faq/index.html", "install/index.html", "install/macos/index.html", "install/windows/index.html"];
 /** @returns {Record<string,string>} */
 function fixturePages() {
-  const header = '<div data-public-preview-notice>尚未发布，干净 Mac 实机验收待完成</div>';
+  const header = '<div data-public-preview-notice data-release-phase="preview">尚未发布，干净 Mac 实机验收待完成</div>';
   const figures = PREVIEW_SCENES.map(base => `<figure><img src="/assets/screenshots/${base}.jpg" alt="合成界面"><small class="screenshot-provenance">合成示例 · 非实机验收截图</small></figure>`).join("");
   const pages = Object.fromEntries(pathList.map(path => [path, header]));
   pages["index.html"] += `${figures}AI 整理可选，默认关闭`;
@@ -39,6 +39,13 @@ test("synthetic preview cannot be relabelled as native or released evidence", ()
   }
 });
 test("complete preview pages pass the same content validator used after the build", () => validatePublicPreviewPages(fixturePages()));
+test("published downloads never relabel synthetic images as native acceptance", () => {
+  const pages = fixturePages();
+  for (const path of pathList) pages[path] = (pages[path] ?? '').replace('data-release-phase="preview"', 'data-release-phase="published"').replace('尚未发布，干净 Mac 实机验收待完成', '当前公开版本 v0.1.19，合成示例，不代表干净 Mac 实机验收已完成');
+  validatePublicPreviewPages(pages);
+  pages['index.html'] = (pages['index.html'] ?? '').replace('不代表干净 Mac 实机验收已完成', '已完成全部验收');
+  assert.throws(() => validatePublicPreviewPages(pages));
+});
 test("missing release caveat or screenshot caption is rejected", () => {
   /** @type {Array<(pages:Record<string,string>)=>void>} */
   const changes = [pages => { pages['download/index.html']=''; }, pages => { pages['index.html']=(pages['index.html'] ?? '').replace('data-public-preview-notice', ''); }, pages => { pages['index.html']=(pages['index.html'] ?? '').replace('screenshot-provenance', ''); }];

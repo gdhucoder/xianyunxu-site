@@ -35,7 +35,14 @@ export function validatePublicPreviewPages(pages) {
     const html = pages[path];
     assert.ok(typeof html === "string" && html.length > 0, `missing page ${path}`);
     assert.match(html, /data-public-preview-notice/, `${path}: preview/release distinction`);
-    assert.match(html, /尚未发布/);
+    const phase = /data-release-phase="(preview|published)"/.exec(html)?.[1];
+    assert.ok(phase, `${path}: explicit release phase`);
+    if (phase === 'preview') assert.match(html, /尚未发布/);
+    else {
+      assert.match(html, /当前公开版本/);
+      assert.match(html, /合成示例/);
+      assert.match(html, /不代表干净 Mac 实机验收已完成/);
+    }
     assert.match(html, /干净 Mac 实机验收/);
     assert.doesNotMatch(html, /file:\/\/|\/Users\/|first-use-offline-public-preview-2026/);
   }

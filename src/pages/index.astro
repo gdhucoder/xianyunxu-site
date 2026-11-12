@@ -11,7 +11,7 @@ import FAQItem from "../components/FAQItem.astro";
 import PrimaryButton from "../components/PrimaryButton.astro";
 import SecondaryButton from "../components/SecondaryButton.astro";
 import PlatformBadge from "../components/PlatformBadge.astro";
-import { downloadManifest } from "../data/downloadManifest";
+import { downloadManifest, bundledModelInstallers } from "../data/downloadManifest";
 import { downloadStats, formatDownloadCount } from "../data/downloadStats";
 import { sitePath } from "../lib/urls";
 const macos = downloadManifest.platforms["macos-arm64"];
@@ -29,7 +29,7 @@ const totalDownloads = downloadStats.totals.appPackageDownloads + downloadStats.
     <SectionHeading eyebrow="只保留必要的步骤" title="识别快、识别准、好用" description="这是改进方向，不是对每句话的准确率或速度承诺。先让第一次输入简单，再把常用操作做顺手。" />
     <h2 id="values-title" class="visually-hidden">新版的三个改进方向</h2>
     <div class="grid-3">
-      <FeatureCard index="01" title="先说一句，不先填配置">新版完整包准备随包提供识别模型，首次自动导入；有效模型在后续更新中继续复用。</FeatureCard>
+      <FeatureCard index="01" title="先说一句，不先填配置">0.1.19 完整包已内置识别模型，首次在本机校验并导入；有效模型在后续更新中继续复用。</FeatureCard>
       <FeatureCard index="02" title="常用写法，自己掌握">只填正确写法就能加词；明确的错写映射需确认适用范围，候选不会自动当成正确答案。</FeatureCard>
       <FeatureCard index="03" title="文字整理，按需开启">原话直出、日常聊天、AI 需求、书面表达四种方式。初次试录不调用整理模型，也不用填写密钥。</FeatureCard>
     </div>
@@ -57,14 +57,14 @@ const totalDownloads = downloadStats.totals.appPackageDownloads + downloadStats.
   <section class="section" aria-labelledby="platforms-title"><div class="shell grid-2">
     <div><SectionHeading eyebrow="平台与发布" title="按实际版本下载" description="目前公开提供 macOS Apple Silicon 和 Windows x64 Beta。这里的新版预览来自 Mac 界面；不代表 Windows 新版或干净机器已经完成验收。" /><h2 id="platforms-title" class="visually-hidden">平台发布状态</h2>
       <div class="hero-badges"><PlatformBadge>macOS Apple Silicon · Beta</PlatformBadge><PlatformBadge>Windows x64 · Beta</PlatformBadge><PlatformBadge>Intel Mac · 暂不支持</PlatformBadge></div></div>
-    <div class="cta-band"><div><h2>先看版本，再下载</h2><p>新版完整包尚未公开。当前下载链接、版本和校验值保持原样。</p></div><PrimaryButton href={sitePath("/download/")}>下载当前公开版</PrimaryButton></div>
+    <div class="cta-band"><div><h2>先看版本，再下载</h2><p>{bundledModelInstallers ? '官网提供含模型的完整包；已有用户可在应用内使用轻量更新。安装前请核对签名限制、版本和校验值。' : '新版完整包尚未公开。当前下载链接、版本和校验值保持原样。'}</p></div><PrimaryButton href={sitePath("/download/")}>下载当前公开版</PrimaryButton></div>
   </div></section>
   <section class="section section-tinted" aria-labelledby="faq-title"><div class="shell">
     <SectionHeading eyebrow="常见问题" title="开始之前，先说清楚" /><h2 id="faq-title" class="visually-hidden">常见问题</h2>
     <div class="faq-list">
       <FAQItem question="第一次使用必须配置大语言模型吗？" open>不需要。新版试录只用本地识别；在线文字整理默认关闭，以后到设置里主动配置即可。</FAQItem>
-      <FAQItem question="安装后还要下载识别模型吗？">新版完整包准备内置模型并自动导入，轻量更新复用已有模型。这项新版能力仍待干净 Mac 断网实测；当前公开 v{downloadManifest.version} 仍按旧版模型安装步骤使用。</FAQItem>
-      <FAQItem question="录音会自动保存吗？">默认不保存录音。主动开启后，录音保存在本机并随对应历史的保留期限和删除操作清理；已导出的副本不受影响。</FAQItem>
+      <FAQItem question="安装后还要下载识别模型吗？">{bundledModelInstallers ? '完整安装包已内置模型，首次在本机校验并导入。轻量更新不带模型，复用有效的已安装模型；缺失或损坏时需要修复。' : '新版完整包准备内置模型并自动导入，轻量更新复用已有模型；当前公开旧版仍按设置里的模型安装步骤使用。'}干净 Mac 断网实测尚未完成，不承诺固定首用耗时。</FAQItem>
+      <FAQItem question="录音会自动保存吗？">0.1.19 新安装默认在本机保存文本和录音、永久保留，可在“隐私与数据”关闭或调整。升级保留原设置；已导出的副本不随历史删除而清理。</FAQItem>
       <FAQItem question="添加词条就一定能识别对吗？">不能保证。加词用于转写后的候选、纠正和保护，不是已验证的 ASR 热词。明确的替换映射与只填正确写法是两种不同操作。</FAQItem>
       <FAQItem question="需要专用硬件吗？">不需要。公开版使用系统麦克风与现有桌面快捷键，不提供专用蓝牙设备入口。</FAQItem>
     </div><div style="margin-top: var(--space-5)"><SecondaryButton href={sitePath("/faq/")}>查看全部问题</SecondaryButton></div>

@@ -1,4 +1,5 @@
 import manifestData from "./download-manifest.json";
+import { hasOfflineInstallers } from '../lib/release-capabilities.mjs';
 
 export type AvailabilityStatus = "available" | "preparing" | "coming-soon" | "unavailable";
 
@@ -49,6 +50,7 @@ export interface DownloadManifest {
 }
 
 export const downloadManifest = manifestData as DownloadManifest;
+export const bundledModelInstallers = hasOfflineInstallers(downloadManifest.version);
 
 export function formatBytes(value: number | null): string {
   if (value === null) return "待公布";

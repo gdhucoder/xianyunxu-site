@@ -8,6 +8,12 @@
 
 素材来源与维护边界见 `docs/screenshot-guidelines.md` 和 `docs/site-maintenance.md`。
 
+### 首页产品演示（2026-11-12）
+
+首页加入跨应用语音听写的预设演示，支持播放、暂停、重播与减少动态效果；聊天窗口只填入示例结果，不发送消息。演示不申请麦克风权限，不调用 ASR 或大模型。录音条为放大示意，快捷键不指定真实按键。独立对照页保留在 `/preview/dictation/`，不参与搜索索引。
+
+场景文案、分镜时间与波形参数集中在 `src/data/dictation-demo.json`；组件位于 `src/components/demo/`，播放生命周期与时间线位于 `src/lib/dictation-demo-*`。首页通过 `src/components/Hero.astro` 复用同一组件。修改后运行完整验证；演示不构成真实识别速度、准确率或已发布版本的证据。
+
 `xianyunxu-site` 是 **纤云叙 · XianYun AI Voice Input** 的公开静态官网。
 
 官网与以下仓库相互独立：

@@ -1,37 +1,63 @@
 ---
 import type { PlatformDownload } from "../data/downloadManifest";
 import { sitePath } from "../lib/urls";
-import Logo from "./Logo.astro";
 import PlatformBadge from "./PlatformBadge.astro";
 import PrimaryButton from "./PrimaryButton.astro";
 import SecondaryButton from "./SecondaryButton.astro";
+import DictationDemo from "./demo/DictationDemo.astro";
+import demoConfig from "../data/dictation-demo.json";
 
 interface Props { macos: PlatformDownload; windows: PlatformDownload }
 const { macos, windows } = Astro.props;
 ---
-<section class="hero">
-  <div class="shell hero-grid">
+<section class="hero hero-with-demo">
+  <div class="shell">
     <div class="hero-copy">
-      <div class="hero-brand"><Logo size={52} compact={false} /><span><strong>纤云叙</strong><small>XianYun AI Voice Input</small></span></div>
       <p class="eyebrow">本地语音输入 · AI 整理可选</p>
       <h1>说出来，<em>落成文。</em></h1>
       <p class="hero-lead">写邮件、回消息、记想法，按下快捷键直接说。<br />语音在本机识别；需要时，再按自己的习惯开启文字整理。</p>
       <div class="button-row hero-actions">
         <PrimaryButton href={sitePath("/download/")}>选择平台下载</PrimaryButton>
-        <SecondaryButton href={sitePath("/install/")}>查看安装说明</SecondaryButton>
+        <SecondaryButton href="#dictation-demo">观看产品演示 ↓</SecondaryButton>
       </div>
       <div class="hero-badges" aria-label="当前发布状态">
         <PlatformBadge tone={macos.status === "available" ? "brand" : "neutral"}>macOS Apple Silicon · Beta</PlatformBadge>
         <PlatformBadge tone={windows.status === "available" ? "success" : "neutral"}>Windows x64 · Beta</PlatformBadge>
       </div>
     </div>
-    <div class="hero-visual" aria-label="从口述到文字的过程示意">
-      <div class="visual-orbit" aria-hidden="true"></div>
-      <div class="visual-logo"><Logo size={112} compact={false} decorative={false} /></div>
-      <div class="visual-path">
-        <span>说一句</span><i aria-hidden="true"></i><span>变成文字</span><i aria-hidden="true"></i><span>回到光标</span>
-      </div>
-      <p>光标在哪儿，文字就回到哪儿。</p>
+    <div class="hero-demo" id="dictation-demo" aria-label="跨应用语音听写产品演示">
+      <DictationDemo />
+      <aside class="hero-demo-note" aria-label="演示说明">
+        <p><strong>演示示例，不是真实识别。</strong>字幕、对话与结果均为预设，不开启麦克风、不调用 ASR 或大模型，也不会发送消息。</p>
+        <p>本例展示可选的 AI 文字整理；日常使用可以关闭。{demoConfig.shortcut.hint}新版能力与当前公开安装包的区别见下方发布说明。</p>
+      </aside>
     </div>
   </div>
 </section>
+
+<style>
+  .hero-with-demo { padding-block: clamp(40px, 5vw, 64px) 42px; }
+  .hero-with-demo .hero-copy { max-width: 850px; margin-inline: auto; text-align: center; }
+  .hero-with-demo .eyebrow { font-size: 12px; margin-bottom: 15px; }
+  .hero-with-demo h1 { font-size: clamp(48px, 6vw, 76px); line-height: 1.12; }
+  .hero-with-demo .hero-lead { max-width: 700px; margin: 21px auto 0; font-size: 17px; }
+  .hero-with-demo .hero-actions { justify-content: center; margin-top: 25px; }
+  .hero-with-demo .hero-badges { justify-content: center; margin-top: 18px; }
+  .hero-demo { max-width: 1040px; margin: 44px auto 0; scroll-margin-top: 100px; }
+  .hero-demo :global(.xy-demo) { display: flex; flex-direction: column; }
+  .hero-demo :global(.xy-demo-heading) { order: -2; }
+  .hero-demo :global(.xy-demo-controls) { order: -1; margin-bottom: 20px; padding: 0 0 14px; border-top: 0; border-bottom: 1px solid var(--border); }
+  .hero-demo-note { margin-top: 23px; padding-top: 16px; border-top: 1px solid var(--border); color: var(--text-muted); font-size: 11px; line-height: 1.9; }
+  .hero-demo-note strong { color: var(--text-secondary); font-weight: 600; }
+  .hero-demo-note p + p { margin-top: 4px; }
+  @media (max-width: 700px) {
+    .hero-with-demo { padding-block: 32px; }
+    .hero-with-demo h1 { font-size: clamp(35px, 8vw, 44px); }
+    .hero-with-demo .eyebrow { font-size: 10px; margin-bottom: 13px; }
+    .hero-with-demo .hero-lead { font-size: 14px; margin-top: 17px; }
+    .hero-with-demo .hero-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 350px; margin: 21px auto 0; gap: 10px; }
+    .hero-actions :global(.button) { padding-inline: 10px; font-size: 14px; white-space: nowrap; }
+    .hero-demo { margin-top: 33px; scroll-margin-top: 140px; }
+    .hero-demo-note { font-size: 10px; }
+  }
+</style>

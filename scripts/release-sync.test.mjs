@@ -72,6 +72,14 @@ test("rejects a release without immutable SHA-256 metadata", () => {
   assert.throws(() => buildWebsiteReleaseUpdate(invalid, manifest), /asset digest/);
 });
 
+test("0.1.19 corrects the legacy macOS requirement without changing old downloads", () => {
+  const current = JSON.parse(JSON.stringify(release).replaceAll("0.1.6", "0.1.19"));
+  assert.equal(buildWebsiteReleaseUpdate(current, manifest).manifest.platforms["macos-arm64"].minimumOsVersion,
+    "建议 macOS 15+；更早系统未实机验证");
+  assert.equal(buildWebsiteReleaseUpdate(release, manifest).manifest.platforms["macos-arm64"].minimumOsVersion,
+    "macOS 10.15");
+});
+
 test("accepts only complete allowlisted website screenshot pairs", () => {
   const screenshotRelease = structuredClone(release);
   screenshotRelease.assets.push(

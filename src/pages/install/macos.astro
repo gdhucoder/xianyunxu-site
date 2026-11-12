@@ -14,6 +14,7 @@ const macos = downloadManifest.platforms["macos-arm64"];
   <header class="page-hero"><div class="shell"><p class="eyebrow">macOS 安装说明</p><h1>在 Mac 上安装，并完成第一次输入。</h1><p>下载 Apple Silicon 版 DMG，拖入“应用程序”，再跟着页面完成首次打开和两项必要权限。</p></div></header>
   <section class="section-compact"><div class="shell"><PublicPreviewNotice /><p class="prose" style="margin-top: var(--space-4)">{bundledModelInstallers ? '完整包会自动校验并导入模型。' : '0.1.18 旧版仍需在设置中准备模型。'}0.1.19 首次引导先试录，再看结果；辅助功能和 AI 整理不是应用内试录的前置条件。<a href={sitePath("/#public-preview")}>查看界面示意</a>。</p></div></section>
   <section class="section-compact"><div class="shell"><StatusNotice title="按照系统步骤确认即可">不需要修改整台 Mac 的安全设置，也不需要运行终端命令。遇到提示时，请继续查看本页对应步骤。</StatusNotice></div></section>
+  {bundledModelInstallers && <section class="section-compact"><div class="shell"><StatusNotice tone="info" title="建议使用 macOS 15 或更高版本">本次主程序的最低编译目标为 macOS 11，随包可选加速组件为 macOS 15。更早系统尚未完成实机兼容验收，不承诺全部功能可用。</StatusNotice></div></section>}
 
   <section class="section section-tinted"><div class="shell">
     <SectionHeading eyebrow="快速安装" title="四步完成" description="如果你熟悉 macOS，按下面四步操作即可；遇到提示不一致时，再查看后面的详细说明。" />

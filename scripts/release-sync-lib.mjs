@@ -100,6 +100,12 @@ export function buildWebsiteReleaseUpdate(release, currentManifest) {
   manifest.releasePageUrl = releasePageUrl;
   Object.assign(manifest.platforms["macos-arm64"], { status: "available", ...macos });
   Object.assign(manifest.platforms["windows-x64"], { status: "available", ...windows });
+  // Checked against the actual 0.1.19 Mach-O artifacts: app minos 11.0,
+  // optional bundled acceleration runtime minos 15.0. Do not carry forward
+  // the old 10.15 label or imply physical acceptance of older systems.
+  if (version === "0.1.19") {
+    manifest.platforms["macos-arm64"].minimumOsVersion = "建议 macOS 15+；更早系统未实机验证";
+  }
 
   const publishedDate = publishedAt.slice(0, 10);
   const changelog = [

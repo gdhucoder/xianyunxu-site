@@ -4,206 +4,216 @@
     "repository": "gdhucoder/xianyun-releases",
     "releasesUrl": "https://github.com/gdhucoder/xianyun-releases/releases"
   },
-  "generatedAt": "2026-11-12T02:35:31.324Z",
+  "generatedAt": "2026-11-13T02:15:19.413Z",
   "collectionIntervalDays": 1,
   "totals": {
-    "macosInstallerDownloads": 23,
-    "windowsPackageDownloads": 19,
-    "identifiableUpdateDownloads": 27,
-    "updateMetadataDownloads": 78,
-    "modelDownloads": 14,
-    "appPackageDownloads": 69
+    "macosInstallerDownloads": 44,
+    "windowsPackageDownloads": 35,
+    "identifiableUpdateDownloads": 48,
+    "updateMetadataDownloads": 100,
+    "modelDownloads": 15,
+    "appPackageDownloads": 127
   },
   "versions": [
+    {
+      "version": "0.1.19",
+      "tagName": "v0.1.19",
+      "publishedAt": "2026-11-12T11:43:16Z",
+      "macosInstallerDownloads": 2,
+      "windowsPackageDownloads": 2,
+      "identifiableUpdateDownloads": 2,
+      "updateMetadataDownloads": 3,
+      "appPackageDownloads": 6
+    },
     {
       "version": "0.1.18",
       "tagName": "v0.1.18",
       "publishedAt": "2026-08-15T18:09:53Z",
-      "macosInstallerDownloads": 1,
-      "windowsPackageDownloads": 2,
-      "identifiableUpdateDownloads": 1,
-      "updateMetadataDownloads": 16,
-      "appPackageDownloads": 4
+      "macosInstallerDownloads": 2,
+      "windowsPackageDownloads": 3,
+      "identifiableUpdateDownloads": 2,
+      "updateMetadataDownloads": 17,
+      "appPackageDownloads": 7
     },
     {
       "version": "0.1.17",
       "tagName": "v0.1.17",
       "publishedAt": "2026-08-15T14:11:51Z",
-      "macosInstallerDownloads": 0,
-      "windowsPackageDownloads": 0,
-      "identifiableUpdateDownloads": 0,
-      "updateMetadataDownloads": 0,
-      "appPackageDownloads": 0
+      "macosInstallerDownloads": 1,
+      "windowsPackageDownloads": 1,
+      "identifiableUpdateDownloads": 1,
+      "updateMetadataDownloads": 1,
+      "appPackageDownloads": 3
     },
     {
       "version": "0.1.16",
       "tagName": "v0.1.16",
       "publishedAt": "2026-08-14T01:25:47Z",
-      "macosInstallerDownloads": 0,
-      "windowsPackageDownloads": 1,
-      "identifiableUpdateDownloads": 1,
-      "updateMetadataDownloads": 4,
-      "appPackageDownloads": 2
+      "macosInstallerDownloads": 1,
+      "windowsPackageDownloads": 2,
+      "identifiableUpdateDownloads": 2,
+      "updateMetadataDownloads": 5,
+      "appPackageDownloads": 5
     },
     {
       "version": "0.1.15",
       "tagName": "v0.1.15",
       "publishedAt": "2026-08-13T09:29:01Z",
-      "macosInstallerDownloads": 0,
-      "windowsPackageDownloads": 1,
-      "identifiableUpdateDownloads": 0,
-      "updateMetadataDownloads": 2,
-      "appPackageDownloads": 1
+      "macosInstallerDownloads": 1,
+      "windowsPackageDownloads": 2,
+      "identifiableUpdateDownloads": 1,
+      "updateMetadataDownloads": 3,
+      "appPackageDownloads": 4
     },
     {
       "version": "0.1.14",
       "tagName": "v0.1.14",
       "publishedAt": "2026-08-13T08:42:04Z",
-      "macosInstallerDownloads": 0,
-      "windowsPackageDownloads": 1,
-      "identifiableUpdateDownloads": 0,
-      "updateMetadataDownloads": 3,
-      "appPackageDownloads": 1
+      "macosInstallerDownloads": 1,
+      "windowsPackageDownloads": 2,
+      "identifiableUpdateDownloads": 1,
+      "updateMetadataDownloads": 4,
+      "appPackageDownloads": 4
     },
     {
       "version": "0.1.13",
       "tagName": "v0.1.13",
       "publishedAt": "2026-08-13T06:29:03Z",
-      "macosInstallerDownloads": 0,
-      "windowsPackageDownloads": 1,
-      "identifiableUpdateDownloads": 0,
-      "updateMetadataDownloads": 1,
-      "appPackageDownloads": 1
+      "macosInstallerDownloads": 1,
+      "windowsPackageDownloads": 2,
+      "identifiableUpdateDownloads": 1,
+      "updateMetadataDownloads": 2,
+      "appPackageDownloads": 4
     },
     {
       "version": "0.1.12",
       "tagName": "v0.1.12",
       "publishedAt": "2026-08-12T07:40:13Z",
-      "macosInstallerDownloads": 0,
-      "windowsPackageDownloads": 1,
-      "identifiableUpdateDownloads": 1,
-      "updateMetadataDownloads": 5,
-      "appPackageDownloads": 2
+      "macosInstallerDownloads": 1,
+      "windowsPackageDownloads": 2,
+      "identifiableUpdateDownloads": 2,
+      "updateMetadataDownloads": 6,
+      "appPackageDownloads": 5
     },
     {
       "version": "0.1.11",
       "tagName": "v0.1.11",
       "publishedAt": "2026-08-12T06:02:25Z",
-      "macosInstallerDownloads": 0,
-      "windowsPackageDownloads": 0,
-      "identifiableUpdateDownloads": 0,
-      "updateMetadataDownloads": 1,
-      "appPackageDownloads": 0
+      "macosInstallerDownloads": 1,
+      "windowsPackageDownloads": 1,
+      "identifiableUpdateDownloads": 1,
+      "updateMetadataDownloads": 2,
+      "appPackageDownloads": 3
     },
     {
       "version": "0.1.10",
       "tagName": "v0.1.10",
       "publishedAt": "2026-08-12T01:11:44Z",
-      "macosInstallerDownloads": 1,
-      "windowsPackageDownloads": 1,
-      "identifiableUpdateDownloads": 0,
-      "updateMetadataDownloads": 2,
-      "appPackageDownloads": 2
+      "macosInstallerDownloads": 2,
+      "windowsPackageDownloads": 2,
+      "identifiableUpdateDownloads": 1,
+      "updateMetadataDownloads": 3,
+      "appPackageDownloads": 5
     },
     {
       "version": "0.1.9",
       "tagName": "v0.1.9",
       "publishedAt": "2026-08-04T03:50:20Z",
-      "macosInstallerDownloads": 2,
-      "windowsPackageDownloads": 2,
-      "identifiableUpdateDownloads": 1,
-      "updateMetadataDownloads": 7,
-      "appPackageDownloads": 5
+      "macosInstallerDownloads": 3,
+      "windowsPackageDownloads": 3,
+      "identifiableUpdateDownloads": 2,
+      "updateMetadataDownloads": 8,
+      "appPackageDownloads": 8
     },
     {
       "version": "0.1.8",
       "tagName": "v0.1.8",
       "publishedAt": "2026-07-31T00:37:37Z",
-      "macosInstallerDownloads": 3,
-      "windowsPackageDownloads": 2,
-      "identifiableUpdateDownloads": 1,
-      "updateMetadataDownloads": 3,
-      "appPackageDownloads": 6
+      "macosInstallerDownloads": 4,
+      "windowsPackageDownloads": 3,
+      "identifiableUpdateDownloads": 2,
+      "updateMetadataDownloads": 4,
+      "appPackageDownloads": 9
     },
     {
       "version": "0.1.7",
       "tagName": "v0.1.7",
       "publishedAt": "2026-07-29T10:14:44Z",
-      "macosInstallerDownloads": 4,
-      "windowsPackageDownloads": 1,
-      "identifiableUpdateDownloads": 2,
-      "updateMetadataDownloads": 6,
-      "appPackageDownloads": 7
+      "macosInstallerDownloads": 5,
+      "windowsPackageDownloads": 2,
+      "identifiableUpdateDownloads": 3,
+      "updateMetadataDownloads": 7,
+      "appPackageDownloads": 10
     },
     {
       "version": "0.1.6",
       "tagName": "v0.1.6",
       "publishedAt": "2026-07-25T17:56:38Z",
-      "macosInstallerDownloads": 5,
-      "windowsPackageDownloads": 3,
-      "identifiableUpdateDownloads": 3,
-      "updateMetadataDownloads": 4,
-      "appPackageDownloads": 11
+      "macosInstallerDownloads": 6,
+      "windowsPackageDownloads": 4,
+      "identifiableUpdateDownloads": 4,
+      "updateMetadataDownloads": 5,
+      "appPackageDownloads": 14
     },
     {
       "version": "0.1.5",
       "tagName": "v0.1.5",
       "publishedAt": "2026-07-20T05:53:06Z",
-      "macosInstallerDownloads": 1,
-      "windowsPackageDownloads": 3,
-      "identifiableUpdateDownloads": 1,
-      "updateMetadataDownloads": 6,
-      "appPackageDownloads": 5
+      "macosInstallerDownloads": 2,
+      "windowsPackageDownloads": 4,
+      "identifiableUpdateDownloads": 2,
+      "updateMetadataDownloads": 7,
+      "appPackageDownloads": 8
     },
     {
       "version": "0.1.4",
       "tagName": "v0.1.4",
       "publishedAt": "2026-07-19T23:09:07Z",
-      "macosInstallerDownloads": 1,
+      "macosInstallerDownloads": 2,
       "windowsPackageDownloads": 0,
-      "identifiableUpdateDownloads": 3,
-      "updateMetadataDownloads": 4,
-      "appPackageDownloads": 4
+      "identifiableUpdateDownloads": 4,
+      "updateMetadataDownloads": 5,
+      "appPackageDownloads": 6
     },
     {
       "version": "0.1.3",
       "tagName": "v0.1.3",
       "publishedAt": "2026-07-19T14:25:51Z",
-      "macosInstallerDownloads": 1,
+      "macosInstallerDownloads": 2,
       "windowsPackageDownloads": 0,
-      "identifiableUpdateDownloads": 3,
-      "updateMetadataDownloads": 4,
-      "appPackageDownloads": 4
+      "identifiableUpdateDownloads": 4,
+      "updateMetadataDownloads": 5,
+      "appPackageDownloads": 6
     },
     {
       "version": "0.1.2",
       "tagName": "v0.1.2",
       "publishedAt": "2026-07-19T13:17:02Z",
-      "macosInstallerDownloads": 0,
+      "macosInstallerDownloads": 1,
       "windowsPackageDownloads": 0,
-      "identifiableUpdateDownloads": 4,
-      "updateMetadataDownloads": 4,
-      "appPackageDownloads": 4
+      "identifiableUpdateDownloads": 5,
+      "updateMetadataDownloads": 5,
+      "appPackageDownloads": 6
     },
     {
       "version": "0.1.1",
       "tagName": "v0.1.1",
       "publishedAt": "2026-07-19T12:18:27Z",
-      "macosInstallerDownloads": 2,
+      "macosInstallerDownloads": 3,
       "windowsPackageDownloads": 0,
-      "identifiableUpdateDownloads": 3,
-      "updateMetadataDownloads": 4,
-      "appPackageDownloads": 5
+      "identifiableUpdateDownloads": 4,
+      "updateMetadataDownloads": 5,
+      "appPackageDownloads": 7
     },
     {
       "version": "0.1.0",
       "tagName": "v0.1.0",
       "publishedAt": "2026-07-19T11:50:26Z",
-      "macosInstallerDownloads": 2,
+      "macosInstallerDownloads": 3,
       "windowsPackageDownloads": 0,
-      "identifiableUpdateDownloads": 3,
-      "updateMetadataDownloads": 2,
-      "appPackageDownloads": 5
+      "identifiableUpdateDownloads": 4,
+      "updateMetadataDownloads": 3,
+      "appPackageDownloads": 7
     }
   ],
   "models": [
@@ -211,7 +221,7 @@
       "tagName": "model-sensevoice-small-q8-windows-x64-v1",
       "platform": "windows-x64",
       "publishedAt": "2026-07-20T05:23:04Z",
-      "modelDownloads": 3
+      "modelDownloads": 4
     },
     {
       "tagName": "model-sensevoice-small-q8-macos-arm64-v1",
@@ -1120,6 +1130,15 @@
       "updateMetadataDownloads": 78,
       "modelDownloads": 14,
       "appPackageDownloads": 69
+    },
+    {
+      "capturedAt": "2026-11-13T02:15:19.413Z",
+      "macosInstallerDownloads": 44,
+      "windowsPackageDownloads": 35,
+      "identifiableUpdateDownloads": 48,
+      "updateMetadataDownloads": 100,
+      "modelDownloads": 15,
+      "appPackageDownloads": 127
     }
   ],
   "countingNotes": {

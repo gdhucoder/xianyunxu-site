@@ -72,6 +72,23 @@ test("rejects a release without immutable SHA-256 metadata", () => {
   assert.throws(() => buildWebsiteReleaseUpdate(invalid, manifest), /asset digest/);
 });
 
+test("CNB mirror survives same-artifact sync but is cleared for unseen or replaced assets", () => {
+  const synced = buildWebsiteReleaseUpdate(release, manifest).manifest;
+  for (const id of ["macos-arm64", "windows-x64"]) {
+    synced.platforms[id].cnbDownloadUrl = `https://cnb.cool/hugd/xianyun-releases/-/releases/download/${release.tag_name}/${synced.platforms[id].fileName}`;
+  }
+  const unchanged = buildWebsiteReleaseUpdate(release, synced).manifest;
+  assert.equal(unchanged.platforms["macos-arm64"].cnbDownloadUrl, synced.platforms["macos-arm64"].cnbDownloadUrl);
+  const newer = JSON.parse(JSON.stringify(release).replaceAll("0.1.6", "0.1.7"));
+  assert.equal(buildWebsiteReleaseUpdate(newer, synced).manifest.platforms["macos-arm64"].cnbDownloadUrl, null);
+  const replaced = structuredClone(release);
+  const firstAsset = replaced.assets[0];
+  assert.ok(firstAsset);
+  firstAsset.digest = `sha256:${"c".repeat(64)}`;
+  assert.equal(buildWebsiteReleaseUpdate(replaced, synced).manifest.platforms["macos-arm64"].cnbDownloadUrl, null);
+  assert.equal(buildWebsiteReleaseUpdate(replaced, synced).manifest.platforms["windows-x64"].cnbDownloadUrl, synced.platforms["windows-x64"].cnbDownloadUrl);
+});
+
 test("0.1.19 corrects the legacy macOS requirement without changing old downloads", () => {
   const current = JSON.parse(JSON.stringify(release).replaceAll("0.1.6", "0.1.19"));
   assert.equal(buildWebsiteReleaseUpdate(current, manifest).manifest.platforms["macos-arm64"].minimumOsVersion,

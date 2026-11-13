@@ -5,6 +5,7 @@ import { sitePath } from "../lib/urls";
 import PlatformBadge from "./PlatformBadge.astro";
 import PrimaryButton from "./PrimaryButton.astro";
 import SecondaryButton from "./SecondaryButton.astro";
+import DownloadSources from "./DownloadSources.astro";
 
 interface Props { platformId: "macos-arm64" | "windows-x64"; platform: PlatformDownload; version: string | null; channel: string }
 const { platformId, platform, version, channel } = Astro.props;
@@ -27,11 +28,10 @@ const isMac = platformId === "macos-arm64";
         <div><dt>大小</dt><dd>{formatBytes(platform.sizeBytes)}</dd></div>
         <div><dt>架构</dt><dd>{platform.architecture}</dd></div>
       </dl>
-      <div class="button-row">
-        <PrimaryButton href={platform.downloadUrl} external>下载 {isMac ? "macOS" : "Windows"} Beta</PrimaryButton>
+      <DownloadSources platform={platform} label={`下载 ${isMac ? "macOS" : "Windows"} Beta`}>
         {platform.installGuideUrl && <SecondaryButton href={sitePath(platform.installGuideUrl)}>安装说明</SecondaryButton>}
-      </div>
-      <p class="card-note">下载后可以对照文件名和 SHA-256，确认拿到的是这一版安装包。</p>
+      </DownloadSources>
+      <p class="card-note">{platform.cnbDownloadUrl ? "两个来源提供同一份完整安装包，任选其一。" : ""}下载后可对照文件名和 SHA-256，确认版本和文件完整。</p>
     </>
   ) : (
     <>

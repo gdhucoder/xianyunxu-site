@@ -1,13 +1,30 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
-import { readManifest, validateManifest } from "./download-manifest-lib.mjs";
+import { cnbReleasePrefix, readManifest, validateManifest } from "./download-manifest-lib.mjs";
 
 const manifestPath = fileURLToPath(new URL("../src/data/download-manifest.json", import.meta.url));
 const source = await readManifest(manifestPath);
 
 test("the committed download manifest is valid", () => {
   assert.deepEqual(validateManifest(source), []);
+});
+
+test("CNB mirrors must use the exact allowlisted repository, version and installer", () => {
+  const expected = `${cnbReleasePrefix}v${source.version}/${source.platforms["macos-arm64"].fileName}`;
+  for (const url of [
+    "https://cnb.cool/other/releases/-/releases/download/v0.1.19/setup.exe",
+    expected.replace(`/v${source.version}/`, "/v0.0.0/"),
+    `${expected}?download=unverified`,
+  ]) {
+    const manifest = structuredClone(source);
+    manifest.platforms["macos-arm64"].cnbDownloadUrl = url;
+    assert.match(validateManifest(manifest).join("\n"), /CNB URL must match/);
+  }
+  const legacy = structuredClone(source);
+  delete legacy.platforms["macos-arm64"].cnbDownloadUrl;
+  legacy.platforms["windows-x64"].cnbDownloadUrl = null;
+  assert.deepEqual(validateManifest(legacy), []);
 });
 
 test("available platforms require complete immutable metadata", () => {

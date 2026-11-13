@@ -189,7 +189,7 @@ code { padding: 0.1em 0.35em; border-radius: 0.35em; background: var(--surface-s
 .download-card.is-available { border-color: color-mix(in srgb, var(--brand-primary) 32%, var(--border)); }
 .download-card-heading { display: flex; justify-content: space-between; gap: var(--space-4); align-items: flex-start; }
 .download-card-heading h2 { margin-top: var(--space-3); font-size: 1.5rem; }
-.availability { font-size: 0.78rem; font-weight: 750; }
+.availability { font-size: 0.78rem; font-weight: 750; white-space: nowrap; flex-shrink: 0; }
 .availability.available { color: var(--success); }
 .availability.soon { color: var(--text-muted); }
 .download-facts { margin: 0; display: grid; grid-template-columns: repeat(2, 1fr); border-block: 1px solid var(--border); }

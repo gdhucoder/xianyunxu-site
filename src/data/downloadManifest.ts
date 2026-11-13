@@ -9,6 +9,8 @@ export interface PlatformDownload {
   architecture: string;
   minimumOsVersion: string | null;
   downloadUrl: string | null;
+  /** Verified mirror of this exact version/file/hash; never inferred. */
+  cnbDownloadUrl?: string | null;
   fileName: string | null;
   sizeBytes: number | null;
   sha256: string | null;

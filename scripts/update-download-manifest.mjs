@@ -18,6 +18,7 @@ if (!args.status || !["available", "preparing", "coming-soon", "unavailable"].in
 
 const manifest = await readManifest(manifestPath);
 const platform = manifest.platforms[args.platform];
+const previousIdentity = JSON.stringify([manifest.version, platform.fileName, platform.sizeBytes, platform.sha256]);
 platform.status = args.status;
 
 if (args.status === "available") {
@@ -31,11 +32,16 @@ if (args.status === "available") {
   platform.fileName = args["file-name"];
   platform.sizeBytes = Number(args["size-bytes"]);
   platform.sha256 = args.sha256.toLowerCase();
+  if (previousIdentity !== JSON.stringify([manifest.version, platform.fileName, platform.sizeBytes, platform.sha256])) {
+    platform.cnbDownloadUrl = null;
+  }
+  if (args["cnb-download-url"]) platform.cnbDownloadUrl = args["cnb-download-url"];
 } else {
   platform.downloadUrl = null;
   platform.fileName = null;
   platform.sizeBytes = null;
   platform.sha256 = null;
+  platform.cnbDownloadUrl = null;
 }
 
 const errors = validateManifest(manifest);

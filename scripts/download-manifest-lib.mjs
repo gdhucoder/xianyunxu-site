@@ -2,6 +2,7 @@ import { readFile } from "node:fs/promises";
 
 export const allowedStatuses = new Set(["available", "preparing", "coming-soon", "unavailable"]);
 export const officialReleasePrefix = "https://github.com/gdhucoder/xianyun-releases/";
+export const cnbReleasePrefix = "https://cnb.cool/hugd/xianyun-releases/-/releases/download/";
 
 /** @param {unknown} value */
 function isSha256(value) {
@@ -44,6 +45,9 @@ function validatePlatform(id, platform, manifest, errors) {
     if (platform.downloadUrl !== `${officialReleasePrefix}releases/download/v${manifest.version}/${platform.fileName}`) {
       errors.push(`available platform ${id} download URL must match the manifest version and file name`);
     }
+    if (platform.cnbDownloadUrl != null && platform.cnbDownloadUrl !== `${cnbReleasePrefix}v${manifest.version}/${platform.fileName}`) {
+      errors.push(`available platform ${id} CNB URL must match the verified repository, manifest version and file name`);
+    }
     if (typeof platform.fileName !== "string" || !platform.fileName.trim()) {
       errors.push(`available platform ${id} requires fileName`);
     }
@@ -54,6 +58,7 @@ function validatePlatform(id, platform, manifest, errors) {
       errors.push(`available platform ${id} requires a lowercase SHA-256`);
     }
   } else {
+    if (platform.cnbDownloadUrl != null) errors.push(`${id} is ${platform.status}; cnbDownloadUrl must be null`);
     for (const field of ["downloadUrl", "fileName", "sizeBytes", "sha256"]) {
       if (platform[field] !== null) {
         errors.push(`${id} is ${platform.status}; ${field} must be null`);

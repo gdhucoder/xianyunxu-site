@@ -3,6 +3,7 @@ import { constants, readFileSync } from "node:fs";
 import { extname, join, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 import { validatePreviewProvenance, validatePublicPreviewPages } from "./public-preview-lib.mjs";
+import { readManifest } from "./download-manifest-lib.mjs";
 
 const root = fileURLToPath(new URL("../dist/", import.meta.url));
 const base = "/xianyunxu-site";
@@ -37,6 +38,7 @@ const htmlFiles = files.filter((file) => extname(file) === ".html");
 const failures = [];
 /** @type {Record<string,string>} */
 const pages = {};
+const manifest = await readManifest(fileURLToPath(new URL("../src/data/download-manifest.json", import.meta.url)));
 
 for (const file of htmlFiles) {
   const html = await readFile(file, "utf8");
@@ -69,6 +71,17 @@ try {
   validatePreviewProvenance(JSON.parse(await readFile(join(screenshots, "preview-provenance.json"), "utf8")), name => readFileSync(join(screenshots, name)));
   validatePublicPreviewPages(pages);
 } catch (error) { failures.push(`Public preview contract: ${error instanceof Error ? error.message : String(error)}`); }
+
+for (const [id, platform] of Object.entries(manifest.platforms)) {
+  if (platform.status !== "available") continue;
+  for (const page of ["download/index.html", `install/${id === "macos-arm64" ? "macos" : "windows"}/index.html`]) {
+    const html = pages[page] ?? "";
+    for (const url of [platform.downloadUrl, platform.cnbDownloadUrl].filter(Boolean)) {
+      if (!html.includes(`href="${url}"`)) failures.push(`${page}: missing exact verified download link for ${id}`);
+    }
+    if (platform.cnbDownloadUrl && (!html.includes("CNB 下载") || !html.includes("GitHub 备用"))) failures.push(`${page}: missing dual-source download labels`);
+  }
+}
 
 if (failures.length) {
   console.error(failures.join("\n"));

@@ -9,9 +9,10 @@ import { downloadManifest, formatPublishedDate, bundledModelInstallers } from ".
 import { sitePath } from "../lib/urls";
 const macos = downloadManifest.platforms["macos-arm64"];
 const windows = downloadManifest.platforms["windows-x64"];
+const hasCnbMirrors = Boolean(macos.cnbDownloadUrl && windows.cnbDownloadUrl);
 ---
 <BaseLayout title="下载" description="下载纤云叙 macOS Apple Silicon 与 Windows x64 Beta，查看版本、文件大小和安装包校验值。">
-  <header class="page-hero"><div class="shell"><p class="eyebrow">下载</p><h1>选好系统，就可以下载了。</h1><p>Mac 和 Windows 目前都有 Beta 版本。这里的按钮会直接带你到公开的 GitHub Releases。</p></div></header>
+  <header class="page-hero"><div class="shell"><p class="eyebrow">下载</p><h1>选好系统，就可以下载了。</h1><p>{hasCnbMirrors ? "Mac 和 Windows 目前都有 Beta 版本。可选 CNB 下载或 GitHub 备用，两边提供同一份完整安装包，无需登录即可下载。" : "Mac 和 Windows 目前都有 Beta 版本。这里的按钮会直接带你到公开的 GitHub Releases。"}</p></div></header>
   <section class="section-compact"><div class="shell">
     <PublicPreviewNotice />
     <div class="metadata-strip" aria-label="当前发布信息">
@@ -25,7 +26,7 @@ const windows = downloadManifest.platforms["windows-x64"];
     </div>
   </div></section>
   <section class="section"><div class="shell">
-    <SectionHeading eyebrow="文件校验" title="想确认文件没下错，可以对照这里" description="文件名、大小和 SHA-256 都来自对应的 GitHub Release，可以用来检查下载是否完整。" />
+    <SectionHeading eyebrow="文件校验" title="想确认文件没下错，可以对照这里" description={hasCnbMirrors ? "两个下载来源使用同一组文件名、大小和 SHA-256；CNB 镜像已与 GitHub 原件核对，可用于检查下载是否完整。" : "文件名、大小和 SHA-256 都来自对应的 GitHub Release，可以用来检查下载是否完整。"} />
     <div class="grid-2">
       <div><h3 style="margin-bottom: var(--space-3)">macOS Apple Silicon</h3><dl class="checksum"><dt>文件名</dt><dd>{macos.fileName}</dd><dt style="margin-top: var(--space-3)">SHA-256</dt><dd>{macos.sha256}</dd></dl></div>
       <div><h3 style="margin-bottom: var(--space-3)">Windows x64</h3><dl class="checksum"><dt>文件名</dt><dd>{windows.fileName}</dd><dt style="margin-top: var(--space-3)">SHA-256</dt><dd>{windows.sha256}</dd></dl></div>

@@ -19,8 +19,28 @@
     "version": { "type": ["string", "null"] },
     "publishedAt": { "type": ["string", "null"], "format": "date-time" },
     "releasePageUrl": { "type": "string", "format": "uri" },
-    "platforms": { "type": "object" },
+    "platforms": {
+      "type": "object",
+      "properties": {
+        "macos-arm64": { "$ref": "#/$defs/platformDownload" },
+        "windows-x64": { "$ref": "#/$defs/platformDownload" }
+      }
+    },
     "models": { "type": "object" }
   },
-  "additionalProperties": false
+  "additionalProperties": false,
+  "$defs": {
+    "platformDownload": {
+      "type": "object",
+      "properties": {
+        "cnbDownloadUrl": {
+          "description": "Optional verified mirror of the exact current installer; runtime validation also requires matching version and filename.",
+          "anyOf": [
+            { "type": "null" },
+            { "type": "string", "pattern": "^https://cnb\\.cool/hugd/xianyun-releases/-/releases/download/v[0-9]+\\.[0-9]+\\.[0-9]+/[^/?#]+$" }
+          ]
+        }
+      }
+    }
+  }
 }

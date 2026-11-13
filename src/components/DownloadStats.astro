@@ -28,7 +28,7 @@ const cards: Array<{ key: keyof DownloadTotals; label: string; detail: string }>
   <summary class="download-stats-toggle">
     <span>
       <strong>下载统计</strong>
-      <small>纤云叙累计下载 {formatDownloadCount(totals.appPackageDownloads)} 次 · 每天 06:00 更新</small>
+      <small>GitHub 累计下载 {formatDownloadCount(totals.appPackageDownloads)} 次 · 每天 06:00 更新</small>
     </span>
     <span class="download-stats-toggle-action" aria-hidden="true">查看</span>
   </summary>
@@ -38,7 +38,7 @@ const cards: Array<{ key: keyof DownloadTotals; label: string; detail: string }>
       <div>
         <p class="eyebrow">公开统计</p>
         <h2>下载记录</h2>
-        <p>数字来自公开的 GitHub Releases，每天 06:00 更新。</p>
+        <p>数字来自公开的 GitHub Releases，不含 CNB 镜像下载，每天 06:00 更新。</p>
       </div>
       <p class="download-stats-updated">
         最近更新

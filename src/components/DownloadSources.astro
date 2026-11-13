@@ -1,0 +1,14 @@
+---
+import type { PlatformDownload } from "../data/downloadManifest";
+import PrimaryButton from "./PrimaryButton.astro";
+import SecondaryButton from "./SecondaryButton.astro";
+interface Props { platform: PlatformDownload; label: string }
+const { platform, label } = Astro.props;
+---
+<div class="button-row" role="group" aria-label={`${platform.displayName} 下载来源`}>
+  {platform.cnbDownloadUrl ? <>
+    <PrimaryButton href={platform.cnbDownloadUrl} external>CNB 下载</PrimaryButton>
+    {platform.downloadUrl && <SecondaryButton href={platform.downloadUrl} external>GitHub 备用</SecondaryButton>}
+  </> : <PrimaryButton href={platform.downloadUrl} external>{label}</PrimaryButton>}
+  <slot />
+</div>

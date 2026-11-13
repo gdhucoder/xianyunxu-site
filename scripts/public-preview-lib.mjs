@@ -34,6 +34,8 @@ export function validatePublicPreviewPages(pages) {
   for (const path of ["index.html", "download/index.html", "privacy/index.html", "faq/index.html", "install/index.html", "install/macos/index.html", "install/windows/index.html"]) {
     const html = pages[path];
     assert.ok(typeof html === "string" && html.length > 0, `missing page ${path}`);
+    assert.doesNotMatch(html, /file:\/\/|\/Users\/|first-use-offline-public-preview-2026/);
+    if (path === "index.html" || path === "download/index.html") continue;
     assert.match(html, /data-public-preview-notice/, `${path}: preview/release distinction`);
     const phase = /data-release-phase="(preview|published)"/.exec(html)?.[1];
     assert.ok(phase, `${path}: explicit release phase`);
@@ -44,10 +46,20 @@ export function validatePublicPreviewPages(pages) {
       assert.match(html, /不代表干净 Mac 实机验收已完成/);
     }
     assert.match(html, /干净 Mac 实机验收/);
-    assert.doesNotMatch(html, /file:\/\/|\/Users\/|first-use-offline-public-preview-2026/);
   }
   const home = pages["index.html"];
   assert.ok(home);
+  assert.match(home, /class="xy-demo-example"[^>]*>[^]*?演示示例/);
+  assert.doesNotMatch(home, /hero-demo-note|data-public-preview-notice/);
+  const download = pages["download/index.html"] ?? "";
+  assert.match(download, /data-release-summary/);
+  assert.doesNotMatch(download, /data-public-preview-notice|查看当前可下载版本/);
+  const installDetails = /<details\b([^>]*\bdata-install-checks[^>]*)>([^]*?)<\/details>/.exec(download);
+  assert.ok(installDetails, "download: expandable installation and checksum details");
+  assert.doesNotMatch(installDetails[1] ?? "", /(?:^|\s)open(?:\s|=|$)/, "download: details collapsed by default");
+  assert.match(installDetails[2] ?? "", /安装与校验说明/);
+  assert.match(installDetails[2] ?? "", /SHA-256/);
+  assert.match(installDetails[2] ?? "", /干净 Mac 实机验收尚未完成/);
   const shown = [...home.matchAll(/assets\/screenshots\/(preview-[\w-]+)\.jpg/g)].map(match => match[1]);
   assert.deepEqual(shown.sort(), [...PREVIEW_SCENES].sort(), "all five current previews exactly once");
   const figures = [...home.matchAll(/<figure\b[^]*?<\/figure>/g)].map(match => match[0]);

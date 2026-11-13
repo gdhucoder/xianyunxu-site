@@ -14,7 +14,8 @@ function fixturePages() {
   const header = '<div data-public-preview-notice data-release-phase="preview">尚未发布，干净 Mac 实机验收待完成</div>';
   const figures = PREVIEW_SCENES.map(base => `<figure><img src="/assets/screenshots/${base}.jpg" alt="合成界面"><small class="screenshot-provenance">合成示例 · 非实机验收截图</small></figure>`).join("");
   const pages = Object.fromEntries(pathList.map(path => [path, header]));
-  pages["index.html"] += `${figures}AI 整理可选，默认关闭`;
+  pages["index.html"] = `<span class="xy-demo-example">演示示例</span>${figures}AI 整理可选，默认关闭`;
+  pages["download/index.html"] = '<p data-release-summary>v0.1.19 Beta · 已内置本地模型</p><details data-install-checks><summary>安装与校验说明</summary>SHA-256，干净 Mac 实机验收尚未完成</details>';
   pages["privacy/index.html"] += '导出的 WAV 是独立副本';
   pages["faq/index.html"] += '不是已验证的识别前 ASR 热词';
   return pages;
@@ -43,12 +44,19 @@ test("published downloads never relabel synthetic images as native acceptance", 
   const pages = fixturePages();
   for (const path of pathList) pages[path] = (pages[path] ?? '').replace('data-release-phase="preview"', 'data-release-phase="published"').replace('尚未发布，干净 Mac 实机验收待完成', '当前公开版本 v0.1.19，合成示例，不代表干净 Mac 实机验收已完成');
   validatePublicPreviewPages(pages);
-  pages['index.html'] = (pages['index.html'] ?? '').replace('不代表干净 Mac 实机验收已完成', '已完成全部验收');
+  pages['privacy/index.html'] = (pages['privacy/index.html'] ?? '').replace('不代表干净 Mac 实机验收已完成', '已完成全部验收');
   assert.throws(() => validatePublicPreviewPages(pages));
 });
-test("missing release caveat or screenshot caption is rejected", () => {
+test("compact pages retain sample labels, hidden installation facts and screenshot captions", () => {
   /** @type {Array<(pages:Record<string,string>)=>void>} */
-  const changes = [pages => { pages['download/index.html']=''; }, pages => { pages['index.html']=(pages['index.html'] ?? '').replace('data-public-preview-notice', ''); }, pages => { pages['index.html']=(pages['index.html'] ?? '').replace('screenshot-provenance', ''); }];
+  const changes = [
+    pages => { pages['download/index.html']=''; },
+    pages => { pages['index.html']=(pages['index.html'] ?? '').replace('xy-demo-example', ''); },
+    pages => { pages['index.html']=(pages['index.html'] ?? '').replace('screenshot-provenance', ''); },
+    pages => { pages['download/index.html']=(pages['download/index.html'] ?? '').replace('data-release-summary', ''); },
+    pages => { pages['download/index.html']=(pages['download/index.html'] ?? '').replace('<details ', '<details open '); },
+    pages => { pages['download/index.html']=(pages['download/index.html'] ?? '').replace('干净 Mac 实机验收尚未完成', '已完成全部验收'); },
+  ];
   for (const change of changes) {
     const pages = fixturePages(); change(pages); assert.throws(() => validatePublicPreviewPages(pages));
   }

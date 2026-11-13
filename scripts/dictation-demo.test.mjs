@@ -155,13 +155,16 @@ test('realistic chat context is preset separately and never becomes a sent demo 
 test('homepage hero reuses one full-width demo while retaining download and preset boundaries', () => {
   const hero = readFileSync(new URL('../src/components/Hero.astro', import.meta.url), 'utf8');
   const home = readFileSync(new URL('../src/pages/index.astro', import.meta.url), 'utf8');
+  const component = readFileSync(new URL('../src/components/demo/DictationDemo.astro', import.meta.url), 'utf8');
   assert.equal((hero.match(/<DictationDemo\s*\/>/g) ?? []).length, 1);
   assert.equal((home.match(/<Hero\s/g) ?? []).length, 1);
   assert.match(hero, /href=\{sitePath\("\/download\/"\)\}/);
   assert.match(hero, /href="#dictation-demo"/);
   assert.match(hero, /id="dictation-demo"/);
   assert.match(hero, /max-width: 1040px/);
-  assert.match(hero, /不是真实识别/);
-  assert.match(hero, /可选的 AI 文字整理/);
+  assert.match(component, /class="xy-demo-example"[^]*?演示示例/);
+  assert.match(component, /演示不会发送消息/);
+  assert.doesNotMatch(hero, /hero-demo-note|不是真实识别|本例展示/);
+  assert.doesNotMatch(home, /PublicPreviewNotice/);
   assert.doesNotMatch(hero, /visual-orbit|hero-visual|autoplay/);
 });

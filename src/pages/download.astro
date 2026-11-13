@@ -2,65 +2,83 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import DownloadCard from "../components/DownloadCard.astro";
 import DownloadStats from "../components/DownloadStats.astro";
-import SectionHeading from "../components/SectionHeading.astro";
 import SecondaryButton from "../components/SecondaryButton.astro";
-import PublicPreviewNotice from "../components/PublicPreviewNotice.astro";
 import { downloadManifest, formatPublishedDate, bundledModelInstallers } from "../data/downloadManifest";
 import { sitePath } from "../lib/urls";
 const macos = downloadManifest.platforms["macos-arm64"];
 const windows = downloadManifest.platforms["windows-x64"];
 const hasCnbMirrors = Boolean(macos.cnbDownloadUrl && windows.cnbDownloadUrl);
 ---
-<BaseLayout title="下载" description="下载纤云叙 macOS Apple Silicon 与 Windows x64 Beta，查看版本、文件大小和安装包校验值。">
-  <header class="page-hero"><div class="shell"><p class="eyebrow">下载</p><h1>选好系统，就可以下载了。</h1><p>{hasCnbMirrors ? "Mac 和 Windows 目前都有 Beta 版本。可选 CNB 下载或 GitHub 备用，两边提供同一份完整安装包，无需登录即可下载。" : "Mac 和 Windows 目前都有 Beta 版本。这里的按钮会直接带你到公开的 GitHub Releases。"}</p></div></header>
-  <section class="section-compact"><div class="shell">
-    <PublicPreviewNotice />
-    <div class="metadata-strip" aria-label="当前发布信息">
-      <span>Beta 版本</span><span>v{downloadManifest.version}</span><span>{formatPublishedDate(downloadManifest.publishedAt)}发布</span><span>版本信息来自 GitHub Releases</span>
-    </div>
-  </div></section>
-  <section class="section"><div class="shell">
+<BaseLayout title="下载" description="下载纤云叙 macOS 与 Windows 安装包，查看安装说明与文件校验值。">
+  <header class="page-hero download-hero"><div class="shell">
+    <p class="eyebrow">下载</p>
+    <h1>选好系统，就可以下载了。</h1>
+    <p>{hasCnbMirrors ? "两个渠道提供同一份安装包，任选其一。" : "选择对应系统，下载安装包。"}</p>
+    <p class="release-summary" data-release-summary aria-label="当前发布信息">v{downloadManifest.version}{downloadManifest.channel === "beta" ? " Beta" : ""} · {bundledModelInstallers ? "已内置本地模型" : "识别模型需另行安装"}</p>
+  </div></header>
+  <section class="section download-content"><div class="shell">
     <div class="download-grid">
       <DownloadCard platformId="macos-arm64" platform={macos} version={downloadManifest.version} channel={downloadManifest.channel} />
       <DownloadCard platformId="windows-x64" platform={windows} version={downloadManifest.version} channel={downloadManifest.channel} />
     </div>
+    <p class="model-note">{bundledModelInstallers ? "首次安装无需另下模型；后续应用内更新复用已有模型。" : "首次使用请在应用设置中安装或导入识别模型。"}AI 文字整理为可选项。</p>
+    <details class="install-details" data-install-checks>
+      <summary>安装与校验说明<span aria-hidden="true">＋</span></summary>
+      <div class="install-details-body">
+        <div class="grid-2">
+          <div>
+            <h2>系统与安装</h2>
+            <ul class="install-notes">
+              <li>macOS：{macos.minimumOsVersion}。</li>
+              <li>Windows：{windows.minimumOsVersion}。</li>
+              {macos.signingStatus === "self-signed-not-notarized" && <li>Mac 安装包未经 Apple 公证，安装时可能被系统拦截。</li>}
+              {windows.signingStatus === "unsigned" && <li>Windows 安装包未配置代码签名，可能出现安全提示。</li>}
+            </ul>
+            <p>干净 Mac 实机验收尚未完成，不承诺固定首次出字时间。</p>
+          </div>
+          <div>
+            <h2>模型与更新</h2>
+            <p>{bundledModelInstallers ? "完整包在本机校验并导入模型，首次加载仍需等待。轻量更新不带模型，保留已有词库、历史、录音与设置；模型缺失或损坏时需修复，不会自动改用在线识别。" : "在“设置 → 本地模型”安装或导入模型；已有有效模型不需要重复下载。"}</p>
+            <div class="button-row detail-links">
+              <SecondaryButton href={sitePath("/install/")}>安装步骤</SecondaryButton>
+              <SecondaryButton href={sitePath("/faq/#local-model")}>模型说明</SecondaryButton>
+            </div>
+          </div>
+        </div>
+        <div class="file-checks">
+          <h2>文件校验</h2>
+          <p>下载后可对照文件名和 SHA-256，确认文件完整。</p>
+          <div class="grid-2">
+            <div><h3>macOS</h3><dl class="checksum"><dt>文件名</dt><dd>{macos.fileName}</dd><dt>SHA-256</dt><dd>{macos.sha256}</dd></dl></div>
+            <div><h3>Windows</h3><dl class="checksum"><dt>文件名</dt><dd>{windows.fileName}</dd><dt>SHA-256</dt><dd>{windows.sha256}</dd></dl></div>
+          </div>
+        </div>
+        <p class="release-detail">{formatPublishedDate(downloadManifest.publishedAt)}发布 · <a href={downloadManifest.releasePageUrl} target="_blank" rel="noopener noreferrer">版本更新说明</a></p>
+      </div>
+    </details>
   </div></section>
-  <section class="section"><div class="shell">
-    <SectionHeading eyebrow="文件校验" title="想确认文件没下错，可以对照这里" description={hasCnbMirrors ? "两个下载来源使用同一组文件名、大小和 SHA-256；CNB 镜像已与 GitHub 原件核对，可用于检查下载是否完整。" : "文件名、大小和 SHA-256 都来自对应的 GitHub Release，可以用来检查下载是否完整。"} />
-    <div class="grid-2">
-      <div><h3 style="margin-bottom: var(--space-3)">macOS Apple Silicon</h3><dl class="checksum"><dt>文件名</dt><dd>{macos.fileName}</dd><dt style="margin-top: var(--space-3)">SHA-256</dt><dd>{macos.sha256}</dd></dl></div>
-      <div><h3 style="margin-bottom: var(--space-3)">Windows x64</h3><dl class="checksum"><dt>文件名</dt><dd>{windows.fileName}</dd><dt style="margin-top: var(--space-3)">SHA-256</dt><dd>{windows.sha256}</dd></dl></div>
-    </div>
-    <div style="margin-top: var(--space-5)"><SecondaryButton href={sitePath("/install/")}>查看对应平台的安装步骤</SecondaryButton></div>
-  </div></section>
-  <section class="section section-tinted"><div class="shell grid-2">
-    <div>
-      <SectionHeading eyebrow="当前公开版" title={bundledModelInstallers ? '完整安装包已包含识别模型' : '旧版模型安装方式保持不变'} description="请先核对下载版本；安装包与应用内更新包用途不同。" />
-      <p class="prose">{bundledModelInstallers ? '首次安装请使用本页完整包，模型会在本机校验并导入，不要求另行下载。更新时使用应用内轻量包，复用已有有效模型；模型缺失或损坏时需要修复。' : '当前公开旧版在“设置 → 本地模型”安装或导入模型。模型压缩包约 155 MiB，已有有效模型不需要重复下载。'}本地识别不要求先配置大语言模型。</p>
-    </div>
-    <div class="button-row">
-      <SecondaryButton href={sitePath("/faq/#local-model")}>查看模型说明</SecondaryButton>
-      <SecondaryButton href={downloadManifest.releasePageUrl} external>查看 v{downloadManifest.version} Release Notes</SecondaryButton>
-    </div>
-  </div></section>
-  <section class="section"><div class="shell">
-    <SectionHeading eyebrow="安装与更新" title="新安装用完整包，更新复用已有模型" description="0.1.19 起，完整包内置固定的本地模型；在线文字整理是可选项，不是首次试录的前置条件。" />
-    <div class="grid-2">
-      <article class="feature-card">
-        <span class="eyebrow">首次安装</span>
-        <h2>完整包 · 模型随包提供</h2>
-        <p>从安装包本地校验并导入识别模型，不要求打开后再下载一次。首次仍有校验和加载等待，不承诺零等待或固定出字秒数。</p>
-      </article>
-      <article class="feature-card">
-        <span class="eyebrow">后续更新</span>
-        <h2>轻量包 · 保留已有模型</h2>
-        <p>复用已经安装且校验有效的模型，保留原有词库、历史、录音与设置。缺失或损坏时明确提示修复，不静默改用在线识别。</p>
-      </article>
-    </div>
-    <p class="prose" style="margin-top: var(--space-5)">{bundledModelInstallers ? '请使用上方当前版本下载链接。' : '当前新版完整包尚未公开，请勿把旧版下载当成内置模型包。'}Mac 未经 Apple 公证，Windows 安装包未配置代码签名；系统安全策略可能阻止安装。干净 Mac 实机验收尚未完成，自动测试不等于全部硬件与系统验收。</p>
-  </div></section>
-  <section class="section-compact"><div class="shell cta-band"><div><h2>第一次装？先看两分钟说明</h2><p>Mac 和 Windows 的步骤不太一样，照着对应页面操作会省事很多。</p></div><SecondaryButton href={sitePath("/install/")}>打开安装说明</SecondaryButton></div></section>
-  <section class="section section-tinted"><div class="shell">
+  <section class="section-compact section-tinted"><div class="shell">
     <DownloadStats />
   </div></section>
 </BaseLayout>
+
+<style>
+  .download-hero { padding-bottom: 0; }
+  .download-hero .release-summary { margin-top: var(--space-5); color: var(--brand-primary); font-size: 0.92rem; font-weight: 650; }
+  .download-content { padding-top: var(--space-6); }
+  .model-note { margin-top: var(--space-5); color: var(--text-secondary); font-size: 0.9rem; }
+  .install-details { margin-top: var(--space-6); border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--surface); }
+  .install-details summary { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); min-height: 3.75rem; padding: var(--space-4) var(--space-5); cursor: pointer; list-style: none; font-weight: 650; }
+  .install-details summary::-webkit-details-marker { display: none; }
+  .install-details summary span { color: var(--text-muted); font-size: 1.2rem; font-weight: 400; }
+  .install-details[open] summary span { transform: rotate(45deg); }
+  .install-details-body { padding: 0 var(--space-5) var(--space-5); color: var(--text-secondary); font-size: 0.9rem; }
+  .install-details h2 { margin-bottom: var(--space-3); font-size: 1.05rem; }
+  .install-details h3 { margin-block: var(--space-4) var(--space-3); font-size: 0.95rem; }
+  .install-notes { margin: 0 0 var(--space-3); padding-left: 1.15rem; }
+  .install-notes li + li { margin-top: var(--space-2); }
+  .detail-links { margin-top: var(--space-4); }
+  .file-checks { margin-top: var(--space-5); padding-top: var(--space-5); border-top: 1px solid var(--border); }
+  .checksum dt:not(:first-child) { margin-top: var(--space-3); }
+  .release-detail { margin-top: var(--space-5); color: var(--text-muted); font-size: 0.8rem; }
+</style>

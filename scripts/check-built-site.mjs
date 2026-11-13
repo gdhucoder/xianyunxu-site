@@ -79,8 +79,20 @@ for (const [id, platform] of Object.entries(manifest.platforms)) {
     for (const url of [platform.downloadUrl, platform.cnbDownloadUrl].filter(Boolean)) {
       if (!html.includes(`href="${url}"`)) failures.push(`${page}: missing exact verified download link for ${id}`);
     }
-    if (platform.cnbDownloadUrl && (!html.includes("CNB 下载") || !html.includes("GitHub 备用"))) failures.push(`${page}: missing dual-source download labels`);
+    if (platform.cnbDownloadUrl) {
+      const anchors = [...html.matchAll(/<a\b([^>]*?)>([^]*?)<\/a>/g)];
+      for (const [url, label] of [[platform.cnbDownloadUrl, "渠道一"], [platform.downloadUrl, "渠道2"]]) {
+        if (!anchors.some(match => match[1]?.includes(`href="${url}"`) && match[2]?.replace(/<[^>]*>/g, "").trim() === label)) failures.push(`${page}: incorrect download channel mapping for ${id}`);
+      }
+    }
   }
+  const download = pages["download/index.html"] ?? "";
+  const details = /<details\b[^>]*\bdata-install-checks[^>]*>([^]*?)<\/details>/.exec(download)?.[1] ?? "";
+  for (const fact of [platform.minimumOsVersion, platform.fileName, platform.sha256].filter(Boolean)) {
+    if (!details.includes(fact)) failures.push(`download: missing preserved installation/checksum fact for ${id}`);
+  }
+  const system = id === "macos-arm64" ? "macOS" : "Windows 10/11";
+  if (!new RegExp(`<dt>系统</dt><dd>${system}</dd>`).test(download)) failures.push(`download: system label is not concise for ${id}`);
 }
 
 if (failures.length) {

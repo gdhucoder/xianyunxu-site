@@ -81,7 +81,7 @@ for (const [id, platform] of Object.entries(manifest.platforms)) {
     }
     if (platform.cnbDownloadUrl) {
       const anchors = [...html.matchAll(/<a\b([^>]*?)>([^]*?)<\/a>/g)];
-      for (const [url, label] of [[platform.cnbDownloadUrl, "渠道一"], [platform.downloadUrl, "渠道2"]]) {
+      for (const [url, label] of [[platform.cnbDownloadUrl, "渠道1"], [platform.downloadUrl, "渠道2"]]) {
         if (!anchors.some(match => match[1]?.includes(`href="${url}"`) && match[2]?.replace(/<[^>]*>/g, "").trim() === label)) failures.push(`${page}: incorrect download channel mapping for ${id}`);
       }
     }

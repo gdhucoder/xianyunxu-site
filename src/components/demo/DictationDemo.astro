@@ -8,7 +8,7 @@ const { featured = false } = Astro.props;
 <xianyun-dictation-demo class:list={['xy-demo', { 'xy-demo-featured': featured }]} data-featured={featured || undefined} data-phase="prompt" data-playback="idle" aria-label="跨应用语音听写演示">
   <div class="xy-demo-heading">
     <div><span class="xy-demo-kicker">{config.ui.eyebrow}</span><h2 data-scene-title>{config.stages[0]!.title}</h2><p data-scene-description>{config.stages[0]!.description}</p></div>
-    <span class="xy-demo-example"><span aria-hidden="true"></span>演示示例 · 4× 快览</span>
+    <span class="xy-demo-example"><span aria-hidden="true"></span>{config.ui.previewLabel}</span>
   </div>
 
   <div class="xy-demo-scene">
@@ -55,7 +55,7 @@ const { featured = false } = Astro.props;
   <ol class="xy-demo-steps" aria-label="演示步骤">{['准备说话', '语音听写', '文字整理', '填入对话'].map((label, index) => <li data-step data-status={index === 0 ? 'current' : 'next'} aria-current={index === 0 ? 'step' : undefined}><span>{String(index + 1).padStart(2, '0')}</span>{label}</li>)}</ol>
   <div class="xy-demo-bottom"><p class="xy-demo-feedback" data-feedback>{config.ui.feedbackIdle}</p><label class="xy-motion-option"><input type="checkbox" data-reduce-motion />{config.ui.reducedMotionLabel}</label></div>
   <p class="xy-reduced-note" data-reduced-note hidden>{config.ui.reducedMotionNote}</p>
-  <p class="sr-only" data-announcement aria-live="polite" aria-atomic="true"></p>
+  <p class="sr-only" data-announcement aria-live={featured && config.playback.autoplay ? 'off' : 'polite'} aria-atomic="true"></p>
   <noscript><p class="xy-demo-noscript">请开启 JavaScript 播放。示例整理结果：{config.result}（不会发送消息）</p></noscript>
 </xianyun-dictation-demo>
 

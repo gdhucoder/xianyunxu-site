@@ -5,7 +5,7 @@
  * @typedef {{elapsedMs: number, state: PlaybackState}} PlaybackSnapshot
  * @typedef {{now: () => number, requestFrame: (callback: (time: number) => void) => number,
  * cancelFrame: (handle: number) => void, onChange: (snapshot: PlaybackSnapshot) => void}} PlaybackDriver
- * @typedef {{durationMs: number, sourceDurationMs: number, posterAtMs: number, spoken: string, result: string,
+ * @typedef {{durationMs: number, sourceDurationMs: number, posterAtMs: number, playback: {autoplay: boolean, loop: boolean}, spoken: string, result: string,
  * stages: {id: string, startMs: number, title: string, description: string}[],
  * cues: {atMs: number, text: string}[],
  * waveform: {weights: number[], minHeight: number, maxHeight: number}}} DemoConfig
@@ -21,15 +21,27 @@ export class DemoPlayback {
   #anchor = 0;
   #disposed = false;
   #epoch = 0;
+  #loop = false;
 
-  /** @param {number} durationMs @param {PlaybackDriver} driver */
-  constructor(durationMs, driver) {
+  /** @param {number} durationMs @param {PlaybackDriver} driver @param {{loop?: boolean}} [options] */
+  constructor(durationMs, driver, options = {}) {
     if (!Number.isFinite(durationMs) || durationMs <= 0) throw new Error('Invalid demo duration');
     this.durationMs = durationMs;
     this.driver = driver;
+    this.#loop = options.loop ?? false;
   }
 
   get snapshot() { return { elapsedMs: this.#elapsedMs, state: this.#state }; }
+
+  /** Changing motion policy must not jump to the end of an earlier lap. @param {boolean} enabled */
+  setLoop(enabled) {
+    if (this.#disposed || this.#loop === enabled) return;
+    const now = this.driver.now();
+    if (this.#state === 'playing') this.#elapsedMs = this.#position(now);
+    this.#offsetMs = this.#elapsedMs;
+    this.#anchor = now;
+    this.#loop = enabled;
+  }
 
   play() {
     if (this.#disposed || this.#state === 'playing') return;
@@ -64,7 +76,8 @@ export class DemoPlayback {
 
   /** @param {number} time */
   #position(time) {
-    return Math.min(this.durationMs, this.#offsetMs + Math.max(0, time - this.#anchor));
+    const elapsed = this.#offsetMs + Math.max(0, time - this.#anchor);
+    return this.#loop ? elapsed % this.durationMs : Math.min(this.durationMs, elapsed);
   }
 
   #schedule() {
@@ -125,4 +138,9 @@ export function timeLabel(seconds) {
 export function demoClock(config, elapsedMs) {
   const sourceMs = Math.max(0, Math.min(config.durationMs, elapsedMs)) / config.durationMs * config.sourceDurationMs;
   return `${timeLabel(sourceMs / 1000)} / ${timeLabel(config.sourceDurationMs / 1000)}`;
+}
+
+/** @param {{enabled: boolean, reducedMotion: boolean, hidden: boolean, pageActive: boolean, manuallyPaused: boolean}} state */
+export function shouldAutoplay(state) {
+  return state.enabled && !state.reducedMotion && !state.hidden && state.pageActive && !state.manuallyPaused;
 }

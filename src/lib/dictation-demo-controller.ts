@@ -1,5 +1,5 @@
 import config from '../data/dictation-demo.json';
-import { DemoPlayback, demoFrame, demoClock, timeLabel } from './dictation-demo-timeline.mjs';
+import { DemoPlayback, demoFrame, demoClock, shouldAutoplay, timeLabel } from './dictation-demo-timeline.mjs';
 import type { PlaybackSnapshot } from './dictation-demo-timeline.mjs';
 
 /** Only manages the preset local scene. No capture, network, storage, or sending. */
@@ -31,6 +31,9 @@ export function mountDictationDemo(root: HTMLElement) {
   let previousStage = '';
   let visibilityPaused = false;
   let localReducedMotion = false;
+  let manuallyPaused = false;
+  let pageActive = true;
+  const featured = root.hasAttribute('data-featured');
 
   const playback: DemoPlayback = new DemoPlayback(config.durationMs, {
     now: () => performance.now(),
@@ -41,8 +44,8 @@ export function mountDictationDemo(root: HTMLElement) {
 
   function render(snapshot: PlaybackSnapshot = playback.snapshot) {
     const reducedMotion = media.matches || localReducedMotion;
-    // The featured idle poster makes the first screen legible without autoplay.
-    const frameTime = snapshot.state === 'idle' && root.hasAttribute('data-featured') ? config.posterAtMs : snapshot.elapsedMs;
+    // A static poster is retained when autoplay is disabled by motion preferences.
+    const frameTime = snapshot.state === 'idle' && featured ? config.posterAtMs : snapshot.elapsedMs;
     const { stage, caption, seconds, heights, result } = demoFrame(config, frameTime, reducedMotion);
     root.dataset.phase = stage.id;
     root.dataset.playback = snapshot.state;
@@ -54,7 +57,7 @@ export function mountDictationDemo(root: HTMLElement) {
     recordTime.textContent = timeLabel(seconds);
     clock.textContent = demoClock(config, snapshot.elapsedMs);
     progress.value = snapshot.elapsedMs;
-    progress.setAttribute('aria-valuetext', `${stage.title}，4 倍速示例，播放 ${timeLabel(snapshot.elapsedMs / 1000)}，共 5 秒`);
+    progress.setAttribute('aria-valuetext', `${stage.title}，${config.sourceDurationMs / config.durationMs} 倍速示例，播放 ${timeLabel(snapshot.elapsedMs / 1000)}，共 ${config.durationMs / 1000} 秒`);
     toggle.dataset.icon = snapshot.state === 'playing' ? 'pause' : snapshot.state === 'complete' ? 'replay' : 'play';
     element('[data-toggle-label]').textContent = snapshot.state === 'playing' ? config.ui.pause
       : snapshot.state === 'complete' ? config.ui.replay : snapshot.state === 'paused' ? config.ui.resume : config.ui.play;
@@ -86,12 +89,18 @@ export function mountDictationDemo(root: HTMLElement) {
 
   toggle.addEventListener('click', () => {
     visibilityPaused = false;
-    if (playback.snapshot.state === 'playing') playback.pause();
-    else if (playback.snapshot.state === 'complete') playback.replay();
-    else playback.play();
+    if (playback.snapshot.state === 'playing') {
+      manuallyPaused = true;
+      playback.pause();
+    } else {
+      manuallyPaused = false;
+      if (playback.snapshot.state === 'complete') playback.replay();
+      else playback.play();
+    }
   }, { signal: events.signal });
   replay.addEventListener('click', () => {
     visibilityPaused = false;
+    manuallyPaused = false;
     previousStage = '';
     playback.replay();
   }, { signal: events.signal });
@@ -101,17 +110,28 @@ export function mountDictationDemo(root: HTMLElement) {
       playback.pause();
     }
   };
-  document.addEventListener('visibilitychange', () => {
-    if (document.hidden) pauseOnLeave();
-  }, { signal: events.signal });
-  window.addEventListener('pagehide', pauseOnLeave, { signal: events.signal });
-  document.addEventListener('astro:before-swap', pauseOnLeave, { signal: events.signal });
-  media.addEventListener('change', () => render(), { signal: events.signal });
+  function syncPlaybackPolicy() {
+    if (events.signal.aborted) return;
+    const reducedMotion = media.matches || localReducedMotion;
+    playback.setLoop(featured && config.playback.loop && !reducedMotion);
+    if (document.hidden || !pageActive) pauseOnLeave();
+    else if (reducedMotion) playback.pause();
+    else if (shouldAutoplay({ enabled: featured && config.playback.autoplay, reducedMotion, hidden: document.hidden, pageActive, manuallyPaused })) {
+      visibilityPaused = false;
+      playback.play();
+    }
+    render();
+  }
+  document.addEventListener('visibilitychange', syncPlaybackPolicy, { signal: events.signal });
+  window.addEventListener('pagehide', () => { pageActive = false; pauseOnLeave(); }, { signal: events.signal });
+  window.addEventListener('pageshow', () => { pageActive = true; syncPlaybackPolicy(); }, { signal: events.signal });
+  document.addEventListener('astro:before-swap', () => { pageActive = false; pauseOnLeave(); }, { signal: events.signal });
+  media.addEventListener('change', syncPlaybackPolicy, { signal: events.signal });
   motionToggle.addEventListener('change', () => {
     localReducedMotion = motionToggle.checked;
-    render();
+    syncPlaybackPolicy();
   }, { signal: events.signal });
-  render();
+  syncPlaybackPolicy();
 
   return () => {
     playback.destroy();

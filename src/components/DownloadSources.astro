@@ -2,13 +2,11 @@
 import type { PlatformDownload } from "../data/downloadManifest";
 import PrimaryButton from "./PrimaryButton.astro";
 import SecondaryButton from "./SecondaryButton.astro";
-interface Props { platform: PlatformDownload; label: string }
-const { platform, label } = Astro.props;
+interface Props { platform: PlatformDownload }
+const { platform } = Astro.props;
 ---
 <div class="button-row" role="group" aria-label={`${platform.displayName} 下载来源`}>
-  {platform.cnbDownloadUrl ? <>
-    <PrimaryButton href={platform.cnbDownloadUrl} external>渠道1</PrimaryButton>
-    {platform.downloadUrl && <SecondaryButton href={platform.downloadUrl} external>渠道2</SecondaryButton>}
-  </> : <PrimaryButton href={platform.downloadUrl} external>{label}</PrimaryButton>}
+  <PrimaryButton href={platform.downloadUrl} external>GitHub</PrimaryButton>
+  {platform.cnbDownloadUrl && <SecondaryButton href={platform.cnbDownloadUrl} external>CNB（国内）</SecondaryButton>}
   <slot />
 </div>

@@ -3,7 +3,6 @@ import type { PlatformDownload } from "../data/downloadManifest";
 import { sitePath } from "../lib/urls";
 import PlatformBadge from "./PlatformBadge.astro";
 import PrimaryButton from "./PrimaryButton.astro";
-import SecondaryButton from "./SecondaryButton.astro";
 import DictationDemo from "./demo/DictationDemo.astro";
 
 interface Props { macos: PlatformDownload; windows: PlatformDownload }
@@ -11,44 +10,44 @@ const { macos, windows } = Astro.props;
 ---
 <section class="hero hero-with-demo">
   <div class="shell">
-    <div class="hero-copy">
-      <p class="eyebrow">本地语音输入 · AI 整理可选</p>
-      <h1>说出来，<em>落成文。</em></h1>
-      <p class="hero-lead">写邮件、回消息、记想法，按下快捷键直接说。<br />语音在本机识别；需要时，再按自己的习惯开启文字整理。</p>
-      <div class="button-row hero-actions">
-        <PrimaryButton href={sitePath("/download/")}>选择平台下载</PrimaryButton>
-        <SecondaryButton href="#dictation-demo">观看产品演示 ↓</SecondaryButton>
-      </div>
-      <div class="hero-badges" aria-label="当前发布状态">
-        <PlatformBadge tone={macos.status === "available" ? "brand" : "neutral"}>macOS Apple Silicon · Beta</PlatformBadge>
-        <PlatformBadge tone={windows.status === "available" ? "success" : "neutral"}>Windows x64 · Beta</PlatformBadge>
-      </div>
-    </div>
     <div class="hero-demo" id="dictation-demo" aria-label="跨应用语音听写产品演示">
-      <DictationDemo />
+      <DictationDemo featured />
+    </div>
+    <div class="hero-copy">
+      <div>
+        <p class="eyebrow">本地语音输入 · AI 整理可选</p>
+        <h1>说出来，<em>落成文。</em></h1>
+        <p class="hero-lead">写邮件、回消息、记想法，按下快捷键直接说。</p>
+      </div>
+      <div class="hero-download">
+        <div class="button-row hero-actions"><PrimaryButton href={sitePath("/download/")}>选择平台下载</PrimaryButton></div>
+        <div class="hero-badges" aria-label="当前发布状态">
+          <PlatformBadge tone={macos.status === "available" ? "brand" : "neutral"}>macOS Apple Silicon · Beta</PlatformBadge>
+          <PlatformBadge tone={windows.status === "available" ? "success" : "neutral"}>Windows x64 · Beta</PlatformBadge>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
 <style>
-  .hero-with-demo { padding-block: clamp(40px, 5vw, 64px) 42px; }
-  .hero-with-demo .hero-copy { max-width: 850px; margin-inline: auto; text-align: center; }
-  .hero-with-demo .eyebrow { font-size: 12px; margin-bottom: 15px; }
-  .hero-with-demo h1 { font-size: clamp(48px, 6vw, 76px); line-height: 1.12; }
-  .hero-with-demo .hero-lead { max-width: 700px; margin: 21px auto 0; font-size: 17px; }
-  .hero-with-demo .hero-actions { justify-content: center; margin-top: 25px; }
-  .hero-with-demo .hero-badges { justify-content: center; margin-top: 18px; }
-  .hero-demo { max-width: 1040px; margin: 44px auto 0; scroll-margin-top: 100px; }
-  .hero-demo :global(.xy-demo) { display: flex; flex-direction: column; }
-  .hero-demo :global(.xy-demo-heading) { order: -2; }
-  .hero-demo :global(.xy-demo-controls) { order: -1; margin-bottom: 20px; padding: 0 0 14px; border-top: 0; border-bottom: 1px solid var(--border); }
+  .hero-with-demo { padding-block: 22px 36px; }
+  .hero-with-demo > .shell { max-width: 1040px; }
+  .hero-demo { margin: 0; scroll-margin-top: 100px; }
+  .hero-copy { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-top: 22px; padding-top: 24px; border-top: 1px solid var(--border); }
+  .hero-with-demo .eyebrow { margin-bottom: 6px; font-size: 11px; }
+  .hero-with-demo h1 { font-size: clamp(32px, 4vw, 42px); line-height: 1.2; }
+  .hero-with-demo .hero-lead { margin-top: 10px; font-size: 14px; }
+  .hero-download { flex: 0 0 auto; max-width: 360px; }
+  .hero-with-demo .hero-actions { justify-content: flex-end; }
+  .hero-with-demo .hero-badges { justify-content: flex-end; gap: 6px; margin-top: 13px; }
+  .hero-badges :global(.platform-badge) { font-size: 10px; }
   @media (max-width: 700px) {
-    .hero-with-demo { padding-block: 32px; }
-    .hero-with-demo h1 { font-size: clamp(35px, 8vw, 44px); }
-    .hero-with-demo .eyebrow { font-size: 10px; margin-bottom: 13px; }
-    .hero-with-demo .hero-lead { font-size: 14px; margin-top: 17px; }
-    .hero-with-demo .hero-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 350px; margin: 21px auto 0; gap: 10px; }
-    .hero-actions :global(.button) { padding-inline: 10px; font-size: 14px; white-space: nowrap; }
-    .hero-demo { margin-top: 33px; scroll-margin-top: 140px; }
+    .hero-with-demo { padding-block: 18px 28px; }
+    .hero-copy { flex-direction: column; align-items: flex-start; gap: 18px; margin-top: 18px; padding-top: 22px; }
+    .hero-with-demo h1 { font-size: 32px; }
+    .hero-with-demo .hero-lead { font-size: 13px; }
+    .hero-with-demo .hero-actions, .hero-with-demo .hero-badges { justify-content: flex-start; }
+    .hero-demo { scroll-margin-top: 140px; }
   }
 </style>

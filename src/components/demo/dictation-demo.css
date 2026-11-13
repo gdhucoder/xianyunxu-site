@@ -162,3 +162,78 @@
 @media (prefers-reduced-motion: reduce) {
   .xy-demo *, .xy-demo *::before, .xy-demo *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }
+
+/* The homepage leads with the recording and source caption, then the app result. */
+.xy-demo-featured { --xy-capsule-width: 258px; --xy-capsule-height: 61px; }
+.xy-demo-featured .xy-demo-heading { align-items: center; margin-bottom: 16px; }
+.xy-demo-featured .xy-demo-kicker { font-size: 12px; letter-spacing: .02em; }
+.xy-demo-featured .xy-demo-heading h2, .xy-demo-featured .xy-demo-heading p { position: absolute; width: 1px; height: 1px; padding: 0; margin: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.xy-demo-featured .xy-demo-example { border: 0; background: transparent; padding: 0; font-size: 11px; }
+.xy-demo-featured .xy-demo-scene { padding: 0; border: 0; border-radius: 0; background: transparent; overflow: visible; }
+.xy-demo-featured .xy-overlay-area { height: 78px; }
+.xy-demo-featured .xy-overlay-brand { display: none; }
+.xy-demo-featured .xy-shortcut, .xy-demo-featured .xy-capsule, .xy-demo-featured .xy-filled { top: 0; }
+.xy-demo-featured .xy-capsule { font-size: 20px; gap: 12px; }
+.xy-demo-featured .xy-capsule time { font-size: 15px; }
+.xy-demo-featured .xy-filled { padding: 12px 24px; border-radius: 40px; background: var(--surface-soft); font-size: 18px; }
+.xy-demo-featured .xy-spoken { display: flex; align-items: center; justify-content: center; min-height: 86px; padding: 0 18px 22px; text-align: center; }
+.xy-demo-featured .xy-spoken-label { display: none; }
+.xy-demo-featured .xy-spoken p { max-width: 800px; font-size: 23px; font-weight: 600; line-height: 1.5; letter-spacing: .02em; color: var(--text-primary); }
+.xy-demo-featured .xy-chat-toolbar { height: 30px; font-size: 11px; }
+.xy-demo-featured .xy-chat-main { min-height: 0; }
+.xy-demo-featured .xy-chat-rail { width: 190px; padding: 17px 0; }
+.xy-demo-featured .xy-chat-rail-heading strong { font-size: 15px; }
+.xy-demo-featured .xy-chat-search { display: none; }
+.xy-demo-featured .xy-chat-contacts { margin-top: 14px; }
+.xy-demo-featured .xy-chat-contact { padding: 12px; }
+.xy-demo-featured .xy-list-avatar { width: 31px; height: 31px; font-size: 13px; }
+.xy-demo-featured .xy-chat-contact > time { display: none; }
+.xy-demo-featured .xy-list-copy strong { padding-right: 0; font-size: 12px; }
+.xy-demo-featured .xy-list-copy small { font-size: 11px; }
+.xy-demo-featured .xy-contact-header { padding: 10px 18px; gap: 10px; }
+.xy-demo-featured .xy-contact-avatar { width: 30px; height: 30px; font-size: 12px; border-radius: 8px; }
+.xy-demo-featured .xy-contact-header strong { font-size: 14px; }
+.xy-demo-featured .xy-contact-header small, .xy-demo-featured .xy-chat-date { display: none; }
+.xy-demo-featured .xy-chat-thread { min-height: 89px; padding: 15px 18px; }
+.xy-demo-featured .xy-chat-incoming { margin: 0; }
+.xy-demo-featured .xy-message-avatar { width: 30px; height: 30px; font-size: 12px; border-radius: 8px; }
+.xy-demo-featured .xy-chat-incoming > p { max-width: min(390px, calc(100% - 40px)); font-size: 13px; padding: 9px 13px; }
+.xy-demo-featured .xy-composer { padding: 9px 18px 12px; }
+.xy-demo-featured .xy-composer-tools { gap: 14px; margin-bottom: 8px; }
+.xy-demo-featured .xy-composer-tools > svg { width: 16px; height: 16px; }
+.xy-demo-featured .xy-composer textarea { height: 54px; font-size: 16px; line-height: 1.65; }
+.xy-demo-featured .xy-composer-footer { margin-top: 5px; }
+.xy-demo-featured .xy-composer-footer > span svg { display: none; }
+.xy-demo-featured .xy-composer-footer button { padding: 4px 14px; font-size: 11px; }
+.xy-demo-featured .xy-demo-controls { border: 0; padding: 17px 0 10px; }
+.xy-demo-featured .xy-demo-steps { display: none; }
+.xy-demo-featured .xy-demo-bottom { margin-top: 0; }
+.xy-demo-featured .xy-demo-feedback { margin-top: 0; }
+.xy-demo-featured .xy-motion-option { font-size: 11px; }
+.xy-demo-featured .xy-motion-option input { width: 14px; height: 14px; }
+@media (min-width: 601px) and (max-width: 820px) {
+  .xy-demo-featured .xy-chat-rail { width: 64px; }
+  .xy-demo-featured .xy-chat-contact { padding: 14px 8px; }
+}
+@media (max-width: 600px) {
+  .xy-demo-featured { --xy-capsule-width: 229px; --xy-capsule-height: 56px; }
+  .xy-demo-featured .xy-demo-heading { gap: 10px; margin-bottom: 19px; }
+  .xy-demo-featured .xy-demo-kicker, .xy-demo-featured .xy-demo-example { font-size: 11px; }
+  .xy-demo-featured .xy-overlay-area { height: 74px; }
+  .xy-demo-featured .xy-capsule { font-size: 18px; }
+  .xy-demo-featured .xy-capsule time { font-size: 14px; }
+  .xy-demo-featured .xy-spoken { min-height: 112px; padding: 0 0 20px; }
+  .xy-demo-featured .xy-spoken p { font-size: 20px; }
+  .xy-demo-featured .xy-contact-header { padding: 10px 13px; }
+  .xy-demo-featured .xy-chat-thread { min-height: 98px; padding: 13px; }
+  .xy-demo-featured .xy-chat-incoming > p { font-size: 12px; }
+  .xy-demo-featured .xy-composer { padding: 9px 13px 12px; }
+  .xy-demo-featured .xy-composer textarea { height: 76px; font-size: 16px; }
+  .xy-demo-featured .xy-composer-footer small { font-size: 11px; }
+  .xy-demo-featured .xy-composer-footer button { padding: 5px 10px; }
+  .xy-demo-featured .xy-composer-footer button svg { display: none; }
+  .xy-demo-featured .xy-demo-controls { gap: 12px; padding-bottom: 9px; }
+  .xy-demo-featured .xy-play, .xy-demo-featured .xy-replay { min-height: 44px; }
+  .xy-demo-featured .xy-demo-bottom { gap: 0; }
+  .xy-demo-featured .xy-motion-option { min-height: 36px; }
+}

@@ -5,7 +5,7 @@
  * @typedef {{elapsedMs: number, state: PlaybackState}} PlaybackSnapshot
  * @typedef {{now: () => number, requestFrame: (callback: (time: number) => void) => number,
  * cancelFrame: (handle: number) => void, onChange: (snapshot: PlaybackSnapshot) => void}} PlaybackDriver
- * @typedef {{durationMs: number, spoken: string, result: string,
+ * @typedef {{durationMs: number, sourceDurationMs: number, posterAtMs: number, spoken: string, result: string,
  * stages: {id: string, startMs: number, title: string, description: string}[],
  * cues: {atMs: number, text: string}[],
  * waveform: {weights: number[], minHeight: number, maxHeight: number}}} DemoConfig
@@ -105,7 +105,9 @@ export function demoFrame(config, elapsedMs, reducedMotion = false) {
   const caption = reducedMotion && stage.id === 'recording'
     ? config.spoken
     : config.cues.filter((cue) => elapsed >= cue.atMs).map((cue) => cue.text).join('');
-  const seconds = Math.floor(Math.max(0, Math.min(elapsed, processingStart) - recordingStart) / 1000);
+  // The capsule shows the source utterance duration, not a real recognition timer.
+  const recordingDuration = Math.max(1, processingStart - recordingStart);
+  const seconds = Math.floor(Math.max(0, Math.min(elapsed, processingStart) - recordingStart) / recordingDuration * config.sourceDurationMs / 1000);
   const { minHeight, maxHeight, weights } = config.waveform;
   const heights = weights.map((weight, index) => {
     const level = reducedMotion ? 0.58 : 0.3 + 0.7 * (Math.sin(elapsed / 170 + index * 1.7) + 1) / 2;
@@ -117,4 +119,10 @@ export function demoFrame(config, elapsedMs, reducedMotion = false) {
 /** @param {number} seconds */
 export function timeLabel(seconds) {
   return `${Math.floor(seconds / 60)}:${String(Math.floor(seconds) % 60).padStart(2, '0')}`;
+}
+
+/** @param {DemoConfig} config @param {number} elapsedMs */
+export function demoClock(config, elapsedMs) {
+  const sourceMs = Math.max(0, Math.min(config.durationMs, elapsedMs)) / config.durationMs * config.sourceDurationMs;
+  return `${timeLabel(sourceMs / 1000)} / ${timeLabel(config.sourceDurationMs / 1000)}`;
 }

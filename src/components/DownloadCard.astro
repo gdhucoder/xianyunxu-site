@@ -28,7 +28,7 @@ const isMac = platformId === "macos-arm64";
         <div><dt>大小</dt><dd>{formatBytes(platform.sizeBytes)}</dd></div>
         <div><dt>架构</dt><dd>{platform.architecture}</dd></div>
       </dl>
-      <DownloadSources platform={platform} label={`下载 ${isMac ? "macOS" : "Windows"} Beta`}>
+      <DownloadSources platform={platform}>
         {platform.installGuideUrl && <SecondaryButton href={sitePath(platform.installGuideUrl)}>安装说明</SecondaryButton>}
       </DownloadSources>
     </>

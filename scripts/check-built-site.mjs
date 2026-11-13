@@ -81,9 +81,10 @@ for (const [id, platform] of Object.entries(manifest.platforms)) {
     }
     if (platform.cnbDownloadUrl) {
       const anchors = [...html.matchAll(/<a\b([^>]*?)>([^]*?)<\/a>/g)];
-      for (const [url, label] of [[platform.cnbDownloadUrl, "渠道1"], [platform.downloadUrl, "渠道2"]]) {
+      for (const [url, label] of [[platform.downloadUrl, "GitHub"], [platform.cnbDownloadUrl, "CNB（国内）"]]) {
         if (!anchors.some(match => match[1]?.includes(`href="${url}"`) && match[2]?.replace(/<[^>]*>/g, "").trim() === label)) failures.push(`${page}: incorrect download channel mapping for ${id}`);
       }
+      if (html.indexOf(`href="${platform.downloadUrl}"`) > html.indexOf(`href="${platform.cnbDownloadUrl}"`)) failures.push(`${page}: GitHub must precede CNB for ${id}`);
     }
   }
   const download = pages["download/index.html"] ?? "";

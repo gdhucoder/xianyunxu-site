@@ -8,7 +8,7 @@ import config from '../../data/dictation-demo.json';
   <div class="demo-preview-shell">
     <div class="demo-preview-top"><a href={sitePath('/')}>← 返回官网</a><span>独立对照预览 · 与首页同款</span></div>
     <header class="demo-preview-intro"><p class="eyebrow">跨应用语音听写</p><h1>把想法，<em>说进对话里。</em></h1><p>不用切换输入方式。说出想法，让文字回到正在使用的应用。</p></header>
-    <DictationDemo />
+    <DictationDemo featured />
     <aside class="demo-preview-note" aria-label="演示说明"><p><strong>这是演示示例，不是真实识别。</strong>所有字幕与结果均为预设，不申请麦克风权限，不调用 ASR 或大模型，不会发送消息。</p><p>示例包含可选的 AI 文字整理。日常使用可关闭整理，直接保留识别后的文字。{config.shortcut.hint}</p></aside>
   </div>
 </BaseLayout>

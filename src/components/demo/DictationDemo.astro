@@ -2,14 +2,27 @@
 import config from '../../data/dictation-demo.json';
 import Logo from '../Logo.astro';
 import './dictation-demo.css';
+interface Props { featured?: boolean }
+const { featured = false } = Astro.props;
 ---
-<xianyun-dictation-demo class="xy-demo" data-phase="prompt" data-playback="idle" aria-label="跨应用语音听写演示">
+<xianyun-dictation-demo class:list={['xy-demo', { 'xy-demo-featured': featured }]} data-featured={featured || undefined} data-phase="prompt" data-playback="idle" aria-label="跨应用语音听写演示">
   <div class="xy-demo-heading">
     <div><span class="xy-demo-kicker">{config.ui.eyebrow}</span><h2 data-scene-title>{config.stages[0]!.title}</h2><p data-scene-description>{config.stages[0]!.description}</p></div>
-    <span class="xy-demo-example"><span aria-hidden="true"></span>演示示例</span>
+    <span class="xy-demo-example"><span aria-hidden="true"></span>演示示例 · 4× 快览</span>
   </div>
 
   <div class="xy-demo-scene">
+    <div class="xy-overlay-area">
+      <div class="xy-overlay-brand"><Logo size={22} /><strong>纤云叙</strong><span>{config.ui.overlayNote}</span></div>
+      <div class="xy-shortcut"><kbd>{config.shortcut.label}</kbd><span>{config.ui.shortcutHint}</span></div>
+      <div class="xy-capsule" role="img" aria-label="纤云叙录音条演示">
+        <span class="xy-capsule-wave" aria-hidden="true">{config.waveform.weights.map(() => <i data-wave-bar></i>)}</span>
+        <span class="xy-capsule-dots" aria-hidden="true"><i data-process-dot></i><i data-process-dot></i><i data-process-dot></i></span>
+        <span class="xy-capsule-record-label">{config.ui.recordingLabel}</span><span class="xy-capsule-process-label">{config.ui.processingLabel}</span><time data-record-time>0:00</time>
+      </div>
+      <div class="xy-filled"><span>{config.ui.filledLabel}</span><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5 10 3 3 7-7"/></svg></div>
+    </div>
+    <div class="xy-spoken"><span class="xy-spoken-label" data-caption-label>{config.ui.captionIdle}</span><p data-subtitle>{config.ui.initialCaption}</p></div>
     <div class="xy-chat" aria-label="简化聊天窗口，非真实聊天应用">
       <div class="xy-chat-toolbar"><span class="xy-window-dots" aria-hidden="true"><i></i><i></i><i></i></span><span>{config.ui.windowTitle}</span><svg viewBox="0 0 20 20" aria-hidden="true"><rect x="4" y="4" width="12" height="12" rx="3"/><path d="M4 8h12"/></svg></div>
       <div class="xy-chat-main">
@@ -33,22 +46,11 @@ import './dictation-demo.css';
       </div>
     </div>
 
-    <div class="xy-overlay-area">
-      <div class="xy-overlay-brand"><Logo size={22} /><strong>纤云叙</strong><span>{config.ui.overlayNote}</span></div>
-      <div class="xy-shortcut"><kbd>{config.shortcut.label}</kbd><span>{config.ui.shortcutHint}</span></div>
-      <div class="xy-capsule" role="img" aria-label="纤云叙录音条演示">
-        <span class="xy-capsule-wave" aria-hidden="true">{config.waveform.weights.map(() => <i data-wave-bar></i>)}</span>
-        <span class="xy-capsule-dots" aria-hidden="true"><i data-process-dot></i><i data-process-dot></i><i data-process-dot></i></span>
-        <span class="xy-capsule-record-label">{config.ui.recordingLabel}</span><span class="xy-capsule-process-label">{config.ui.processingLabel}</span><time data-record-time>0:00</time>
-      </div>
-      <div class="xy-filled"><span>{config.ui.filledLabel}</span><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5 10 3 3 7-7"/></svg></div>
-    </div>
   </div>
 
-  <div class="xy-spoken"><span class="xy-spoken-label" data-caption-label>{config.ui.captionIdle}</span><p data-subtitle>{config.ui.initialCaption}</p></div>
   <div class="xy-demo-controls">
     <div class="xy-demo-buttons"><button class="xy-play" type="button" data-toggle data-icon="play"><svg class="xy-icon-play" viewBox="0 0 20 20" aria-hidden="true"><path d="m7 4 9 6-9 6z"/></svg><svg class="xy-icon-pause" viewBox="0 0 20 20" aria-hidden="true"><path d="M7 5v10M13 5v10"/></svg><svg class="xy-icon-replay" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7a6 6 0 1 1 0 7M5 3v5h5"/></svg><span data-toggle-label>{config.ui.play}</span></button><button class="xy-replay" type="button" data-replay disabled><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7a6 6 0 1 1 0 7M5 3v5h5"/></svg>{config.ui.restart}</button></div>
-    <div class="xy-demo-progress"><progress data-progress max={config.durationMs} value="0" aria-label="演示进度"></progress><span data-clock>0:00 / 0:21</span></div>
+    <div class="xy-demo-progress"><progress data-progress max={config.durationMs} value="0" aria-label="演示进度"></progress><span data-clock>0:00 / 0:20</span></div>
   </div>
   <ol class="xy-demo-steps" aria-label="演示步骤">{['准备说话', '语音听写', '文字整理', '填入对话'].map((label, index) => <li data-step data-status={index === 0 ? 'current' : 'next'} aria-current={index === 0 ? 'step' : undefined}><span>{String(index + 1).padStart(2, '0')}</span>{label}</li>)}</ol>
   <div class="xy-demo-bottom"><p class="xy-demo-feedback" data-feedback>{config.ui.feedbackIdle}</p><label class="xy-motion-option"><input type="checkbox" data-reduce-motion />{config.ui.reducedMotionLabel}</label></div>

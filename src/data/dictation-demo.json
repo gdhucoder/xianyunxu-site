@@ -1,5 +1,7 @@
 {
-  "durationMs": 21500,
+  "durationMs": 5000,
+  "sourceDurationMs": 20000,
+  "posterAtMs": 1100,
   "contact": { "name": "小林", "initial": "林", "context": "项目沟通" },
   "chat": {
     "sectionTitle": "消息", "searchPlaceholder": "搜索会话", "contextTime": "今天 14:20 · 预设对话",
@@ -14,28 +16,28 @@
   "spoken": "嗯，帮我跟小林说一下，明天下午三点开会，然后记得带上项目方案。",
   "result": "小林，明天下午三点开会，记得带上项目方案。",
   "ui": {
-    "eyebrow": "从口述，到光标", "windowTitle": "工作聊天 · 应用示意",
+    "eyebrow": "跨应用语音听写", "windowTitle": "工作聊天 · 应用示意",
     "composerPlaceholder": "输入消息…", "sendingHint": "消息由你确认后发送", "sendButton": "发送",
     "shortcutHint": "按住说话，松开后整理", "filledLabel": "已填入，待你发送",
     "recordingLabel": "录音中", "processingLabel": "正在整理", "overlayNote": "录音浮层 · 放大展示",
     "captionIdle": "口述示例", "captionRecording": "你说的话", "captionFinished": "口述原文",
     "initialCaption": "播放后，这里会显示预设的口述内容。",
-    "play": "播放演示", "pause": "暂停", "resume": "继续播放", "replay": "重播", "restart": "从头重播",
-    "feedbackIdle": "预设动画 · 不会开启麦克风", "feedbackPaused": "已暂停，画面与进度保持在此刻。",
+    "play": "播放 5 秒快览", "pause": "暂停", "resume": "继续播放", "replay": "重播", "restart": "从头重播",
+    "feedbackIdle": "20 秒口述 · 5 秒快览", "feedbackPaused": "已暂停，画面与进度保持在此刻。",
     "feedbackHidden": "页面离开时已自动暂停。", "feedbackResult": "文字已填入示例输入框，尚未发送。",
     "reducedMotionLabel": "减少动态效果", "reducedMotionNote": "已遵循“减少动态效果”：使用静态波形与阶段切换。"
   },
   "stages": [
     { "id": "prompt", "startMs": 0, "title": "按住快捷键，说出想法", "description": "先把光标放在聊天输入框里。" },
-    { "id": "recording", "startMs": 1800, "title": "像平常说话一样", "description": "先说出想法，不必在脑中逐字打稿。" },
-    { "id": "processing", "startMs": 12200, "title": "把口头表达整理清楚", "description": "这个示例演示已开启的可选文字整理。" },
-    { "id": "result", "startMs": 14700, "title": "文字回到输入框，发送由你决定", "description": "只填入，不自动发送。你可以继续修改或检查。" }
+    { "id": "recording", "startMs": 200, "title": "像平常说话一样", "description": "先说出想法，不必在脑中逐字打稿。" },
+    { "id": "processing", "startMs": 2700, "title": "把口头表达整理清楚", "description": "这个示例演示已开启的可选文字整理。" },
+    { "id": "result", "startMs": 3400, "title": "文字回到输入框，发送由你决定", "description": "只填入，不自动发送。你可以继续修改或检查。" }
   ],
   "cues": [
-    { "atMs": 2500, "text": "嗯，" },
-    { "atMs": 3600, "text": "帮我跟小林说一下，" },
-    { "atMs": 6200, "text": "明天下午三点开会，" },
-    { "atMs": 9000, "text": "然后记得带上项目方案。" }
+    { "atMs": 350, "text": "嗯，" },
+    { "atMs": 500, "text": "帮我跟小林说一下，" },
+    { "atMs": 1100, "text": "明天下午三点开会，" },
+    { "atMs": 1850, "text": "然后记得带上项目方案。" }
   ],
   "waveform": { "weights": [0.35, 0.72, 1, 0.68, 0.4], "minHeight": 4, "maxHeight": 30 }
 }

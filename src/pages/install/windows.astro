@@ -29,7 +29,7 @@ const windows = downloadManifest.platforms["windows-x64"];
       <li><h2>试一次语音输入</h2><p>打开一个不含敏感信息的记事本文档，按快捷键说一句话，确认录音、识别、整理和写入都能正常完成。</p></li>
     </ol>
     <aside>
-      <DownloadSources platform={windows} label={`下载 v${downloadManifest.version} Windows Beta`}><SecondaryButton href={sitePath("/download/")}>查看校验值</SecondaryButton></DownloadSources>
+      <DownloadSources platform={windows}><SecondaryButton href={sitePath("/download/")}>查看校验值</SecondaryButton></DownloadSources>
       <div style="margin-top: var(--space-6)"><StatusNotice tone="info" title="目前验证到哪里了？">公开安装包须通过 Windows x64 构建和自动测试；这些检查不等于所有 Windows 电脑的安装、麦克风和输入控件都已实机验证。</StatusNotice></div>
     </aside>
   </div></section>

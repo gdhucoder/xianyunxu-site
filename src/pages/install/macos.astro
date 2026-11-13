@@ -64,7 +64,7 @@ const macos = downloadManifest.platforms["macos-arm64"];
     </div>
 
     <aside class="install-sidebar" aria-label="当前安装信息">
-      <DownloadSources platform={macos} label={`下载 v${downloadManifest.version} Beta`}><SecondaryButton href={sitePath("/download/")}>查看校验值</SecondaryButton></DownloadSources>
+      <DownloadSources platform={macos}><SecondaryButton href={sitePath("/download/")}>查看校验值</SecondaryButton></DownloadSources>
       <dl class="install-facts">
         <div><dt>支持机型</dt><dd>Apple Silicon</dd></div>
         <div><dt>最低系统</dt><dd>{macos.minimumOsVersion}</dd></div>

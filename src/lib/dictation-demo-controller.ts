@@ -1,5 +1,5 @@
 import config from '../data/dictation-demo.json';
-import { DemoPlayback, demoFrame, timeLabel } from './dictation-demo-timeline.mjs';
+import { DemoPlayback, demoFrame, demoClock, timeLabel } from './dictation-demo-timeline.mjs';
 import type { PlaybackSnapshot } from './dictation-demo-timeline.mjs';
 
 /** Only manages the preset local scene. No capture, network, storage, or sending. */
@@ -41,7 +41,9 @@ export function mountDictationDemo(root: HTMLElement) {
 
   function render(snapshot: PlaybackSnapshot = playback.snapshot) {
     const reducedMotion = media.matches || localReducedMotion;
-    const { stage, caption, seconds, heights, result } = demoFrame(config, snapshot.elapsedMs, reducedMotion);
+    // The featured idle poster makes the first screen legible without autoplay.
+    const frameTime = snapshot.state === 'idle' && root.hasAttribute('data-featured') ? config.posterAtMs : snapshot.elapsedMs;
+    const { stage, caption, seconds, heights, result } = demoFrame(config, frameTime, reducedMotion);
     root.dataset.phase = stage.id;
     root.dataset.playback = snapshot.state;
     root.dataset.reducedMotion = String(reducedMotion);
@@ -50,9 +52,9 @@ export function mountDictationDemo(root: HTMLElement) {
     subtitle.textContent = caption || config.ui.initialCaption;
     input.value = result;
     recordTime.textContent = timeLabel(seconds);
-    clock.textContent = `${timeLabel(snapshot.elapsedMs / 1000)} / ${timeLabel(config.durationMs / 1000)}`;
+    clock.textContent = demoClock(config, snapshot.elapsedMs);
     progress.value = snapshot.elapsedMs;
-    progress.setAttribute('aria-valuetext', `${stage.title}，${timeLabel(snapshot.elapsedMs / 1000)}`);
+    progress.setAttribute('aria-valuetext', `${stage.title}，4 倍速示例，播放 ${timeLabel(snapshot.elapsedMs / 1000)}，共 5 秒`);
     toggle.dataset.icon = snapshot.state === 'playing' ? 'pause' : snapshot.state === 'complete' ? 'replay' : 'play';
     element('[data-toggle-label]').textContent = snapshot.state === 'playing' ? config.ui.pause
       : snapshot.state === 'complete' ? config.ui.replay : snapshot.state === 'paused' ? config.ui.resume : config.ui.play;

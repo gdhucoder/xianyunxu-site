@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { DemoPlayback, demoFrame, timeLabel } from '../src/lib/dictation-demo-timeline.mjs';
+import { DemoPlayback, demoFrame, demoClock, timeLabel } from '../src/lib/dictation-demo-timeline.mjs';
 /** @type {import('../src/lib/dictation-demo-timeline.mjs').DemoConfig} */
 const config = JSON.parse(readFileSync(new URL('../src/data/dictation-demo.json', import.meta.url), 'utf8'));
 
@@ -28,31 +28,45 @@ function fixture() {
   return { playback, pending, frames, advance };
 }
 
-test('the preset script and result match the requested scenario, with enough reading time', () => {
+test('the preset script completes in five seconds and keeps a readable final result', () => {
   assert.equal(config.spoken, '嗯，帮我跟小林说一下，明天下午三点开会，然后记得带上项目方案。');
   assert.equal(config.result, '小林，明天下午三点开会，记得带上项目方案。');
   assert.equal(config.cues.map((cue) => cue.text).join(''), config.spoken);
   const lastStage = config.stages.at(-1);
   assert.ok(lastStage);
-  assert.ok(config.durationMs - lastStage.startMs >= 6000);
+  assert.equal(config.durationMs, 5000);
+  assert.equal(config.sourceDurationMs, 20000);
+  assert.ok(config.durationMs - lastStage.startMs >= 1500);
   assert.deepEqual(config.stages.map((stage) => stage.startMs), [...config.stages.map((stage) => stage.startMs)].sort((a, b) => a - b));
 });
 
 test('phase boundaries keep the input empty until the one-time preset insertion', () => {
   assert.equal(demoFrame(config, 0).stage.id, 'prompt');
-  assert.equal(demoFrame(config, 1800).stage.id, 'recording');
-  assert.equal(demoFrame(config, 12200).stage.id, 'processing');
-  assert.equal(demoFrame(config, 14699).result, '');
-  assert.equal(demoFrame(config, 14700).result, config.result);
+  assert.equal(demoFrame(config, 200).stage.id, 'recording');
+  assert.equal(demoFrame(config, 2700).stage.id, 'processing');
+  assert.equal(demoFrame(config, 3399).result, '');
+  assert.equal(demoFrame(config, 3400).result, config.result);
   assert.equal(demoFrame(config, config.durationMs).result, config.result);
 });
 
 test('captions accumulate only the configured cues and the timer stops with recording', () => {
-  assert.equal(demoFrame(config, 2499).caption, '');
-  assert.equal(demoFrame(config, 3600).caption, '嗯，帮我跟小林说一下，');
-  assert.equal(demoFrame(config, 12200).caption, config.spoken);
-  assert.equal(demoFrame(config, 12200).seconds, demoFrame(config, 20000).seconds);
+  assert.equal(demoFrame(config, 349).caption, '');
+  assert.equal(demoFrame(config, 500).caption, '嗯，帮我跟小林说一下，');
+  assert.equal(demoFrame(config, 2700).caption, config.spoken);
+  assert.equal(demoFrame(config, 2700).seconds, 20);
+  assert.equal(demoFrame(config, 2700).seconds, demoFrame(config, 5000).seconds);
   assert.equal(timeLabel(65), '1:05');
+});
+
+test('source clock is explicitly a four-times preview, separate from the five-second playback', () => {
+  assert.equal(demoClock(config, 0), '0:00 / 0:20');
+  assert.equal(demoClock(config, 2500), '0:10 / 0:20');
+  assert.equal(demoClock(config, 5000), '0:20 / 0:20');
+  assert.equal(demoClock(config, 9000), '0:20 / 0:20');
+  const poster = demoFrame(config, config.posterAtMs);
+  assert.equal(poster.stage.id, 'recording');
+  assert.ok(poster.caption.length > 0);
+  assert.equal(poster.result, '');
 });
 
 test('play is explicit and duplicate play never accumulates frame loops', () => {
@@ -78,7 +92,7 @@ test('pause freezes progress; resume excludes paused time', () => {
 
 test('replay cancels an old loop and clears result and subtitles immediately', () => {
   const { playback, pending, advance } = fixture();
-  playback.play(); advance(16000);
+  playback.play(); advance(4000);
   assert.equal(demoFrame(config, playback.snapshot.elapsedMs).result, config.result);
   playback.replay();
   assert.equal(playback.snapshot.elapsedMs, 0);
@@ -89,11 +103,14 @@ test('replay cancels an old loop and clears result and subtitles immediately', (
 
 test('completion retains the unsent result, stops its scheduler and does not loop', () => {
   const { playback, pending, advance } = fixture();
-  playback.play(); advance(config.durationMs + 500);
+  playback.play(); advance(4999);
+  assert.equal(playback.snapshot.state, 'playing');
+  advance(1);
   assert.deepEqual(playback.snapshot, { elapsedMs: config.durationMs, state: 'complete' });
   assert.equal(pending.size, 0);
   advance(10000);
   assert.equal(playback.snapshot.state, 'complete');
+  assert.equal(demoFrame(config, playback.snapshot.elapsedMs).result, config.result);
 });
 
 test('a cancelled frame arriving after replay cannot create a second loop', () => {
@@ -123,10 +140,10 @@ test('unmount cancels the pending callback and a late callback cannot resurrect 
 
 test('reduced motion uses a stable waveform and readable full preset caption', () => {
   const a = demoFrame(config, 2000, true);
-  const b = demoFrame(config, 8000, true);
+  const b = demoFrame(config, 2400, true);
   assert.deepEqual(a.heights, b.heights);
   assert.equal(a.caption, config.spoken);
-  assert.equal(demoFrame(config, 14700, true).result, config.result);
+  assert.equal(demoFrame(config, 3400, true).result, config.result);
 });
 
 test('browser controller includes leave/unmount cleanup and no real capture or sending', () => {
@@ -156,14 +173,17 @@ test('homepage hero reuses one full-width demo while retaining download and pres
   const hero = readFileSync(new URL('../src/components/Hero.astro', import.meta.url), 'utf8');
   const home = readFileSync(new URL('../src/pages/index.astro', import.meta.url), 'utf8');
   const component = readFileSync(new URL('../src/components/demo/DictationDemo.astro', import.meta.url), 'utf8');
-  assert.equal((hero.match(/<DictationDemo\s*\/>/g) ?? []).length, 1);
+  assert.equal((hero.match(/<DictationDemo featured\s*\/>/g) ?? []).length, 1);
   assert.equal((home.match(/<Hero\s/g) ?? []).length, 1);
   assert.match(hero, /href=\{sitePath\("\/download\/"\)\}/);
-  assert.match(hero, /href="#dictation-demo"/);
   assert.match(hero, /id="dictation-demo"/);
+  assert.ok(hero.indexOf('id="dictation-demo"') < hero.indexOf('class="hero-copy"'));
+  assert.ok(component.indexOf('class="xy-overlay-area"') < component.indexOf('class="xy-spoken"'));
+  assert.ok(component.indexOf('class="xy-spoken"') < component.indexOf('class="xy-chat"'));
   assert.match(hero, /max-width: 1040px/);
   assert.match(component, /class="xy-demo-example"[^]*?演示示例/);
   assert.match(component, /演示不会发送消息/);
+  assert.match(component, /演示示例 · 4× 快览/);
   assert.doesNotMatch(hero, /hero-demo-note|不是真实识别|本例展示/);
   assert.doesNotMatch(home, /PublicPreviewNotice/);
   assert.doesNotMatch(hero, /visual-orbit|hero-visual|autoplay/);

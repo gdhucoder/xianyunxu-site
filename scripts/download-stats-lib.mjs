@@ -22,7 +22,7 @@ const isMacInstaller = (name) => name.toLowerCase().endsWith(".dmg");
 /** @param {string} name */
 const isWindowsPackage = (name) => /(?:setup\.exe|\.msi)$/i.test(name);
 /** @param {string} name */
-const isUpdaterPackage = (name) => /(?:\.app\.tar\.gz|\.nsis\.zip|\.msi\.zip)$/i.test(name);
+const isUpdaterPackage = (name) => /(?:\.app\.tar\.gz|\.nsis\.zip|\.msi\.zip|-update\.exe)$/i.test(name);
 /** @param {string} name */
 const isUpdateMetadata = (name) => name.toLowerCase() === "latest.json";
 /** @param {string} name */
@@ -125,8 +125,9 @@ export function buildDownloadStats({ releases, previous, generatedAt, intervalDa
     snapshots,
     countingNotes: {
       macosInstaller: "Counts .dmg release asset downloads.",
-      windowsPackage: "Counts Windows setup packages; the same file may be used for a website download or an in-app update.",
-      identifiableUpdates: "Counts updater-only assets such as .app.tar.gz; current Windows updates share the setup executable and cannot be separated.",
+      windowsPackage: "Counts Windows setup EXE and MSI assets; older releases may share the same file for installation and updates.",
+      identifiableUpdates: "Counts updater-only .app.tar.gz, .nsis.zip, .msi.zip and -update.exe assets, excluding signatures and metadata.",
+      appPackages: "Counts application installer and updater assets; excludes standalone models, metadata, signatures and CNB mirrors.",
       models: "Counts model weight assets such as .gguf, excluding runtimes, licenses, manifests, and checksums.",
     },
   };
@@ -139,4 +140,33 @@ export function isCollectionDue(previousGeneratedAt, now, intervalDays) {
   const current = Date.parse(now);
   if (!Number.isFinite(previous) || !Number.isFinite(current)) return true;
   return current - previous >= intervalDays * 24 * 60 * 60 * 1000;
+}
+
+/**
+ * Validate rendered pages, not only source expressions: equal numbers can still
+ * be the wrong metric, and a stale page can carry a different snapshot date.
+ * @param {Record<string, string>} pages
+ * @param {{generatedAt: string, totals: {appPackageDownloads: number}}} stats
+ */
+export function validateDownloadSummaryPages(pages, stats) {
+  const errors = [];
+  const expectedCount = String(stats.totals.appPackageDownloads);
+  const expectedText = new Intl.NumberFormat("zh-CN").format(stats.totals.appPackageDownloads);
+  for (const path of ["index.html", "download/index.html"]) {
+    const summaries = [...(pages[path] ?? "").matchAll(/<([a-z][\w-]*)\b([^>]*\bdata-download-summary="([^"]+)"[^>]*)>([^]*?)<\/\1>/gi)];
+    if (summaries.length !== 1) {
+      errors.push(`${path}: expected exactly one application download summary`);
+      continue;
+    }
+    const [, , attributes = "", metric, content = ""] = summaries[0] ?? [];
+    /** @param {string} name */
+    const attribute = (name) => new RegExp(`\\b${name}="([^"]*)"`).exec(attributes)?.[1];
+    if (metric !== "appPackageDownloads") errors.push(`${path}: wrong download metric`);
+    if (attribute("data-download-source") !== "github-releases") errors.push(`${path}: wrong download source`);
+    if (attribute("data-download-count") !== expectedCount) errors.push(`${path}: download count differs from application total`);
+    if (attribute("data-stats-updated-at") !== stats.generatedAt) errors.push(`${path}: different statistics snapshot date`);
+    const visibleCount = /<(?:strong|span)\b[^>]*\bdata-download-count-value[^>]*>([^<]*)<\/(?:strong|span)>/.exec(content)?.[1]?.trim();
+    if (visibleCount !== expectedText) errors.push(`${path}: visible download count differs from application total`);
+  }
+  return errors;
 }

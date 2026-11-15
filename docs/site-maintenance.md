@@ -66,8 +66,13 @@ Repository → Settings → Pages → Build and deployment → Source → GitHub
 - 手动运行工作流默认会强制刷新；本地可执行 `pnpm update:stats`；
 - 数据来自公开仓库 `gdhucoder/xianyun-releases` 的 Release Asset `download_count`；
 - DMG、Windows 安装包、可单独识别的更新包和模型权重分别计算；签名、校验文件、说明文档和运行时不计入模型下载；
-- Windows 安装与更新使用同一 EXE，GitHub 无法区分两种来源，网页会说明这一统计边界；
+- 首页和下载页的主数字共享 `src/data/downloadStats.ts` 的 `appDownloadSummary`，均为 `appPackageDownloads`（安装包＋更新包），不把独立模型下载相加，也不包括 CNB；
+- 旧版 Windows 安装与更新共用一个 EXE，无法拆分；新版 `-update.exe` 与 macOS 更新包计入可区分的更新下载，`.sig` 与 `latest.json` 不计入主数字；
 - 统计表示文件下载次数，不表示独立用户、成功安装或活跃用户。
+- 汇总使用当前公开 Release 文件的计数；删除或替换文件可能使计数回退，不将快照差值称作精确新增用户数。
+- `pnpm check:site` 检查构建后的首页和下载页：指标、来源、数字、可见文字与快照时间都必须匹配同一份统计 JSON；不能仅检查两页“碰巧相等”。
+
+2026-11-15 修复了首页把软件包 128 次与模型 15 次相加显示 143、下载页只显示 128 的口径差异；同时补上独立 Windows 轻量更新包的分类。回归使用合成计数重现该差异，历史快照保留原始采集值，不伪造补算过去的下载。
 
 ## 更新截图
 

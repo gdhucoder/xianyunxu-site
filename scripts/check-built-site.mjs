@@ -4,6 +4,7 @@ import { extname, join, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 import { validatePreviewProvenance, validatePublicPreviewPages } from "./public-preview-lib.mjs";
 import { readManifest } from "./download-manifest-lib.mjs";
+import { validateDownloadSummaryPages } from "./download-stats-lib.mjs";
 
 const root = fileURLToPath(new URL("../dist/", import.meta.url));
 const base = "/xianyunxu-site";
@@ -39,6 +40,7 @@ const failures = [];
 /** @type {Record<string,string>} */
 const pages = {};
 const manifest = await readManifest(fileURLToPath(new URL("../src/data/download-manifest.json", import.meta.url)));
+const downloadStats = JSON.parse(await readFile(fileURLToPath(new URL("../src/data/download-stats.json", import.meta.url)), "utf8"));
 
 for (const file of htmlFiles) {
   const html = await readFile(file, "utf8");
@@ -65,6 +67,8 @@ for (const file of htmlFiles) {
     failures.push(`${label}: root-absolute URL bypasses base path: ${url}`);
   }
 }
+
+failures.push(...validateDownloadSummaryPages(pages, downloadStats));
 
 try {
   const screenshots = join(root, "assets/screenshots");

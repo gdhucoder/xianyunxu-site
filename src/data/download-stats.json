@@ -4,15 +4,15 @@
     "repository": "gdhucoder/xianyun-releases",
     "releasesUrl": "https://github.com/gdhucoder/xianyun-releases/releases"
   },
-  "generatedAt": "2026-11-14T01:53:42.146Z",
+  "generatedAt": "2026-11-15T00:24:21.972Z",
   "collectionIntervalDays": 1,
   "totals": {
     "macosInstallerDownloads": 45,
     "windowsPackageDownloads": 35,
-    "identifiableUpdateDownloads": 48,
+    "identifiableUpdateDownloads": 49,
     "updateMetadataDownloads": 99,
     "modelDownloads": 15,
-    "appPackageDownloads": 128
+    "appPackageDownloads": 129
   },
   "versions": [
     {
@@ -21,9 +21,9 @@
       "publishedAt": "2026-11-12T11:43:16Z",
       "macosInstallerDownloads": 3,
       "windowsPackageDownloads": 2,
-      "identifiableUpdateDownloads": 2,
+      "identifiableUpdateDownloads": 3,
       "updateMetadataDownloads": 2,
-      "appPackageDownloads": 7
+      "appPackageDownloads": 8
     },
     {
       "version": "0.1.18",
@@ -1148,12 +1148,22 @@
       "updateMetadataDownloads": 99,
       "modelDownloads": 15,
       "appPackageDownloads": 128
+    },
+    {
+      "capturedAt": "2026-11-15T00:24:21.972Z",
+      "macosInstallerDownloads": 45,
+      "windowsPackageDownloads": 35,
+      "identifiableUpdateDownloads": 49,
+      "updateMetadataDownloads": 99,
+      "modelDownloads": 15,
+      "appPackageDownloads": 129
     }
   ],
   "countingNotes": {
     "macosInstaller": "Counts .dmg release asset downloads.",
-    "windowsPackage": "Counts Windows setup packages; the same file may be used for a website download or an in-app update.",
-    "identifiableUpdates": "Counts updater-only assets such as .app.tar.gz; current Windows updates share the setup executable and cannot be separated.",
+    "windowsPackage": "Counts Windows setup EXE and MSI assets; older releases may share the same file for installation and updates.",
+    "identifiableUpdates": "Counts updater-only .app.tar.gz, .nsis.zip, .msi.zip and -update.exe assets, excluding signatures and metadata.",
+    "appPackages": "Counts application installer and updater assets; excludes standalone models, metadata, signatures and CNB mirrors.",
     "models": "Counts model weight assets such as .gguf, excluding runtimes, licenses, manifests, and checksums."
   }
 }

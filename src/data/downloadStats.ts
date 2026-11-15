@@ -44,6 +44,14 @@ export interface DownloadStats {
 
 export const downloadStats = statsData as DownloadStats;
 
+// Both public totals count application files only; model downloads stay separate.
+export const appDownloadSummary = {
+  metric: "appPackageDownloads",
+  source: "github-releases",
+  count: downloadStats.totals.appPackageDownloads,
+  generatedAt: downloadStats.generatedAt,
+} as const;
+
 export function formatDownloadCount(value: number): string {
   return new Intl.NumberFormat("zh-CN").format(value);
 }

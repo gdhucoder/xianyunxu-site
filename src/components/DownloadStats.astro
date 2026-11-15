@@ -1,6 +1,7 @@
 ---
 import {
   downloadStats,
+  appDownloadSummary,
   formatDownloadCount,
   formatStatsUpdatedAt,
   type DownloadTotals,
@@ -14,8 +15,8 @@ const olderVersions = versions.slice(3);
 
 const cards: Array<{ key: keyof DownloadTotals; label: string; detail: string }> = [
   { key: "macosInstallerDownloads", label: "macOS 安装包", detail: "历次 DMG 下载" },
-  { key: "windowsPackageDownloads", label: "Windows 安装包", detail: "EXE 下载，含使用同一文件的更新" },
-  { key: "identifiableUpdateDownloads", label: "应用更新包", detail: "目前为可单独识别的 macOS 更新" },
+  { key: "windowsPackageDownloads", label: "Windows 安装包", detail: "EXE / MSI 下载，含旧版共用文件的更新" },
+  { key: "identifiableUpdateDownloads", label: "应用更新包", detail: "可单独识别的 macOS / Windows 更新" },
   {
     key: "modelDownloads",
     label: "本地模型",
@@ -28,7 +29,12 @@ const cards: Array<{ key: keyof DownloadTotals; label: string; detail: string }>
   <summary class="download-stats-toggle">
     <span>
       <strong>下载统计</strong>
-      <small>GitHub 累计下载 {formatDownloadCount(totals.appPackageDownloads)} 次 · 每天 06:00 更新</small>
+      <small data-download-summary={appDownloadSummary.metric}
+        data-download-source={appDownloadSummary.source}
+        data-download-count={appDownloadSummary.count}
+        data-stats-updated-at={appDownloadSummary.generatedAt}>
+        GitHub 累计下载 <span data-download-count-value>{formatDownloadCount(appDownloadSummary.count)}</span> 次 · 每天 06:00 更新
+      </small>
     </span>
     <span class="download-stats-toggle-action" aria-hidden="true">查看</span>
   </summary>
@@ -38,7 +44,7 @@ const cards: Array<{ key: keyof DownloadTotals; label: string; detail: string }>
       <div>
         <p class="eyebrow">公开统计</p>
         <h2>下载记录</h2>
-        <p>数字来自公开的 GitHub Releases，不含 CNB 镜像下载，每天 06:00 更新。</p>
+        <p>软件包下载次数来自 GitHub Releases，模型单列，不含 CNB 镜像下载，每天 06:00 更新。</p>
       </div>
       <p class="download-stats-updated">
         最近更新
@@ -54,7 +60,7 @@ const cards: Array<{ key: keyof DownloadTotals; label: string; detail: string }>
             <span>{card.label}</span>
             <strong>{formatDownloadCount(totals[card.key])}</strong>
             <p>{card.detail}</p>
-            {delta !== null && delta > 0 && <small>上次更新后 +{formatDownloadCount(delta)}</small>}
+            {delta !== null && delta > 0 && <small>较上次记录 +{formatDownloadCount(delta)}</small>}
           </article>
         );
       })}
@@ -115,7 +121,8 @@ const cards: Array<{ key: keyof DownloadTotals; label: string; detail: string }>
       <summary>统计口径</summary>
       <div>
         <p>这里统计的是文件下载次数，不是独立用户数或成功安装数，重复下载也会计入。</p>
-        <p>Windows 官网安装与应用更新目前使用同一个 EXE，因此不能拆开计算；更新清单请求也没有计入主数字。</p>
+        <p>首页与本页主数字均为软件安装包和更新包的合计，不含独立模型、更新清单、签名及 CNB 镜像。旧版 Windows 安装和更新共用的 EXE 无法拆开，新版独立更新包单列。</p>
+        <p>按当前公开 Release 文件的计数汇总；删除或重传文件可能使平台计数回退，历史快照之间的差值不等于精确新增用户数。</p>
         <p><a href={downloadStats.source.releasesUrl} target="_blank" rel="noreferrer">查看公开 Release 文件</a></p>
       </div>
     </details>

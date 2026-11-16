@@ -32,6 +32,8 @@ jobs:
         with:
           node-version-file: .node-version
       - name: Collect public release download counts
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
         run: |
           if [[ "${{ github.event_name }}" == "workflow_dispatch" && "${{ inputs.force }}" == "true" ]]; then
             node scripts/update-download-stats.mjs --force --if-due-days 1

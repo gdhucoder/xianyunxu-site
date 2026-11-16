@@ -1,6 +1,7 @@
 import { readFile, writeFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { buildDownloadStats, isCollectionDue } from "./download-stats-lib.mjs";
+import { fetchPublishedReleases } from "./download-stats-client.mjs";
 
 const outputPath = fileURLToPath(new URL("../src/data/download-stats.json", import.meta.url));
 const args = process.argv.slice(2);
@@ -25,34 +26,10 @@ if (!force && !isCollectionDue(previous?.generatedAt, generatedAt, intervalDays)
   process.exit(0);
 }
 
-async function fetchPublishedReleases() {
-  /** @type {import("./download-stats-lib.mjs").GitHubRelease[]} */
-  const releases = [];
-  for (let page = 1; page <= 10; page += 1) {
-    const response = await fetch(
-      `https://api.github.com/repos/gdhucoder/xianyun-releases/releases?per_page=100&page=${page}`,
-      {
-        headers: {
-          Accept: "application/vnd.github+json",
-          "X-GitHub-Api-Version": "2022-11-28",
-          "User-Agent": "xianyunxu-site-download-stats",
-        },
-      },
-    );
-
-    if (!response.ok) {
-      throw new Error(`GitHub Releases request failed: ${response.status} ${response.statusText}`);
-    }
-
-    const pageItems = await response.json();
-    if (!Array.isArray(pageItems)) throw new Error("GitHub Releases response was not an array");
-    releases.push(...pageItems);
-    if (pageItems.length < 100) break;
-  }
-  return releases;
-}
-
-const releases = await fetchPublishedReleases();
+const releases = await fetchPublishedReleases({
+  token: process.env.GITHUB_TOKEN ?? "",
+  requireToken: process.env.GITHUB_ACTIONS === "true",
+});
 const stats = buildDownloadStats({ releases, previous, generatedAt, intervalDays });
 await writeFile(outputPath, `${JSON.stringify(stats, null, 2)}\n`, "utf8");
 
